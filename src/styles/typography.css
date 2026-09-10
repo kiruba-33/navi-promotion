@@ -1,0 +1,78 @@
+/* ============================================================
+   SHAPE / RHYTHM UTILITIES  (no colour — context sets colour)
+   ============================================================ */
+
+.heading-display {
+  @apply
+  font-sans
+  font-bold
+  tracking-[-0.02em]
+
+  leading-[1.05]
+  sm:leading-[1.1]
+  md:leading-[1.15]
+  lg:leading-[1.15];
+}
+
+.heading-section {
+  @apply
+  font-sans
+  font-bold
+  tracking-[-0.015em]
+
+  leading-[1.05]
+  sm:leading-[1.1]
+  md:leading-[1.15]
+  lg:leading-[1.15];
+}
+
+.heading-card {
+  @apply
+  font-sans
+  font-semibold
+  tracking-tight
+
+  leading-[1.05]
+  sm:leading-[1.1]
+  md:leading-[1.15]
+  lg:leading-[1.15];
+}
+
+/* ============================================================
+   SEMANTIC COLOUR UTILITIES
+   Apply these to heading elements and highlight spans.
+   ============================================================ */
+
+/* Primary heading text — light background sections */
+.heading-primary {
+  @apply text-slate-900;
+}
+
+/* Primary heading text — dark background sections */
+.heading-on-dark {
+  @apply text-white;
+}
+
+/* Highlighted word inside a heading — brand orange accent */
+.heading-highlight {
+  @apply text-orange-500;
+}
+
+/* ============================================================
+   BRAND COLOUR UTILITIES
+   These were used across the project but were previously
+   undefined. Now correctly aliased to brand orange (orange-500).
+   ============================================================ */
+
+/* Solid brand orange — orange-500 (#f97316) */
+.text-brand-orange {
+  color: #f97316;
+}
+
+/* Orange gradient text — orange-500 to amber-400 */
+.text-gradient-orange {
+  background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

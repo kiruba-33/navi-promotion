@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" fill="none">
+  <rect width="1200" height="600" fill="none"/>
+  <path d="M375 268c0-31 26-57 57-57h37v76h-37c-31 0-57-25-57-57Zm89-87h-37c-31 0-57 26-57 57 0 31 26 57 57 57h37V181Zm0 160h-37c-31 0-57 26-57 57 0 31 26 57 57 57h37v-114Zm88-86c0-31 26-57 57-57h37v76h-37c-31 0-57-25-57-57Zm-88 0c0 49 40 89 89 89h37v-89h-37c-31 0-57-26-57-57 0-31 26-57 57-57h37v-76h-37c-49 0-89 40-89 89Z" fill="#4A154B"/>
+  <text x="620" y="360" font-family="Arial, Helvetica, sans-serif" font-size="150" font-weight="700" fill="#4A154B">Slack</text>
+</svg>

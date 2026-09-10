@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" fill="none">
+  <rect width="1200" height="600" fill="none"/>
+  <path d="M360 264c0-56 44-100 100-100 36 0 64 16 86 47l54-44c-38-56-98-88-154-88-106 0-182 72-182 174 0 147 159 160 159 236 0 28-25 50-67 50-46 0-83-25-109-69l-54 45c37 53 92 87 163 87 122 0 198-72 198-174 0-144-164-160-164-236Z" fill="#635BFF"/>
+  <text x="620" y="360" font-family="Arial, Helvetica, sans-serif" font-size="140" font-weight="700" fill="#635BFF">Stripe</text>
+</svg>

@@ -1,0 +1,181 @@
+import { Link } from "react-router-dom";
+import {
+  iconWrapperAnimation,
+  iconRingAnimation,
+  iconAnimation,
+} from "../../../utils/iconAnimations";
+
+export default function DevelopmentCard({
+  service,
+}) {
+  const Icon = service.icon;
+
+  return (
+    <Link
+      to={`/services/development/${service.id}`}
+      className="
+        group
+        relative
+        block
+        h-[380px]
+        md:h-[450px]
+        rounded-[2rem]
+        overflow-hidden
+      ">
+      {/* Image */}
+      <img
+        src={service.image}
+        alt={service.title}
+        className="
+          absolute
+          inset-0
+          w-full
+          h-full
+          object-cover
+        "
+      />
+
+      {/* Shine Effect */}
+      <div
+        className="
+          absolute
+          inset-0
+          overflow-hidden
+          pointer-events-none
+          z-20
+        "
+      >
+        <div
+          className="
+            absolute
+            top-0
+            left-[-120%]
+            h-full
+            w-[40%]
+            bg-gradient-to-r
+            from-transparent
+            via-white/40
+            to-transparent
+            skew-x-[-25deg]
+            group-hover:left-[180%]
+            transition-all
+            duration-1000
+            ease-out
+          "
+        />
+      </div>
+
+      {/* Default Dark Overlay */}
+      <div
+        className="
+          absolute
+          inset-0
+          bg-gradient-to-r
+          from-black/65
+          via-black/40
+          to-black/20
+        "
+      />
+
+      <div
+        className="
+          absolute
+          inset-0
+          bg-gradient-to-t
+          from-black/30
+          via-transparent
+          to-black/10
+        "
+      />
+
+      {/* Content */}
+      <div
+        className="
+          absolute
+          inset-0
+          p-6
+          md:p-8
+          flex
+          flex-col
+          justify-end
+        "
+      >
+        {/* Icon */}
+       <div className={iconWrapperAnimation}>
+  <span className={iconRingAnimation} />
+
+  <Icon className={iconAnimation} />
+</div>
+
+        {/* Fixed Content Area */}
+        <div className="min-h-[170px]">
+          <h3
+            className="
+              heading-card
+
+              text-2xl
+              md:text-3xl
+
+              text-white
+
+              mb-4
+            "
+          >
+            {service.title}
+          </h3>
+
+          {/* Description & Tags - Hover Only */}
+          <div
+            className="
+              opacity-0
+              translate-y-3
+
+              group-hover:opacity-100
+              group-hover:translate-y-0
+
+              transition-all
+              duration-500
+            "
+          >
+            <p
+              className="
+                text-sm
+                md:text-base
+
+                text-white
+
+                leading-relaxed
+
+                mb-4
+              "
+            >
+              {service.description}
+            </p>
+
+            <div className="flex flex-wrap gap-2">
+              {service.features.map((feature) => (
+                <span
+                  key={feature}
+                  className="
+                    px-3
+                    py-1
+
+                    text-xs
+                    font-semibold
+
+                    rounded-full
+
+                    bg-white/70
+                    backdrop-blur-md
+                  "
+                >
+                  {feature}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}

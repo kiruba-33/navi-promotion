@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" fill="none">
+  <rect width="1200" height="600" fill="none"/>
+  <path d="M588 190c-48 0-86 16-115 44 0 0 29 21 48 32 22-16 47-24 74-24 71 0 117 43 117 121 0 71-44 128-123 128-48 0-92-22-117-60l-48 36c32 48 91 83 165 83 99 0 181-63 181-178 0-75-50-152-132-162-20-3-39-4-57-4Z" fill="#FF9900"/>
+  <path d="M316 221c27-19 58-28 91-28 40 0 70 11 96 33l-36 44c-16-14-31-21-53-21-20 0-43 8-64 24l-34-52Z" fill="#232F3E"/>
+  <text x="520" y="365" font-family="Arial, Helvetica, sans-serif" font-size="150" font-weight="700" fill="#232F3E">amazon</text>
+</svg>

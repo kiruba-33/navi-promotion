@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" fill="none">
+  <rect width="1200" height="600" fill="none"/>
+  <path d="M350 227c0-33 27-60 60-60h50c33 0 60 27 60 60v21l74-51c28-19 68-11 87 18l28 44c19 28 11 68-18 87l-74 51 74 51c28 19 37 59 18 87l-28 44c-19 28-59 37-87 18l-74-51v21c0 33-27 60-60 60h-50c-33 0-60-27-60-60V373l-74 51c-28 19-68 11-87-18l-28-44c-19-28-11-68 18-87l74-51-74-51c-28-19-37-59-18-87l28-44c19-28 59-37 87-18l74 51v-21Z" fill="#FF5A5F"/>
+  <text x="620" y="360" font-family="Arial, Helvetica, sans-serif" font-size="140" font-weight="700" fill="#FF5A5F">HubSpot</text>
+</svg>
