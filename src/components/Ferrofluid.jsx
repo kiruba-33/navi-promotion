@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 
 const MAX_COLORS = 8;
@@ -190,11 +190,7 @@ const Ferrofluid = ({
   className,
   dpr,
   paused = false,
-  colors = [
-  "#FFFFFF",
-  "#60A5FA",
-  "#4F46E5"
-],
+  colors = ["#FFFFFF", "#60A5FA", "#4F46E5"],
   speed = 0.5,
   scale = 1.6,
   turbulence = 1,
@@ -219,15 +215,42 @@ const Ferrofluid = ({
   const rendererRef = useRef(null);
   const mouseTargetRef = useRef([0, 0]);
   const lastTimeRef = useRef(0);
+  
+  const [isVisible, setIsVisible] = useState(true);
+  const [isDocumentVisible, setIsDocumentVisible] = useState(true);
+  const prefersReducedMotion = useRef(
+    typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false
+  );
+
+  useEffect(() => {
+    const handleVisibilityChange = () => setIsDocumentVisible(!document.hidden);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { rootMargin: '100px' }
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    
+    let calculatedDpr = dpr;
+    if (!calculatedDpr && typeof window !== 'undefined') {
+      const isMobile = window.innerWidth <= 768;
+      calculatedDpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
+    }
 
     const renderer = new Renderer({
-      dpr: dpr ?? (typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1),
+      dpr: calculatedDpr,
       alpha: true,
-      antialias: true
+      antialias: false
     });
     rendererRef.current = renderer;
     const gl = renderer.gl;
@@ -236,6 +259,7 @@ const Ferrofluid = ({
     canvas.style.width = '100%';
     canvas.style.height = '100%';
     canvas.style.display = 'block';
+    if (!mouseInteraction) canvas.style.pointerEvents = 'none';
     container.appendChild(canvas);
 
     const { arr, count, avg } = prepColors(colors);
@@ -255,7 +279,7 @@ const Ferrofluid = ({
       uColorCount: { value: count },
       uMouseColor: { value: avg },
       uFlow: { value: flowVec(flowDirection) },
-      uSpeed: { value: speed },
+      uSpeed: { value: prefersReducedMotion.current ? 0 : speed },
       uScale: { value: scale },
       uTurbulence: { value: turbulence },
       uFluidity: { value: fluidity },
@@ -278,6 +302,7 @@ const Ferrofluid = ({
     meshRef.current = mesh;
 
     const resize = () => {
+      if (!container) return;
       const rect = container.getBoundingClientRect();
       renderer.setSize(rect.width, rect.height);
       uniforms.iResolution.value = [gl.drawingBufferWidth, gl.drawingBufferHeight, 1];
@@ -288,6 +313,7 @@ const Ferrofluid = ({
     ro.observe(container);
 
     const onPointerMove = e => {
+      if (!isVisible || !isDocumentVisible || paused) return;
       const rect = canvas.getBoundingClientRect();
       const sc = renderer.dpr || 1;
       const x = (e.clientX - rect.left) * sc;
@@ -297,13 +323,18 @@ const Ferrofluid = ({
         uniforms.iMouse.value = [x, y];
       }
     };
+    
     if (mouseInteraction) {
-      canvas.addEventListener('pointermove', onPointerMove);
+      canvas.addEventListener('pointermove', onPointerMove, { passive: true });
     }
 
     const loop = t => {
       rafRef.current = requestAnimationFrame(loop);
+      
+      if (paused || !isVisible || !isDocumentVisible) return;
+      
       uniforms.iTime.value = t * 0.001;
+      
       if (mouseDampening > 0) {
         if (!lastTimeRef.current) lastTimeRef.current = t;
         const dt = (t - lastTimeRef.current) / 1000;
@@ -318,7 +349,8 @@ const Ferrofluid = ({
       } else {
         lastTimeRef.current = t;
       }
-      if (!paused && programRef.current && meshRef.current) {
+      
+      if (programRef.current && meshRef.current) {
         try {
           renderer.render({ scene: meshRef.current });
         } catch (e) {
@@ -351,32 +383,15 @@ const Ferrofluid = ({
       rendererRef.current = null;
     };
   }, [
-    dpr,
-    paused,
-    colors,
-    speed,
-    scale,
-    turbulence,
-    fluidity,
-    rimWidth,
-    sharpness,
-    shimmer,
-    glow,
-    flowDirection,
-    opacity,
-    mouseInteraction,
-    mouseStrength,
-    mouseRadius,
-    mouseDampening
+    dpr, paused, colors, speed, scale, turbulence, fluidity, rimWidth, sharpness, shimmer, glow, flowDirection, opacity, mouseInteraction, mouseStrength, mouseRadius, mouseDampening, isVisible, isDocumentVisible
   ]);
 
   return (
     <div
       ref={containerRef}
       className={`w-full h-full overflow-hidden relative ${className ?? ''}`}
-      style={{
-        ...(mixBlendMode && { mixBlendMode })
-      }} />
+      style={{ ...(mixBlendMode && { mixBlendMode }) }} 
+    />
   );
 };
 

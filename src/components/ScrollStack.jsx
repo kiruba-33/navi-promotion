@@ -306,17 +306,22 @@ const ScrollStack = ({
     cacheLayout();
     updateCardTransforms();
 
+    let resizeRaf;
     const handleResize = () => {
-      cacheLayout();
-      updateCardTransforms();
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(() => {
+        cacheLayout();
+        updateCardTransforms();
+      });
     };
 
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('orientationchange', handleResize, { passive: true });
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleResize);
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
       
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);

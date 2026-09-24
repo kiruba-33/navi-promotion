@@ -66,7 +66,8 @@ const showLightNavbar =
 
     window.addEventListener(
       "scroll",
-      handleScroll
+      handleScroll,
+      { passive: true }
     );
 
     return () =>

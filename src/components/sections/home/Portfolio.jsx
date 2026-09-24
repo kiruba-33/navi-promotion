@@ -43,7 +43,7 @@ export default function Portfolio() {
       setIsDesktop(window.innerWidth >= 1440);
     };
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
