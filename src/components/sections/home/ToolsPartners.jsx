@@ -56,7 +56,7 @@ function MarqueeRow({ items, direction, ariaLabel }) {
           {sets.map((set, setIndex) => (
             <div
               key={`set-${setIndex}`}
-              className="flex shrink-0 items-center gap-6 sm:gap-8"
+              className="flex shrink-0 items-center gap-6 sm:gap-8 pr-6 sm:pr-8"
               role="presentation"
               aria-hidden={setIndex === 1}
             >
