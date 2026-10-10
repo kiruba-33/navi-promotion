@@ -20,7 +20,7 @@ export default function BlogGrid({
         "
       >
 
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="popLayout" initial={false}>
 
           {posts.map((post, index) => (
             <BlogCard

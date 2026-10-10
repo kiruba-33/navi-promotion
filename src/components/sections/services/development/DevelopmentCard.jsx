@@ -17,8 +17,8 @@ export default function DevelopmentCard({
         group
         relative
         block
-        h-[380px]
-        md:h-[450px]
+        h-[440px]
+        md:h-[480px]
         rounded-[2rem]
         overflow-hidden
       ">
@@ -124,25 +124,14 @@ export default function DevelopmentCard({
             {service.title}
           </h3>
 
-          {/* Description & Tags - Hover Only */}
-          <div
-            className="
-              opacity-0
-              translate-y-3
-
-              group-hover:opacity-100
-              group-hover:translate-y-0
-
-              transition-all
-              duration-500
-            "
-          >
+          {/* Description & Tags - Permanently Visible */}
+          <div className="opacity-100 translate-y-0 transition-none">
             <p
               className="
                 text-sm
                 md:text-base
 
-                text-white
+                text-white/90
 
                 leading-relaxed
 

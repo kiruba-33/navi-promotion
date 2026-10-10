@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import {
   Calendar,
   MessageCircle,
@@ -15,15 +14,7 @@ export default function BlogCard({
   const isHero = index === 0;
 
   return (
-    <motion.article
-      layout
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.08,
-      }}
+    <article
       className={`
         group
         relative
@@ -92,9 +83,9 @@ export default function BlogCard({
                 backdrop-blur-md
                 rounded-full
                 text-[9px]
-                font-black
+                font-semibold
                 uppercase
-                tracking-widest
+                tracking-wider
                 text-slate-900
                 shadow-xl
               "
@@ -131,10 +122,10 @@ export default function BlogCard({
                 flex
                 items-center
                 justify-center
-                font-black
+                font-semibold
                 uppercase
-                tracking-widest
-                text-[10px]
+                tracking-wider
+                text-[11px]
                 shadow-2xl
               "
             >
@@ -157,9 +148,9 @@ export default function BlogCard({
               text-slate-400
               mb-4
               text-[10px]
-              font-black
+              font-medium
               uppercase
-              tracking-widest
+              tracking-wider
             "
           >
 
@@ -201,7 +192,7 @@ export default function BlogCard({
           <p
             className={`
               text-slate-500
-              font-medium
+              font-normal
               leading-relaxed
 
               ${
@@ -249,10 +240,10 @@ export default function BlogCard({
               <span
                 className="
                   text-[10px]
-                  font-black
+                  font-semibold
                   uppercase
-                  tracking-widest
-                  text-slate-900
+                  tracking-wider
+                  text-slate-800
                 "
               >
                 {post.author}
@@ -287,6 +278,6 @@ export default function BlogCard({
         </div>
 
       </Link>
-    </motion.article>
+    </article>
   );
 }

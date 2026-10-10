@@ -3,6 +3,7 @@ import {
   ArrowUpRight,
   ChevronLeft,
   ChevronRight,
+  ExternalLink,
 } from "lucide-react";
 
 const PortfolioCard = memo(function PortfolioCard({
@@ -11,29 +12,43 @@ const PortfolioCard = memo(function PortfolioCard({
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const images = item.images && item.images.length > 0
+    ? item.images
+    : item.image
+    ? [item.image]
+    : [];
+
   const nextSlide = (event) => {
     event.stopPropagation();
+    if (images.length <= 1) return;
     setCurrentIndex(
-      (prev) => (prev + 1) % item.images.length
+      (prev) => (prev + 1) % images.length
     );
   };
 
   const prevSlide = (event) => {
     event.stopPropagation();
+    if (images.length <= 1) return;
     setCurrentIndex(
       (prev) =>
-        (prev - 1 + item.images.length) %
-        item.images.length
+        (prev - 1 + images.length) %
+        images.length
     );
   };
 
-  const handleCardClick = () => {
-    if (item.category === "Development") {
-      if (item.liveUrl && item.liveUrl !== "#" && item.liveUrl.trim() !== "") {
-        window.open(item.liveUrl, "_blank", "noopener,noreferrer");
-        return;
-      }
+  const hasLiveUrl =
+    item.liveUrl &&
+    item.liveUrl !== "#" &&
+    item.liveUrl.trim() !== "";
+
+  const handlePreviewClick = (event) => {
+    event.stopPropagation();
+    if (hasLiveUrl) {
+      window.open(item.liveUrl, "_blank", "noopener,noreferrer");
     }
+  };
+
+  const handleCardClick = () => {
     onProjectSelect(item);
   };
 
@@ -59,10 +74,9 @@ const PortfolioCard = memo(function PortfolioCard({
       "
     >
       <div className="relative h-full w-full overflow-hidden rounded-[1.5rem]">
-        
         {/* Slider Image (z-0: Bottom layer) */}
         <img
-          src={item.images[currentIndex]}
+          src={images[currentIndex] || item.coverImage || item.image}
           alt={item.title}
           className="
             absolute
@@ -82,9 +96,9 @@ const PortfolioCard = memo(function PortfolioCard({
             absolute
             inset-0
             bg-gradient-to-r
-            from-black/70
-            via-black/45
-            to-black/20
+            from-black/75
+            via-black/50
+            to-black/25
             z-10
           "
         />
@@ -95,9 +109,9 @@ const PortfolioCard = memo(function PortfolioCard({
             absolute
             inset-0
             bg-gradient-to-t
-            from-black/40
+            from-black/50
             via-transparent
-            to-black/15
+            to-black/20
             z-10
           "
         />
@@ -115,19 +129,19 @@ const PortfolioCard = memo(function PortfolioCard({
             sm:p-8
           "
         >
-          {/* Top Row: Service Tag & Action Arrow */}
-          <div className="flex items-center justify-between gap-4">
+          {/* Top Row: Service Tag & Action Arrow / Preview */}
+          <div className="flex items-center justify-between gap-3">
             <span
               className="
                 inline-block
                 rounded-full
                 bg-white/20
-                px-4
-                py-2
+                px-3.5
+                py-1.5
                 text-[10px]
-                font-black
+                font-semibold
                 uppercase
-                tracking-[0.2em]
+                tracking-wider
                 text-white
                 backdrop-blur-md
               "
@@ -135,31 +149,63 @@ const PortfolioCard = memo(function PortfolioCard({
               {item.service}
             </span>
 
-            {/* Action Circle Container */}
-            <div
-              className="
-                flex
-                h-12
-                w-12
-                shrink-0
-                items-center
-                justify-center
-                rounded-full
-                bg-brand-orange
-                text-white
-                opacity-0
-                transition-all
-                duration-500
-                group-hover:opacity-100
-              "
-            >
-              <ArrowUpRight size={22} />
+            <div className="flex items-center gap-2">
+              {hasLiveUrl && (
+                <button
+                  type="button"
+                  onClick={handlePreviewClick}
+                  className="
+                    inline-flex
+                    items-center
+                    gap-1.5
+                    rounded-full
+                    bg-white/90
+                    hover:bg-brand-orange
+                    text-slate-900
+                    hover:text-white
+                    px-3.5
+                    py-1.5
+                    text-[11px]
+                    font-bold
+                    shadow-md
+                    backdrop-blur-md
+                    transition-all
+                    cursor-pointer
+                  "
+                  title="Open live preview in new tab"
+                >
+                  <span>Preview</span>
+                  <ExternalLink size={12} />
+                </button>
+              )}
+
+              {/* Action Circle Container */}
+              <div
+                className="
+                  flex
+                  h-10
+                  w-10
+                  sm:h-11
+                  sm:w-11
+                  shrink-0
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-brand-orange
+                  text-white
+                  opacity-0
+                  transition-all
+                  duration-500
+                  group-hover:opacity-100
+                "
+              >
+                <ArrowUpRight size={20} />
+              </div>
             </div>
           </div>
 
           {/* Bottom Section: Title -> Navigation Controls -> Category + Metric -> Progress Bar */}
           <div className="w-full">
-            
             {/* Title Section */}
             <h3
               className="
@@ -179,7 +225,7 @@ const PortfolioCard = memo(function PortfolioCard({
             </h3>
 
             {/* Carousel Navigation Controls Row (Below Title) */}
-            {item.images.length > 1 ? (
+            {images.length > 1 ? (
               <div
                 className="
                   mb-3
@@ -197,8 +243,8 @@ const PortfolioCard = memo(function PortfolioCard({
                   onClick={prevSlide}
                   className="
                     flex
-                    h-10
-                    w-10
+                    h-9
+                    w-9
                     items-center
                     justify-center
                     rounded-full
@@ -212,7 +258,7 @@ const PortfolioCard = memo(function PortfolioCard({
                   "
                   aria-label="Previous image"
                 >
-                  <ChevronLeft size={18}  aria-hidden="true" focusable="false" />
+                  <ChevronLeft size={18} aria-hidden="true" focusable="false" />
                 </button>
 
                 <button
@@ -220,8 +266,8 @@ const PortfolioCard = memo(function PortfolioCard({
                   onClick={nextSlide}
                   className="
                     flex
-                    h-10
-                    w-10
+                    h-9
+                    w-9
                     items-center
                     justify-center
                     rounded-full
@@ -235,7 +281,7 @@ const PortfolioCard = memo(function PortfolioCard({
                   "
                   aria-label="Next image"
                 >
-                  <ChevronRight size={18}  aria-hidden="true" focusable="false" />
+                  <ChevronRight size={18} aria-hidden="true" focusable="false" />
                 </button>
               </div>
             ) : null}
@@ -255,7 +301,7 @@ const PortfolioCard = memo(function PortfolioCard({
                   text-xs
                   uppercase
                   tracking-wider
-                  text-white
+                  text-white/90
                   font-semibold
                   drop-shadow-sm
                 "
@@ -266,37 +312,39 @@ const PortfolioCard = memo(function PortfolioCard({
               <span
                 className="
                   text-sm
-                  sm:text-lg
-                  font-black
+                  sm:text-base
+                  font-bold
                   text-white
                   drop-shadow-sm
                   whitespace-nowrap
                 "
               >
-                {item.results}
+                {item.results || item.result}
               </span>
             </div>
 
             {/* Progress Bar Indicators */}
-            <div className="mt-4 flex gap-2">
-              {item.images.map((_, index) => (
-                <div
-                  key={index}
-                  className={`
-                    h-1
-                    flex-1
-                    rounded-full
-                    transition-all
-                    duration-300
-                    ${
-                      currentIndex === index
-                        ? "bg-white/100"
-                        : "bg-white/20"
-                    }
-                  `}
-                />
-              ))}
-            </div>
+            {images.length > 1 && (
+              <div className="mt-3 flex gap-1.5">
+                {images.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`
+                      h-1
+                      flex-1
+                      rounded-full
+                      transition-all
+                      duration-300
+                      ${
+                        currentIndex === index
+                          ? "bg-white/100"
+                          : "bg-white/25"
+                      }
+                    `}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

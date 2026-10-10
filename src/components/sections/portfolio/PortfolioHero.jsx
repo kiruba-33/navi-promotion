@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 import { BriefcaseBusiness } from "lucide-react";
 
 export default function PortfolioHero() {
@@ -7,8 +6,9 @@ export default function PortfolioHero() {
     <section
       className="
         relative
-        h-[76vh]
-        min-h-[560px]
+        h-[58vh]
+        min-h-[460px]
+        max-h-[620px]
         w-full
         overflow-hidden
         border-b
@@ -32,81 +32,70 @@ export default function PortfolioHero() {
           "
         />
 
-        {/* Dark Cinematic Overlay */}
+        {/* Dark Cinematic Gradient Overlay */}
         <div
           className="
             absolute
             inset-0
             bg-gradient-to-r
-            from-black/65
-            via-black/40
-            to-black/20
+            from-black/75
+            via-black/50
+            to-black/30
           "
         />
 
-        {/* Extra Depth */}
+        {/* Extra Bottom Depth */}
         <div
           className="
             absolute
             inset-0
             bg-gradient-to-t
-            from-black/30
+            from-black/50
             via-transparent
-            to-black/10
+            to-black/20
           "
         />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+        <div
           className="
-            max-w-5xl
+            max-w-4xl
             mx-auto
             text-center
           "
         >
           {/* Badge */}
           <div
-             className="
-          mb-6
-
-          inline-flex
-          items-center
-          gap-3
-
-          rounded-full
-
-          border
-          border-white/10
-
-          bg-white/5
-          backdrop-blur-md
-
-          px-5
-          py-2.5
-        "
+            className="
+              mb-6
+              inline-flex
+              items-center
+              gap-2.5
+              rounded-full
+              border
+              border-white/15
+              bg-white/10
+              backdrop-blur-md
+              px-4
+              py-2
+            "
           >
             <BriefcaseBusiness
               className="
                 h-4
                 w-4
-                text-white
+                text-brand-orange
               "
             />
 
             <span
               className="
-                text-[10px]
+                text-[11px]
                 sm:text-xs
-                font-bold
+                font-semibold
                 uppercase
-                tracking-[0.2em]
+                tracking-wider
                 text-white
               "
             >
@@ -118,21 +107,17 @@ export default function PortfolioHero() {
           <h1
             className="
               heading-display
-
               mb-6
-
-              text-xl
-              xs:text-2xl
-              sm:text-4xl
-              md:text-5xl
-              lg:text-6xl
-              xl:text-7xl
-
+              text-3xl
+              xs:text-4xl
+              sm:text-5xl
+              md:text-6xl
+              lg:text-7xl
+              font-bold
               uppercase
               text-white
               tracking-tight
-              whitespace-nowrap
-              drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
+              drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)]
             "
           >
             EXCEPTIONAL EXPERIENCES
@@ -142,18 +127,16 @@ export default function PortfolioHero() {
           <p
             className="
               body-large
-
               max-w-3xl
               mx-auto
-
               text-white/90
-              drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
+              drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]
             "
           >
             Explore our curated portfolio of high-converting campaigns,
             innovative products, and brand transformations.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

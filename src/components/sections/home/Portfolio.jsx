@@ -53,10 +53,7 @@ export default function Portfolio() {
 
   // Dynamically calculate track scroll range for non-desktop layouts to eliminate extra scroll space
   useLayoutEffect(() => {
-    if (isDesktop) {
-      setScrollRange(0);
-      return;
-    }
+    if (isDesktop) return;
 
     const calculateRange = () => {
       if (trackRef.current && containerRef.current) {
@@ -74,8 +71,6 @@ export default function Portfolio() {
         setScrollRange(Math.max(0, travel));
       }
     };
-
-    calculateRange();
 
     const resizeObserver = new ResizeObserver(() => {
       calculateRange();
@@ -199,18 +194,7 @@ export default function Portfolio() {
             >
               {projects.map((project, index) => (
                 <React.Fragment key={project.id || index}>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.94, rotateY: 5 }}
-                    whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-                    viewport={{ once: true, margin: "-20px" }}
-                    // High-fidelity spring physics setup for premium butter smooth scrolling tracking effects
-                    transition={{
-                      delay: index * 0.04,
-                      type: "spring",
-                      stiffness: 45,
-                      damping: 18,
-                      mass: 0.8
-                    }}
+                  <div
                     className="group relative w-[86vw] sm:w-[460px] md:w-[520px] lg:w-[480px] h-[45vh] sm:h-[48vh] md:h-[460px] lg:h-[420px] rounded-[2.5rem] overflow-hidden flex-shrink-0 cursor-pointer border border-white/10 bg-slate-900 shadow-2xl shadow-black/40 will-change-transform"
                   >
                     {/* Scalable Card Media Cover */}
@@ -244,7 +228,7 @@ export default function Portfolio() {
 
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 </React.Fragment>
               ))}
             </motion.div>

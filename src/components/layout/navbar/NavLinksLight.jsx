@@ -20,7 +20,7 @@ const NavLinksLight = () => {
 
       <Link
         to="/"
-        className={`text-[13px] lg:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+        className={`text-[13px] lg:text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
           isActive("/")
             ? "text-amber-500"
             : "text-black hover:text-amber-500"
@@ -44,7 +44,7 @@ const NavLinksLight = () => {
         <Link
           key={link.href}
           to={link.href}
-          className={`text-[13px] lg:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+          className={`text-[13px] lg:text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
             isActive(link.href)
               ? "text-amber-500"
               : "text-black hover:text-amber-500"

@@ -31,7 +31,7 @@ const NavLinks = ({ isScrolled }) => {
       {/* HOME — no prefetch needed (eagerly loaded) */}
       <Link
         to="/"
-        className={`text-[13px] lg:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+        className={`text-[13px] lg:text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
           isActive("/")
             ? isScrolled
               ? "text-black"
@@ -64,7 +64,7 @@ const NavLinks = ({ isScrolled }) => {
           to={link.href}
           onMouseEnter={() => prefetchRoute(link.href)}
           onFocus={() => prefetchRoute(link.href)}
-          className={`text-[13px] lg:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+          className={`text-[13px] lg:text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
             isActive(link.href)
               ? isScrolled
                 ? "text-black"

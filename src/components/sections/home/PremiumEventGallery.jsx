@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion } from 'framer-motion';
 import { ArrowRight, Camera } from 'lucide-react';
 import { premiumEventsData } from '../../../data/premiumEventsData';
 import ArrowButton from '../../ui/ArrowButton';
@@ -61,7 +60,7 @@ export default function PremiumEventGallery() {
     });
 
     return cols;
-  }, [columns, premiumEventsData]);
+  }, [columns]);
 
   return (
     <section id="premium-event-gallery" className="py-20 sm:py-28 lg:py-32 bg-[#FAF8F4] relative overflow-hidden w-full">
@@ -110,12 +109,8 @@ export default function PremiumEventGallery() {
           {columnItems.map((col, colIdx) => (
             <div key={colIdx} className="flex flex-col gap-[8px] sm:gap-[12px] lg:gap-[16px]">
               {col.map((item) => (
-                <motion.div
+                <div
                   key={item.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   className="
                     group 
                     relative 
@@ -189,7 +184,7 @@ export default function PremiumEventGallery() {
                     </div>
 
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           ))}

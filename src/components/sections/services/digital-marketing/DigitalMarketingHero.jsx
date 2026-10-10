@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { Megaphone } from "lucide-react";
 
 export default function DigitalMarketingHero() {
@@ -47,13 +46,7 @@ export default function DigitalMarketingHero() {
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+        <div
           className="
             max-w-5xl
             mx-auto
@@ -91,7 +84,7 @@ export default function DigitalMarketingHero() {
             </span>
           </div>
 
-          <h2
+          <h1
             className="
                heading-display
 
@@ -100,19 +93,17 @@ export default function DigitalMarketingHero() {
     text-4xl
     sm:text-5xl
     md:text-6xl
-    lg:text-7xl
-    xl:text-8xl
+    lg:text-6xl
+    xl:text-7xl
 
     uppercase
     text-white
-
-    lg:whitespace-nowrap
 
               drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
             "
           >
             DIGITAL THAT DELIVERS
-          </h2>
+          </h1>
 
           <p
             className="
@@ -128,7 +119,7 @@ export default function DigitalMarketingHero() {
             leads, and measurable business
             growth.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 import { Users } from "lucide-react";
 
 export default function AboutHero({
@@ -60,13 +59,7 @@ export default function AboutHero({
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+        <div
           className="
             max-w-5xl
             mx-auto
@@ -102,10 +95,10 @@ export default function AboutHero({
       text-[10px]
             sm:text-xs
 
-            font-bold
+            font-semibold
             uppercase
 
-            tracking-[0.2em]
+            tracking-wider
       text-white
     "
   >
@@ -124,7 +117,7 @@ export default function AboutHero({
               sm:text-5xl
               md:text-6xl
               lg:text-7xl
-              xl:text-8xl
+              xl:text-[80px]
 
               uppercase
               text-white
@@ -148,7 +141,7 @@ export default function AboutHero({
           >
             {description}
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

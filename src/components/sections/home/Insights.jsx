@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -23,10 +22,7 @@ export default function Insights() {
         {/* HEADER */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-16 sm:mb-20 lg:mb-24">
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="max-w-3xl"
           >
 
@@ -60,12 +56,9 @@ export default function Insights() {
               </span>
             </h2>
 
-          </motion.div>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+          <p
             className="
               body-large
               text-slate-600
@@ -76,7 +69,7 @@ export default function Insights() {
             Deep dives into marketing data,
             design philosophy, and the future
             of digital commerce.
-          </motion.p>
+          </p>
 
         </div>
 
@@ -90,15 +83,8 @@ export default function Insights() {
 
             return (
 
-              <motion.div
+              <div
                 key={post.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: idx * 0.1,
-                }}
                 className={
                   isMain
                     ? "lg:col-span-8"
@@ -145,13 +131,13 @@ export default function Insights() {
 
                     <div className="flex items-center gap-4 mb-5 flex-wrap">
 
-                      <span className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-black text-white uppercase tracking-widest">
+                      <span className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-semibold text-white uppercase tracking-wider">
 
                         {post.category}
 
                       </span>
 
-                      <span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">
+                      <span className="text-[10px] font-medium text-white/70 uppercase tracking-wider">
 
                         {post.readTime}
 
@@ -166,7 +152,7 @@ export default function Insights() {
                             ? "text-3xl md:text-5xl"
                             : "text-2xl md:text-3xl"
                         }
-                        font-black
+                        font-semibold
                         text-white
                         leading-tight
                         mb-6
@@ -178,7 +164,7 @@ export default function Insights() {
                       {post.title}
                     </h3>
 
-                    <div className="flex items-center gap-4 text-white font-bold text-sm">
+                    <div className="flex items-center gap-4 text-white font-semibold text-sm">
 
                       Read Insights
 
@@ -216,7 +202,7 @@ export default function Insights() {
 
                 </Link>
 
-              </motion.div>
+              </div>
 
             );
 

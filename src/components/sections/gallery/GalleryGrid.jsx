@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 import { Calendar, Maximize2, Camera } from "lucide-react";
 
 export default function GalleryGrid({
@@ -37,21 +36,14 @@ export default function GalleryGrid({
             lg:mb-20
           "
         >
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-6 shadow-sm select-none"
           >
             <Camera className="w-4 h-4 text-orange-500" />
             <span>Our Events</span>
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+          <h2
             className="
               heading-section
               mb-6
@@ -62,13 +54,9 @@ export default function GalleryGrid({
             "
           >
             Moments That Matter
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
+          <p
             className="
               body-large
               mx-auto
@@ -79,7 +67,7 @@ export default function GalleryGrid({
             Explore memorable events, team celebrations,
             social initiatives and moments that define
             life at Navi Promotions.
-          </motion.p>
+          </p>
         </div>
 
         {/* Event Cards */}
@@ -92,16 +80,9 @@ export default function GalleryGrid({
             xl:grid-cols-3
           "
         >
-          {events.map((event, index) => (
-            <motion.div
+          {events.map((event) => (
+            <div
               key={event.id}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                delay: index * 0.08,
-                duration: 0.5,
-              }}
               onClick={() => onSelectEvent(event)}
               className="
                 group
@@ -241,7 +222,7 @@ export default function GalleryGrid({
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

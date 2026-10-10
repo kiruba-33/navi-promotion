@@ -1,5 +1,4 @@
-import React from "react";
-import { motion } from "motion/react";
+import React, { useState } from "react";
 import {
   Bookmark,
   Calendar,
@@ -9,17 +8,97 @@ import {
   FileText,
   Filter,
 } from "lucide-react";
+import DocumentPreviewModal from "./DocumentPreviewModal";
 
 export default function RegulationsVault({
   categories,
 }) {
+  const [selectedDoc, setSelectedDoc] = useState(null);
+  const [selectedCategoryTitle, setSelectedCategoryTitle] = useState("");
+
+  const handleOpenPreview = (item, categoryTitle) => {
+    setSelectedDoc(item);
+    setSelectedCategoryTitle(categoryTitle);
+  };
+
+  const handleDirectDownload = (e, item, categoryTitle) => {
+    e.stopPropagation();
+    if (item.fileUrl) {
+      const link = window.document.createElement("a");
+      link.href = item.fileUrl;
+      link.download = item.fileUrl.split("/").pop() || `${item.title}.pdf`;
+      window.document.body.appendChild(link);
+      link.click();
+      window.document.body.removeChild(link);
+    } else {
+      const contentLines = [
+        "================================================================================",
+        "                       NAVI PROMOTIONS PRIVATE LIMITED                          ",
+        "             GOVERNANCE, REGULATORY AFFAIRS & OPERATIONAL STANDARDS             ",
+        "================================================================================",
+        "",
+        `DOCUMENT TITLE : ${item.title}`,
+        `CATEGORY       : ${categoryTitle || "Official Regulations"}`,
+        `EFFECTIVE DATE : ${item.date}`,
+        `STATUS         : ${item.status}`,
+        `RECORD SIZE    : ${item.size}`,
+        `CLASSIFICATION : ${(item.tags || []).join(", ")}`,
+        "",
+        "--------------------------------------------------------------------------------",
+        "SUMMARY & OBJECTIVE",
+        "--------------------------------------------------------------------------------",
+        item.summary ||
+          "Official corporate policy and regulatory documentation published by Navi Promotions.",
+        "",
+        "--------------------------------------------------------------------------------",
+        "DOCUMENT ARTICLES & PROVISIONS",
+        "--------------------------------------------------------------------------------",
+      ];
+
+      if (item.sections && item.sections.length > 0) {
+        item.sections.forEach((sec, idx) => {
+          contentLines.push("");
+          contentLines.push(`ARTICLE ${idx + 1}: ${sec.heading}`);
+          contentLines.push(sec.content);
+        });
+      }
+
+      contentLines.push("");
+      contentLines.push(
+        "--------------------------------------------------------------------------------"
+      );
+      contentLines.push(
+        "AUTHORIZED BY: Navi Promotions Executive Governance Board"
+      );
+      contentLines.push(
+        "LOCATIONS    : Theni, Tamil Nadu (HQ) · Singapore Global Operations"
+      );
+      contentLines.push(
+        "================================================================================"
+      );
+
+      const blob = new Blob([contentLines.join("\n")], {
+        type: "text/plain;charset=utf-8",
+      });
+      const url = URL.createObjectURL(blob);
+      const link = window.document.createElement("a");
+      link.href = url;
+      const safeName = item.title.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase();
+      link.download = `${safeName}.txt`;
+      window.document.body.appendChild(link);
+      link.click();
+      window.document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  };
+
   return (
     <section
       className="
         bg-slate-50
-        py-20
-        sm:py-24
-        lg:py-32
+        py-12
+        sm:py-16
+        lg:py-20
       "
     >
       <div
@@ -37,11 +116,8 @@ export default function RegulationsVault({
             const Icon = category.icon;
 
             return (
-              <motion.div
+              <div
                 key={category.id}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
               >
                 {/* Header */}
                 <div
@@ -150,23 +226,9 @@ export default function RegulationsVault({
                   "
                 >
                   {category.items.map(
-                    (item, index) => (
-                      <motion.div
+                    (item) => (
+                      <div
                         key={item.id}
-                        initial={{
-                          opacity: 0,
-                          y: 20,
-                        }}
-                        whileInView={{
-                          opacity: 1,
-                          y: 0,
-                        }}
-                        viewport={{
-                          once: true,
-                        }}
-                        transition={{
-                          delay: index * 0.08,
-                        }}
                         className="
                           group
                           relative
@@ -231,6 +293,7 @@ export default function RegulationsVault({
                           </div>
 
                           <h3
+                            onClick={() => handleOpenPreview(item, category.title)}
                             className="
                               heading-card
                               mb-4
@@ -239,6 +302,7 @@ export default function RegulationsVault({
                               transition-colors
                               duration-300
                               group-hover:text-orange-500
+                              cursor-pointer
                             "
                           >
                             {item.title}
@@ -261,7 +325,7 @@ export default function RegulationsVault({
                                 gap-2
                               "
                             >
-                              <Calendar className="h-4 w-4 text-orange-500"  aria-hidden="true" focusable="false" />
+                              <Calendar className="h-4 w-4 text-orange-500" aria-hidden="true" focusable="false" />
 
                               <span
                                 className="
@@ -291,7 +355,7 @@ export default function RegulationsVault({
                                 gap-2
                               "
                             >
-                              <FileText className="h-4 w-4 text-orange-500"  aria-hidden="true" focusable="false" />
+                              <FileText className="h-4 w-4 text-orange-500" aria-hidden="true" focusable="false" />
 
                               <span
                                 className="
@@ -350,6 +414,7 @@ export default function RegulationsVault({
                           "
                         >
                           <button
+                            onClick={() => handleOpenPreview(item, category.title)}
                             className="
                               flex
                               items-center
@@ -361,16 +426,20 @@ export default function RegulationsVault({
                               text-slate-900
                               transition-colors
                               hover:text-orange-500
+                              focus:outline-none
+                              focus:text-orange-500
                             "
+                            aria-label={`Preview ${item.title}`}
                           >
                             Preview Document
 
-                            <ChevronRight className="h-4 w-4 text-orange-500"  aria-hidden="true" focusable="false" />
+                            <ChevronRight className="h-4 w-4 text-orange-500" aria-hidden="true" focusable="false" />
                           </button>
 
                           <button
-                            aria-label="Download Document"
-                            title="Download Document"
+                            onClick={(e) => handleDirectDownload(e, item, category.title)}
+                            aria-label={`Download ${item.title}`}
+                            title={`Download ${item.title}`}
                             className="
                               group/dl
                               flex
@@ -382,25 +451,38 @@ export default function RegulationsVault({
                               bg-slate-100
                               opacity-100
                               lg:opacity-0
-                              transition-colors
+                              transition-all
                               duration-300
                               ease-in-out
                               lg:group-hover:opacity-100
                               hover:bg-orange-500
+                              active:scale-95
+                              focus:opacity-100
+                              focus:outline-none
+                              focus:ring-2
+                              focus:ring-orange-500
                             "
                           >
                             <Download className="h-4 w-4 text-orange-500 transition-colors duration-300 ease-in-out group-hover/dl:text-white" />
                           </button>
                         </div>
-                      </motion.div>
+                      </div>
                     )
                   )}
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
       </div>
+
+      {/* Document Preview Modal */}
+      <DocumentPreviewModal
+        isOpen={!!selectedDoc}
+        document={selectedDoc}
+        categoryTitle={selectedCategoryTitle}
+        onClose={() => setSelectedDoc(null)}
+      />
     </section>
   );
 }

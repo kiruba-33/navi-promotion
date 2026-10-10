@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Star, Play, X, Quote, MessageSquareQuote } from "lucide-react";
 
 const testimonials = [
@@ -118,10 +118,10 @@ const testimonials = [
     id: 8,
     content:
       "Their social media strategies are unmatched. We saw a 3x increase in engagement and gained 150 new premium members in just the first quarter of our partnership.",
-    headline: "Gained 150 premium members in the first quarter",
-    author: "Vikram Singh",
-    role: "Founder",
-    company: "Elite Fitness",
+    headline: "Gained 150 new premium members in 3 months",
+    author: "Kavitha Sundaram",
+    role: "Operations Head",
+    company: "FitLife Club",
     image:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150",
     videoThumbnail:
@@ -139,69 +139,103 @@ const row2Items = testimonials.slice(4, 8);
 const doubleRow1 = [...row1Items, ...row1Items];
 const doubleRow2 = [...row2Items, ...row2Items];
 
-const TestimonialCard = ({ item, onSelectCard }) => (
-  <div
-    onClick={() => onSelectCard(item)}
-    className="w-[280px] sm:w-[320px] md:w-[360px] shrink-0 bg-white rounded-3xl p-3 sm:p-4 border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between gap-3 cursor-pointer group"
-  >
-    {/* Video Thumbnail */}
-    <div className="relative aspect-[16/10] rounded-2xl overflow-hidden group/thumb cursor-pointer bg-slate-900 border border-slate-200/50">
-      <img
-        src={item.videoThumbnail}
-        alt={`${item.author} Video Review`}
-        className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-500"
-      />
-      {/* Dark Overlay Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+/* Individual Autoplaying Testimonial Card */
+function TestimonialCard({ item, onSelectCard }) {
+  const videoRef = useRef(null);
 
-      {/* Center Play Button */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center shadow-lg shadow-orange-500/40 group-hover:scale-110 transition-all duration-300 relative">
-          <span
-            className="absolute inset-0 rounded-full bg-orange-500 opacity-60 animate-ping pointer-events-none"
-            style={{ animationDuration: "2s" }}
-          />
-          <Play className="w-5 h-5 fill-white ml-0.5"  aria-hidden="true" focusable="false" />
-        </div>
-      </div>
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
 
-      {/* Bottom Overlay Quote */}
-      <p className="absolute bottom-3 left-4 right-4 text-xs sm:text-sm font-semibold text-white line-clamp-2 drop-shadow-md">
-        "{item.headline}"
-      </p>
-    </div>
+    // Viewport-aware playback with graceful catch
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const playPromise = el.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {
+                // Browser policy fallback: stays paused cleanly with poster
+              });
+            }
+          } else {
+            el.pause();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
 
-    {/* Client Info & Rating Footer */}
-    <div className="flex items-center justify-between gap-3 px-1 py-1">
-      <div className="flex items-center gap-3 min-w-0">
-        <img
-          src={item.image}
-          alt={item.author}
-          className="w-10 h-10 rounded-full object-cover border border-slate-200 shrink-0"
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      onClick={() => onSelectCard(item)}
+      className="w-[280px] sm:w-[320px] md:w-[360px] shrink-0 bg-white rounded-3xl p-3 sm:p-4 border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between gap-3 cursor-pointer group"
+    >
+      {/* Video with Viewport Autoplay */}
+      <div className="relative aspect-[16/10] rounded-2xl overflow-hidden group/thumb cursor-pointer bg-slate-900 border border-slate-200/50">
+        <video
+          ref={videoRef}
+          src={item.videoUrl}
+          poster={item.videoThumbnail}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-500"
         />
-        <div className="min-w-0">
-          <h4 className="text-sm font-bold heading-primary truncate">
-            {item.author}
-          </h4>
-          <p className="text-xs text-slate-500 truncate font-medium">
-            {item.role},{" "}
-            <span className="text-orange-500 font-semibold">{item.company}</span>
-          </p>
+
+        {/* Dark Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+        {/* Center Play Button Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-11 h-11 rounded-full bg-orange-500/90 text-white flex items-center justify-center shadow-lg shadow-orange-500/40 group-hover:scale-110 transition-all duration-300 relative">
+            <Play className="w-4 h-4 fill-white ml-0.5" aria-hidden="true" focusable="false" />
+          </div>
         </div>
+
+        {/* Bottom Overlay Quote */}
+        <p className="absolute bottom-3 left-4 right-4 text-xs sm:text-sm font-semibold text-white line-clamp-2 drop-shadow-md pointer-events-none">
+          "{item.headline}"
+        </p>
       </div>
 
-      {/* 5-Star Rating */}
-      <div className="flex items-center gap-0.5 shrink-0">
-        {Array.from({ length: item.rating }).map((_, i) => (
-          <Star
-            key={i}
-            className="w-3.5 h-3.5 fill-orange-500 text-orange-500"
+      {/* Client Info & Rating Footer */}
+      <div className="flex items-center justify-between gap-3 px-1 py-1">
+        <div className="flex items-center gap-3 min-w-0">
+          <img
+            src={item.image}
+            alt={item.author}
+            className="w-10 h-10 rounded-full object-cover border border-slate-200 shrink-0"
           />
-        ))}
+          <div className="min-w-0">
+            <h4 className="text-sm font-semibold heading-primary truncate">
+              {item.author}
+            </h4>
+            <p className="text-xs text-slate-500 truncate font-normal">
+              {item.role},{" "}
+              <span className="text-orange-500 font-semibold">{item.company}</span>
+            </p>
+          </div>
+        </div>
+
+        {/* 5-Star Rating */}
+        <div className="flex items-center gap-0.5 shrink-0">
+          {Array.from({ length: item.rating }).map((_, i) => (
+            <Star
+              key={i}
+              className="w-3.5 h-3.5 fill-orange-500 text-orange-500"
+            />
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+}
 
 export default function Testimonials() {
   const [activeVideo, setActiveVideo] = useState(null);
@@ -209,7 +243,7 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="py-20 sm:py-24 lg:py-32 relative overflow-hidden bg-slate-50/50"
+      className="py-10 sm:py-14 lg:py-16 relative overflow-hidden bg-slate-50/50"
     >
       {/* CSS Keyframe Animations for Dual Opposite-Direction Marquees */}
       <style>{`
@@ -239,18 +273,17 @@ export default function Testimonials() {
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-orange-100/40 rounded-full blur-3xl pointer-events-none" />
 
       {/* Header Block Section */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 mb-14 sm:mb-18 text-center relative z-10">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-6 shadow-sm select-none">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 mb-10 sm:mb-12 text-center relative z-10 flex flex-col items-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-5 shadow-sm select-none">
           <MessageSquareQuote className="w-4 h-4 text-orange-500" />
           <span>Client Love</span>
         </div>
 
-        <h2 className="heading-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl heading-primary sm:leading-[1.1] md:leading-[1.15] lg:leading-[1.15] tracking-tighter mb-6">
-          Trusted by the world's <br />
-          <span className="heading-highlight leading-none">Ambitious Brands</span>
+        <h2 className="heading-section text-center heading-primary tracking-tight mb-4 whitespace-normal lg:whitespace-nowrap">
+          Trusted by the World's <span className="heading-highlight leading-none">Ambitious Brands</span>
         </h2>
 
-        <p className="body-large text-slate-600 max-w-2xl mx-auto font-medium tracking-tight leading-relaxed">
+        <p className="body-large text-slate-600 max-w-4xl mx-auto font-normal tracking-tight leading-relaxed whitespace-normal lg:whitespace-nowrap">
           Hear from the founders and marketing leaders who have scaled their businesses and dominated their markets.
         </p>
       </div>
@@ -297,10 +330,10 @@ export default function Testimonials() {
             {/* Close Button */}
             <button
               onClick={() => setActiveVideo(null)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 z-20 bg-slate-950/50"
+              className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 z-20 bg-slate-950/50 cursor-pointer"
               aria-label="Close modal"
             >
-              <X className="w-6 h-6"  aria-hidden="true" focusable="false" />
+              <X className="w-6 h-6" aria-hidden="true" focusable="false" />
             </button>
 
             {/* Video Player */}
@@ -317,7 +350,7 @@ export default function Testimonials() {
             {/* Client Detail Info Panel */}
             <div className="p-6 md:p-8 flex flex-col justify-between bg-slate-900 md:w-2/5 max-h-[40vh] md:max-h-none overflow-y-auto">
               <div className="mt-4 md:mt-8">
-                <Quote className="w-8 h-8 text-orange-500/25 mb-4"  aria-hidden="true" focusable="false" />
+                <Quote className="w-8 h-8 text-orange-500/25 mb-4" aria-hidden="true" focusable="false" />
                 <p className="text-white text-base md:text-lg font-medium leading-relaxed mb-6 italic">
                   "{activeVideo.content}"
                 </p>

@@ -96,9 +96,9 @@ export default function RegulationsCTA({
                   px-8
                   py-5
                   text-xs
-                  font-bold
+                  font-semibold
                   uppercase
-                  tracking-[0.2em]
+                  tracking-wider
                   text-slate-900
                   transition-all
                   hover:bg-white
@@ -139,7 +139,7 @@ export default function RegulationsCTA({
                     className="
                       mb-2
                       text-4xl
-                      font-black
+                      font-bold
                       text-white
                     "
                   >
@@ -149,10 +149,10 @@ export default function RegulationsCTA({
                   <p
                     className="
                       text-[10px]
-                      font-bold
+                      font-medium
                       uppercase
-                      tracking-[0.2em]
-                      text-slate-500
+                      tracking-wider
+                      text-slate-400
                     "
                   >
                     {stat.label}

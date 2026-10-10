@@ -1,208 +1,85 @@
 import React, { useState } from "react";
-import {
-  ChevronDown,
-  ChevronUp,
-  MessageCircleQuestion,
-} from "lucide-react";
+import { ChevronDown, MessageCircleQuestion } from "lucide-react";
 
 export default function ServiceFAQ({
   faqs = [],
 }) {
-  const [activeIndex, setActiveIndex] =
-    useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const toggleFAQ = (index) => {
-    setActiveIndex(
-      activeIndex === index
-        ? null
-        : index
-    );
+    setActiveIndex(activeIndex === index ? null : index);
   };
 
   return (
-    <section
-      className="
-        py-12
-        sm:py-16
-        lg:py-20
-        bg-white
-      "
-    >
-      <div
-        className="
-          max-w-5xl
-          mx-auto
-          px-5
-          sm:px-6
-          lg:px-8
-        "
-      >
-        {/* Header */}
-
-        <div className="mb-12 sm:mb-14 lg:mb-16 text-center">
-
-          <div
-            className="
-              inline-flex
-              items-center
-              gap-2
-              px-4
-              py-2
-              rounded-full
-              bg-orange-50
-              border
-              border-orange-100
-              text-orange-500
-              text-xs
-              font-black
-              uppercase
-              tracking-[0.2em]
-            "
-          >
-            <MessageCircleQuestion className="w-4 h-4" />
-            <span>FAQ</span>
+    <section className="py-12 sm:py-16 lg:py-20 bg-slate-50/60 border-b border-slate-200/60">
+      <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="mb-12 sm:mb-14 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-xs mb-5 select-none">
+            <MessageCircleQuestion className="w-4 h-4 text-orange-500" />
+            <span className="text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
+              Clear Answers
+            </span>
           </div>
 
-          <h2
-            className="
-              heading-display
-              text-4xl
-              sm:text-5xl
-              lg:text-6xl
-              heading-primary
-              mt-6
-            "
-          >
-            Frequently Asked
-            Questions
+          <h2 className="heading-section text-3xl sm:text-4xl lg:text-5xl heading-primary mb-4">
+            Frequently Asked Questions
           </h2>
 
-          <p
-            className="
-              mt-6
-              text-lg
-              text-slate-600
-              max-w-2xl
-              mx-auto
-              leading-relaxed
-            "
-          >
-            Find answers to the most common
-            questions about our website design
-            and development services.
+          <p className="body-large text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            Find answers to the most common questions about our strategy, execution, and delivery process.
           </p>
-
         </div>
 
-        {/* FAQ List */}
+        {/* FAQ Accordion List */}
+        <div className="space-y-4">
+          {faqs.map((faq, index) => {
+            const isOpen = activeIndex === index;
+            const question = faq.question || faq.q || "";
+            const answer = faq.answer || faq.a || "";
 
-        <div className="space-y-5">
-
-          {faqs.map(
-            (faq, index) => (
+            return (
               <div
                 key={index}
-                className="
-                  border
-                  border-slate-200
-                  rounded-[24px]
-                  bg-white
-                  overflow-hidden
-                  transition-all
-                  duration-300
-                "
+                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                  isOpen
+                    ? "bg-white border-orange-500/40 shadow-md shadow-orange-500/5"
+                    : "bg-white/80 border-slate-200 hover:border-slate-300 hover:bg-white"
+                }`}
               >
                 <button
-                  onClick={() =>
-                    toggleFAQ(index)
-                  }
-                  className="
-                    w-full
-                    flex
-                    items-center
-                    justify-between
-                    gap-6
-                    p-7
-                    text-left
-                  "
+                  onClick={() => toggleFAQ(index)}
+                  aria-expanded={isOpen}
+                  className="w-full flex items-center justify-between gap-5 p-5 sm:p-6 text-left cursor-pointer focus:outline-none"
                 >
                   <h3
-                    className="
-                      text-slate-900
-                      font-semibold
-                      text-lg
-                      leading-relaxed
-                    "
+                    className={`text-base sm:text-lg font-bold transition-colors ${
+                      isOpen ? "text-orange-600" : "text-slate-900"
+                    }`}
                   >
-                    {faq.question}
+                    {question}
                   </h3>
 
                   <div
-                    className="
-                      flex
-                      items-center
-                      justify-center
-                      h-10
-                      w-10
-                      rounded-full
-                      bg-orange-50
-                      shrink-0
-                    "
+                    className={`flex items-center justify-center w-8 h-8 rounded-xl transition-all flex-shrink-0 ${
+                      isOpen
+                        ? "bg-orange-500 text-white rotate-180"
+                        : "bg-slate-100 text-slate-500"
+                    }`}
                   >
-                    {activeIndex ===
-                    index ? (
-                      <ChevronUp
-                        className="
-                          w-5
-                          h-5
-                          text-orange-500
-                        "
-                      />
-                    ) : (
-                      <ChevronDown
-                        className="
-                          w-5
-                          h-5
-                          text-orange-500
-                        "
-                       aria-hidden="true" focusable="false" />
-                    )}
+                    <ChevronDown className="w-4 h-4" />
                   </div>
                 </button>
 
-                {activeIndex ===
-                  index && (
-                  <div
-                    className="
-                      px-7
-                      pb-7
-                    "
-                  >
-                    <div
-                      className="
-                        h-px
-                        bg-slate-200
-                        mb-6
-                      "
-                    />
-
-                    <p
-                      className="
-                        text-slate-600
-                        leading-relaxed
-                        text-base
-                      "
-                    >
-                      {faq.answer}
-                    </p>
+                {isOpen && (
+                  <div className="px-5 sm:px-6 pb-6 pt-1 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-slate-100">
+                    <p>{answer}</p>
                   </div>
                 )}
               </div>
-            )
-          )}
-
+            );
+          })}
         </div>
-
       </div>
     </section>
   );

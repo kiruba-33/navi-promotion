@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 import { ShieldCheck } from "lucide-react";
 
 export default function RegulationsHero({
@@ -70,13 +69,7 @@ export default function RegulationsHero({
           lg:px-8
         "
       >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+        <div
           className="
             max-w-5xl
             mx-auto
@@ -110,9 +103,9 @@ export default function RegulationsHero({
             <span
               className="
                 text-xs
-                font-bold
+                font-semibold
                 uppercase
-                tracking-[0.2em]
+                tracking-wider
                 text-white
               "
             >
@@ -121,7 +114,7 @@ export default function RegulationsHero({
           </div>
 
           {/* Heading */}
-<h2
+<h1
   className="
     heading-display
 
@@ -130,13 +123,11 @@ export default function RegulationsHero({
     text-4xl
     sm:text-5xl
     md:text-6xl
-    lg:text-7xl
-    xl:text-8xl
+    lg:text-6xl
+    xl:text-7xl
 
     uppercase
     text-white
-
-    lg:whitespace-nowrap
 
     drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
   "
@@ -145,7 +136,7 @@ export default function RegulationsHero({
   <span className="ml-4">
     REGULATIONS
   </span>
-</h2>
+</h1>
 
           {/* Description */}
           <p
@@ -161,7 +152,7 @@ export default function RegulationsHero({
           >
             {description}
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

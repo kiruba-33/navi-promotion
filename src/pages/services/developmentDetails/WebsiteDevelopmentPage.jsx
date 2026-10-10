@@ -28,12 +28,6 @@ const iconMap = {
   building: Building2,
   shopping: ShoppingBag,
 };
-
-const audienceData = websiteData.audience.map((item) => ({
-  ...item,
-  icon: iconMap[item.icon],
-}));
-
 export default function WebsiteDevelopmentPage() {
   const audienceData = websiteData.audience.map((item) => ({
     ...item,

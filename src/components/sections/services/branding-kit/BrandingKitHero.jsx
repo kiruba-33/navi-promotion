@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { Palette } from "lucide-react";
 
 export default function BrandingKitHero() {
@@ -47,13 +46,7 @@ export default function BrandingKitHero() {
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+        <div
           className="
             max-w-5xl
             mx-auto
@@ -91,23 +84,22 @@ export default function BrandingKitHero() {
             </span>
           </div>
 
-          <h2
+          <h1
             className="
               heading-display
               mb-6
               text-4xl
               sm:text-5xl
               md:text-6xl
-              lg:text-7xl
-              xl:text-8xl
+              lg:text-6xl
+              xl:text-7xl
               uppercase
               text-white
-              lg:whitespace-nowrap
               drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
             "
           >
            DEFINE YOUR BRAND
-          </h2>
+          </h1>
 
           <p
             className="
@@ -121,7 +113,7 @@ export default function BrandingKitHero() {
             content that makes your brand stand out
             and connect with your audience.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

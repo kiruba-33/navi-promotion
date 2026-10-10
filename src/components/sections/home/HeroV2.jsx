@@ -49,13 +49,13 @@ const HeroV2 = () => {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-white text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight select-none">
+          <h1 className="text-white text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight select-none">
             Grow Your Brand
             <span className="block mt-2 text-sky-300">Accelerate Your Business</span>
           </h1>
 
           {/* Subheading */}
-          <p className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl font-light leading-relaxed select-none">
+          <p className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl font-normal leading-relaxed select-none">
             Helping businesses grow through Digital Marketing, Website Development, Branding, SEO, Performance Marketing, and Creative Strategies that deliver measurable results.
           </p>
 

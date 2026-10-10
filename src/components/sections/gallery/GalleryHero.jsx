@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 import { HeartHandshake } from "lucide-react";
 
 export default function GalleryHero({
@@ -70,13 +69,7 @@ export default function GalleryHero({
           lg:px-8
         "
       >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+        <div
           className="
             max-w-5xl
             mx-auto
@@ -130,8 +123,8 @@ export default function GalleryHero({
               text-4xl
               sm:text-5xl
               md:text-6xl
-              lg:text-7xl
-              xl:text-8xl
+              lg:text-6xl
+              xl:text-7xl
 
               uppercase
               text-white
@@ -155,7 +148,7 @@ export default function GalleryHero({
           >
             {description}
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

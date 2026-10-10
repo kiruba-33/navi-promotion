@@ -34,7 +34,7 @@ const DropdownMenu = ({
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
-        className={`flex items-center gap-1 text-sm font-bold transition-all duration-300 ${
+        className={`flex items-center gap-1 text-sm font-semibold transition-all duration-300 ${
           isScrolled
             ? "text-black"
             : "text-white"
@@ -84,7 +84,7 @@ const DropdownMenu = ({
                 </div>
 
                 <div>
-                  <span className="block text-sm font-bold text-black">
+                  <span className="block text-sm font-semibold text-black">
                     {item.name}
                   </span>
 

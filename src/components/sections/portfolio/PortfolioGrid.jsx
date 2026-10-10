@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense, lazy } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
 import {
@@ -22,13 +22,15 @@ export default function PortfolioGrid() {
 
   const [hasOpenedModal, setHasOpenedModal] = useState(false);
 
-  useEffect(() => {
-    if (selectedProject) setHasOpenedModal(true);
-  }, [selectedProject]);
-
-  useEffect(() => {
+  const handleCategoryChange = (category) => {
+    setActiveCategory(category);
     setActiveSubCategory("All");
-  }, [activeCategory]);
+  };
+
+  const handleProjectSelect = (project) => {
+    setHasOpenedModal(true);
+    setSelectedProject(project);
+  };
 
   const filteredProjects = portfolioItems.filter(
     (item) =>
@@ -39,11 +41,11 @@ export default function PortfolioGrid() {
   );
 
   return (
-    <section className=" py-20 sm:py-24 lg:py-32">
+    <section className="py-14 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
 
         {/* Section Heading */}
-        <div className="mb-16 text-center">
+        <div className="mb-12 text-center">
           <span
             className="
               label-text
@@ -57,10 +59,10 @@ export default function PortfolioGrid() {
             className="
               heading-section
               heading-primary
-              mt-4
-              text-4xl
-              sm:text-5xl
-              lg:text-6xl
+              mt-3
+              text-3xl
+              sm:text-4xl
+              lg:text-5xl
             "
           >
             Featured Projects
@@ -70,14 +72,12 @@ export default function PortfolioGrid() {
             className="
               body-large
               mx-auto
-              mt-6
+              mt-4
               max-w-3xl
               text-slate-600
             "
           >
-            Discover our work across digital
-            marketing, development, branding,
-            and creative production.
+            Discover our work across digital marketing, development, branding, and creative production.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export default function PortfolioGrid() {
               <button
                 key={category}
                 onClick={() =>
-                  setActiveCategory(category)
+                  handleCategoryChange(category)
                 }
                 className={`
                   rounded-2xl
@@ -179,26 +179,25 @@ export default function PortfolioGrid() {
             lg:gap-8
           "
         >
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => (
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filteredProjects.map((project) => (
               <motion.div
                 key={project.id}
                 layout
-                initial={{ opacity: 0, y: 16, scale: 0.96 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.96 }}
                 transition={{
-                  duration: 0.35,
-                  delay: index * 0.04,
+                  duration: 0.25,
                   ease: [0.16, 1, 0.3, 1],
-                  layout: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+                  layout: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
                 }}
                 className="w-full"
               >
                 <PortfolioCard
                   item={project}
                   onProjectSelect={
-                    setSelectedProject
+                    handleProjectSelect
                   }
                 />
               </motion.div>
@@ -207,13 +206,13 @@ export default function PortfolioGrid() {
         </motion.div>
 
         {/* Empty State */}
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {filteredProjects.length === 0 && (
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="py-20 text-center"
             >
               <h3

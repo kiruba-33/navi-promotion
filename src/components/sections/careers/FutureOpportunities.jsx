@@ -40,10 +40,10 @@ export default function FutureOpportunities() {
               py-2
 
               text-[11px]
-              font-black
+              font-semibold
 
               uppercase
-              tracking-[0.25em]
+              tracking-[0.15em]
 
               text-brand-orange
             "
@@ -84,6 +84,7 @@ export default function FutureOpportunities() {
               leading-relaxed
 
               text-slate-600
+              font-normal
             "
           >
             We're always interested in meeting talented
@@ -109,7 +110,7 @@ export default function FutureOpportunities() {
                 py-4
 
                 text-sm
-                font-bold
+                font-semibold
 
                 text-white
 

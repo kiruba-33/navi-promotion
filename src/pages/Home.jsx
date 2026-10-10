@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react'
-import Hero from '../components/hero/ Hero'
+import Hero from '../components/hero/Hero'
 import About from '../components/sections/home/About'
 import HomeServices from '../components/sections/home/HomeServices'
 import LazySection from '../components/utils/LazySection'

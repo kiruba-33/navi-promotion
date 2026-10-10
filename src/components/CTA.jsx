@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
 import ArrowButton from "./ui/ArrowButton";
@@ -32,21 +31,7 @@ export default function CTA() {
 
       <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-orange-500 blur-[128px] opacity-10 pointer-events-none" />
 
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 30,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 0.6,
-        }}
+      <div
         className="
           relative
           z-10
@@ -164,7 +149,7 @@ export default function CTA() {
             Chat On WhatsApp
           </a>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

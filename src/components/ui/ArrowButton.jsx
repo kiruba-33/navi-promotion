@@ -40,7 +40,7 @@ function ArrowButton({
         py-4
         text-sm
         md:text-base
-        font-extrabold
+        font-semibold
         transition-all
         duration-300
         ${selectedVariant}

@@ -4,7 +4,7 @@ export const galleryHeroData = {
   description:
     "A behind-the-scenes look at our culture, our workspace, and the incredible people who make the magic happen.",
   image:
-    "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=2000",
+    "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=2000",
 };
 
 export const galleryEvents = [

@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 import { Search } from "lucide-react";
 
 export default function EmptyState({
@@ -14,9 +13,7 @@ export default function EmptyState({
         lg:py-32
       "
     >
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+      <div
         className="
           mx-auto
           max-w-2xl
@@ -91,7 +88,7 @@ export default function EmptyState({
         >
           Reset Filters
         </button>
-      </motion.div>
+      </div>
     </section>
   );
 }

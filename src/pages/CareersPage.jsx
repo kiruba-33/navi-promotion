@@ -1,22 +1,38 @@
-import React from 'react'
-import CareersIntro from '../components/sections/careers/CareersIntro'
-import OpenPositions from '../components/sections/careers/OpenPositions'
-import HiringProcess from '../components/sections/careers/HiringProcess'
-import OurValues from '../components/sections/careers/ValuesSection'
-import FutureOpportunities from '../components/sections/careers/FutureOpportunities'
+import React from "react";
+import { Helmet } from "react-helmet-async";
+import OpenPositions from "../components/sections/careers/OpenPositions";
+import HiringProcess from "../components/sections/careers/HiringProcess";
+import OurValues from "../components/sections/careers/ValuesSection";
+import WhyJoinNavi from "../components/sections/careers/WhyJoinNavi";
+import CareersLocationMap from "../components/sections/careers/CareersLocationMap";
 
-function CareersPage() {
+export default function CareersPage() {
   return (
     <>
-    <main className="min-h-screen overflow-x-hidden">
-        <CareersIntro/>
-        <OpenPositions/>
-        <HiringProcess/>
-        <OurValues/>
-        <FutureOpportunities/>
-    </main>
-    </>
-  )
-}
+      <Helmet>
+        <title>Careers | Navi Promotions</title>
+        <meta
+          name="description"
+          content="Explore career opportunities and internships at Navi Promotions in Theni, Tamil Nadu. Join a team focused on digital growth, engineering excellence, and creative impact."
+        />
+      </Helmet>
 
-export default CareersPage
+      <main className="min-h-screen overflow-x-hidden bg-white">
+        {/* Section 1: Open Positions */}
+        <OpenPositions />
+
+        {/* Section 2: Hiring Process */}
+        <HiringProcess />
+
+        {/* Section 3: Our Values */}
+        <OurValues />
+
+        {/* Section 4: Why Join Navi */}
+        <WhyJoinNavi />
+
+        {/* Section 5: Map & Headquarters */}
+        <CareersLocationMap />
+      </main>
+    </>
+  );
+}

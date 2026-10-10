@@ -17,11 +17,9 @@ export default function GalleryPage() {
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(null);
   const [hasOpenedModal, setHasOpenedModal] = useState(false);
 
-  useEffect(() => {
-    if (selectedEvent || selectedMediaIndex !== null) {
-      setHasOpenedModal(true);
-    }
-  }, [selectedEvent, selectedMediaIndex]);
+  if ((selectedEvent || selectedMediaIndex !== null) && !hasOpenedModal) {
+    setHasOpenedModal(true);
+  }
 
   useEffect(() => {
     if (

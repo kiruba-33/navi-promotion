@@ -11,9 +11,21 @@ import {
   Sparkles,
   Palette,
   Type,
+  CheckCircle2,
+  Code2,
+  Layers,
+  Globe,
+  Play,
+  FileText,
+  Calendar,
+  Building2,
+  Laptop,
+  ArrowUpRight,
+  ShieldCheck,
 } from "lucide-react";
 
-import { slideVariants, getProjectDetails } from "../../../data/portfolio";
+import { getProjectDetails } from "../../../data/portfolio";
+import BookStrategyModal from "../../ui/BookStrategyModal";
 
 function getEmbedUrl(url, platform) {
   if (!url) return null;
@@ -60,1535 +72,1127 @@ function getEmbedUrl(url, platform) {
   return url;
 }
 
-export default function PortfolioModal({
-  project,
-  onClose,
-}) {
+export default function PortfolioModal({ project, onClose }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [isStrategyModalOpen, setIsStrategyModalOpen] = useState(false);
 
   const projectId = project?.id;
   const category = project?.category;
 
   const details = getProjectDetails(projectId, category);
 
-  // Dynamic Image Gallery for current project details
+  // Consolidated image gallery
   const displayImages =
-    details?.imageGallery && details.imageGallery.length > 0
-      ? details.imageGallery
-      : project?.images && project.images.length > 0
+    details?.screenshots?.map((s) => s.url) ||
+    details?.imageGallery ||
+    (project?.images && project.images.length > 0
       ? project.images
-      : [project?.image || ""];
+      : [project?.image || project?.coverImage || ""]);
+
+  const screenshots = details?.screenshots || [];
 
   const nextImage = () => {
-    setDirection(1);
-    setCurrentImageIndex(
-      (prev) => (prev + 1) % (displayImages.length || 1)
-    );
+    if (displayImages.length <= 1) return;
+    setCurrentImageIndex((prev) => (prev + 1) % displayImages.length);
   };
 
   const prevImage = () => {
-    setDirection(-1);
+    if (displayImages.length <= 1) return;
     setCurrentImageIndex(
-      (prev) =>
-        (prev - 1 + (displayImages.length || 1)) %
-        (displayImages.length || 1)
+      (prev) => (prev - 1 + displayImages.length) % displayImages.length
     );
   };
 
-  useEffect(() => {
+  const [prevProjectId, setPrevProjectId] = useState(projectId);
+  if (prevProjectId !== projectId) {
+    setPrevProjectId(projectId);
     setCurrentImageIndex(0);
-    setDirection(0);
-  }, [projectId]);
+  }
+
+  const numImages = displayImages.length;
 
   useEffect(() => {
     if (!project) return;
 
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
-        onClose();
+        if (isStrategyModalOpen) {
+          setIsStrategyModalOpen(false);
+        } else {
+          onClose();
+        }
       } else if (e.key === "ArrowLeft") {
-        prevImage();
+        if (numImages > 1) {
+          setCurrentImageIndex((prev) => (prev - 1 + numImages) % numImages);
+        }
       } else if (e.key === "ArrowRight") {
-        nextImage();
+        if (numImages > 1) {
+          setCurrentImageIndex((prev) => (prev + 1) % numImages);
+        }
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [project, displayImages.length, currentImageIndex, onClose]);
+  }, [project, onClose, isStrategyModalOpen, numImages]);
 
   if (!project) return null;
 
+  const isDevelopment = category === "Development";
   const isDigitalMarketing = category === "Digital Marketing";
   const isBrandingKit = category === "Branding Kit";
+  const isWebsite = project.subCategory === "Website" || isDevelopment;
+  const isVideoOrReel =
+    project.subCategory === "Videos" || Boolean(project.videoUrl);
 
+  const liveDestination =
+    project.liveUrl || details?.liveUrl || details?.previewDestination;
   const hasLiveUrl =
-    project.liveUrl &&
-    project.liveUrl !== "#" &&
-    project.liveUrl.trim() !== "";
+    Boolean(liveDestination) &&
+    liveDestination !== "#" &&
+    liveDestination.trim() !== "";
 
-  const handleLiveProjectClick = () => {
+  const handleLivePreviewClick = () => {
     if (hasLiveUrl) {
-      window.open(
-        project.liveUrl,
-        "_blank",
-        "noopener,noreferrer"
-      );
+      window.open(liveDestination, "_blank", "noopener,noreferrer");
     }
   };
 
-  {/* =========================================================
-      DIGITAL MARKETING - AGENCY CASE STUDY MODAL
-     ========================================================= */}
-  if (isDigitalMarketing) {
-    const clientInfo = details?.clientInfo || {};
-    const campaignResults = details?.campaignResults || {};
-    const platforms = details?.platformsUsed || [];
-    const strategyList = details?.strategy || [];
-    const files = details?.projectFiles || [];
+  // Metadata mappings
+  const clientInfo = details?.clientInfo || {};
+  const clientName = clientInfo.companyName || project.client || "Confidential Client";
+  const industry = clientInfo.industry || project.projectType || project.subCategory || "Technology";
+  const duration = clientInfo.duration || project.duration || "Multi-phase";
+  const primaryMetric =
+    details?.campaignResults?.primaryMetric ||
+    project.results ||
+    project.result ||
+    "High Impact";
 
-    return (
-      <AnimatePresence>
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5 md:p-8">
-          
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="
-              absolute
-              inset-0
-              bg-black/70
-              backdrop-blur-md
-            "
-          />
+  const overviewText =
+    details?.projectOverview || project.description || project.shortDescription;
+  const challengeText = details?.challenge;
+  const solutionText = details?.solution;
+  const techStack = details?.techStack || [];
+  const keyFeatures = details?.keyFeatures || [];
+  const strategyList = details?.strategy || [];
+  const platformsUsed = details?.platformsUsed || [];
+  const campaignResults = details?.campaignResults || {};
+  const brandStory = details?.brandStory;
+  const colorPalette = details?.colorPalette || [];
+  const typography = details?.typography;
 
-          {/* Modal Container */}
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 30,
-              scale: 0.95,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
-            exit={{
-              opacity: 0,
-              y: 30,
-              scale: 0.95,
-            }}
-            transition={{
-              duration: 0.35,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="
-              relative
-              z-10
-              flex
-              w-full
-              max-w-4xl
-              max-h-[90vh]
-              flex-col
-              overflow-y-auto
-              rounded-[2.5rem]
-              bg-white
-              shadow-2xl
-            "
-          >
-            {/* Floating Close Button */}
-            <button
-              onClick={onClose}
-              className="
-                absolute
-                top-4
-                right-4
-                sm:top-5
-                sm:right-5
-                lg:top-6
-                lg:right-6
-                z-40
-                flex
-                w-10
-                h-10
-                sm:w-11
-                sm:h-11
-                lg:w-12
-                lg:h-12
-                shrink-0
-                items-center
-                justify-center
-                rounded-full
-                bg-white/90
-                backdrop-blur-md
-                text-slate-700
-                shadow-lg
-                hover:bg-white
-                hover:text-slate-900
-                hover:scale-105
-                transition-all
-                duration-300
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange
-                focus:ring-2
-                focus:ring-slate-400
-              "
-              aria-label="Close modal"
-            >
-              <X size={20}  aria-hidden="true" focusable="false" />
-            </button>
+  // Video embed calculations
+  const videoUrl = project.videoUrl || details?.videoUrl;
+  const embedUrl = videoUrl ? getEmbedUrl(videoUrl, project.platform) : null;
+  const isVerticalVideo =
+    videoUrl &&
+    (videoUrl.includes("shorts") ||
+      videoUrl.includes("reel") ||
+      (project.platform &&
+        project.platform.toLowerCase().includes("instagram")) ||
+      (project.platform &&
+        project.platform.toLowerCase().includes("shorts")));
 
-            {/* 1. Campaign Cover Hero Banner */}
-            <div className="relative w-full h-[260px] sm:h-[340px] md:h-[380px] overflow-hidden shrink-0">
-              <img
-                src={displayImages[0] || project.image}
-                alt={project.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
-
-              {/* Floating Hero Content */}
-              <div className="absolute bottom-6 left-6 right-6 sm:left-8 sm:right-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-                <div>
-                  <span className="inline-block px-3.5 py-1.5 rounded-full bg-brand-orange text-white text-xs font-bold uppercase tracking-widest mb-3 shadow-md">
-                    {clientInfo.service || project.service}
-                  </span>
-                  <h2 className="heading-display text-3xl sm:text-4xl md:text-5xl text-white font-extrabold tracking-tight drop-shadow-md">
-                    {project.title}
-                  </h2>
-                </div>
-                <div className="shrink-0">
-                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 text-xs font-bold uppercase tracking-wider">
-                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                    Verified Case Study
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Body Content */}
-            <div className="p-6 sm:p-8 md:p-10 space-y-8">
-
-              {/* 2. Campaign Information Bar */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Client
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm sm:text-base">
-                    {clientInfo.companyName || project.client}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Industry
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm sm:text-base">
-                    {clientInfo.industry || project.category}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Duration
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm sm:text-base">
-                    {clientInfo.duration || project.duration}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Sub-Category
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm sm:text-base">
-                    {project.subCategory}
-                  </span>
-                </div>
-              </div>
-
-              {/* Platforms Used */}
-              {platforms.length > 0 && (
-                <div>
-                  <h4 className="text-xs uppercase tracking-widest font-extrabold text-slate-400 mb-3">
-                    Platforms & Channels Utilized
-                  </h4>
-                  <div className="flex flex-wrap gap-2.5">
-                    {platforms.map((platform, i) => (
-                      <span
-                        key={i}
-                        className="px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-bold shadow-xs flex items-center gap-1.5"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
-                        {platform}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* 6. Campaign Results Cards */}
-              <div>
-                <h3 className="heading-card text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  <TrendingUp size={20} className="text-brand-orange" />
-                  Campaign Performance Highlights
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div className="p-5 rounded-2xl bg-orange-50/60 border border-orange-100 text-center">
-                    <span className="text-2xl sm:text-3xl font-black text-brand-orange block mb-1">
-                      {campaignResults.primaryMetric || project.results}
-                    </span>
-                    <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">
-                      Primary Metric
-                    </span>
-                  </div>
-                  {campaignResults.reach && (
-                    <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100 text-center">
-                      <span className="text-2xl sm:text-3xl font-black text-slate-900 block mb-1">
-                        {campaignResults.reach}
-                      </span>
-                      <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                        Total Reach
-                      </span>
-                    </div>
-                  )}
-                  {campaignResults.roas && (
-                    <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100 text-center">
-                      <span className="text-2xl sm:text-3xl font-black text-slate-900 block mb-1">
-                        {campaignResults.roas}
-                      </span>
-                      <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                        Avg ROAS
-                      </span>
-                    </div>
-                  )}
-                  {campaignResults.leadGrowth && (
-                    <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100 text-center">
-                      <span className="text-2xl sm:text-3xl font-black text-slate-900 block mb-1">
-                        {campaignResults.leadGrowth}
-                      </span>
-                      <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                        Lead Growth
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* 3. Challenge & 4. Strategy Section */}
-              <div className="grid md:grid-cols-2 gap-6">
-                {details?.challenge && (
-                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
-                    <h4 className="text-sm uppercase tracking-wider font-extrabold text-slate-900 flex items-center gap-2">
-                      <Target size={16} className="text-red-500" />
-                      The Challenge
-                    </h4>
-                    <p className="body-normal text-slate-600 leading-relaxed text-sm">
-                      {details.challenge}
-                    </p>
-                  </div>
-                )}
-
-                {strategyList.length > 0 && (
-                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
-                    <h4 className="text-sm uppercase tracking-wider font-extrabold text-slate-900 flex items-center gap-2">
-                      <Award size={16} className="text-emerald-500"  aria-hidden="true" focusable="false" />
-                      The Strategy
-                    </h4>
-                    <ul className="body-normal text-slate-600 leading-relaxed text-sm space-y-2">
-                      {strategyList.map((st, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="text-brand-orange font-bold">•</span>
-                          {st}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-
-              {/* 7. Project Description / Overview */}
-              <div>
-                <h3 className="heading-card text-lg font-bold text-slate-900 mb-3">
-                  Campaign Overview
-                </h3>
-                <p className="body-large text-slate-600 leading-relaxed">
-                  {details?.projectOverview || project.description}
-                </p>
-              </div>
-
-              {/* Project Files */}
-              {files.length > 0 && (
-                <div>
-                  <h4 className="text-xs uppercase tracking-widest font-extrabold text-slate-400 mb-3">
-                    Deliverables & Project Assets
-                  </h4>
-                  <div className="flex flex-wrap gap-2.5">
-                    {files.map((file, i) => (
-                      <span
-                        key={i}
-                        className="px-3.5 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 text-xs font-bold flex items-center gap-2"
-                      >
-                        <span className="text-brand-orange">📄</span>
-                        {file}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* 5. Campaign Gallery Carousel */}
-              {displayImages.length > 0 && (
-                <div>
-                  <h3 className="heading-card text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
-                    <span>Campaign Visual Assets</span>
-                    <span className="text-xs font-normal text-slate-400">
-                      {currentImageIndex + 1} of {displayImages.length}
-                    </span>
-                  </h3>
-
-                  <div className="relative w-full h-[280px] sm:h-[350px] rounded-2xl overflow-hidden bg-slate-900">
-                    <AnimatePresence initial={false} custom={direction}>
-                      <motion.img
-                        key={currentImageIndex}
-                        custom={direction}
-                        variants={slideVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{
-                          x: { type: "spring", stiffness: 300, damping: 30 },
-                        }}
-                        src={displayImages[currentImageIndex]}
-                        alt={`${project.title} asset ${currentImageIndex + 1}`}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                    </AnimatePresence>
-
-                    {/* Navigation Arrows */}
-                    {displayImages.length > 1 && (
-                      <>
-                        <button
-                          onClick={prevImage}
-                          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur-md text-slate-900 hover:bg-white shadow-md transition-all"
-                          aria-label="Previous asset"
-                        >
-                          <ChevronLeft size={20}  aria-hidden="true" focusable="false" />
-                        </button>
-                        <button
-                          onClick={nextImage}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur-md text-slate-900 hover:bg-white shadow-md transition-all"
-                          aria-label="Next asset"
-                        >
-                          <ChevronRight size={20}  aria-hidden="true" focusable="false" />
-                        </button>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Thumbnails */}
-                  {displayImages.length > 1 && (
-                    <div className="flex gap-3 mt-4 overflow-x-auto pb-2">
-                      {displayImages.map((img, index) => (
-                        <button
-                          key={index}
-                          onClick={() => {
-                            setDirection(index > currentImageIndex ? 1 : -1);
-                            setCurrentImageIndex(index);
-                          }}
-                          className={`
-                            relative h-16 w-24 rounded-xl overflow-hidden border-2 shrink-0 transition-all
-                            ${currentImageIndex === index ? "border-brand-orange scale-105" : "border-slate-200 opacity-60 hover:opacity-100"}
-                          `}
-                        >
-                          <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* 8. CTA / Action Footer */}
-              <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
-                  Navi Promotions Agency Case Study
-                </span>
-                <button
-                  onClick={onClose}
-                  className="
-                    flex
-                    w-full
-                    sm:w-auto
-                    items-center
-                    justify-center
-                    gap-2
-                    rounded-2xl
-                    bg-slate-900
-                    px-6
-                    py-3.5
-                    text-white
-                    text-sm
-                    font-bold
-                    hover:bg-slate-800
-                    transition-all
-                    shadow-md
-                  "
-                >
-                  <span>Close Case Study</span>
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </AnimatePresence>
-    );
-  }
-
-  // =========================================================
-  // FEATURE 1: BRANDING KIT - VIDEO VIEWER MODAL (YouTube & Instagram)
-  // =========================================================
-  if (isBrandingKit && project.subCategory === "Videos") {
-    const videoUrl =
-      project.videoUrl ||
-      project.liveUrl ||
-      "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-    const embedUrl = getEmbedUrl(videoUrl, project.platform);
-    const isInstagram =
-      videoUrl.includes("instagram.com") ||
-      (project.platform && project.platform.toLowerCase().includes("instagram"));
-    const isVertical =
-      videoUrl.includes("shorts") || videoUrl.includes("reel") || isInstagram;
-
-    return (
-      <AnimatePresence>
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-black/85 backdrop-blur-md"
-          />
-
-          {/* Modal Container */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className={`
-              relative z-10 w-full overflow-hidden rounded-[2rem] bg-slate-950 shadow-2xl border border-slate-800 flex flex-col items-center justify-center
-              ${
-                isVertical
-                  ? "max-w-md aspect-[9/16] max-h-[85vh]"
-                  : "max-w-4xl aspect-video max-h-[85vh]"
-              }
-            `}
-          >
-            {/* Floating Close Button */}
-            <button
-              onClick={onClose}
-              className="
-                absolute top-4 right-4 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-slate-900/80 text-white backdrop-blur-md hover:bg-slate-800 transition-all border border-slate-700 shadow-lg cursor-pointer
-              "
-              aria-label="Close video viewer"
-            >
-              <X size={20}  aria-hidden="true" focusable="false" />
-            </button>
-
-            {/* Video Player Frame / Instagram Embed */}
-            {embedUrl ? (
-              <iframe
-                src={embedUrl}
-                title={project.title}
-                className="w-full h-full border-0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            ) : (
-              <div className="flex flex-col items-center justify-center p-8 text-center text-white space-y-4 max-w-sm">
-                <div className="w-14 h-14 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-brand-orange shadow-lg">
-                  <ExternalLink size={24} />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-bold text-lg text-white">This Instagram Reel cannot be embedded.</h4>
-                  <p className="text-xs text-slate-400">Due to Instagram privacy or platform restrictions, this reel must be viewed directly on Instagram.</p>
-                </div>
-                <button
-                  onClick={() => window.open(videoUrl, "_blank", "noopener,noreferrer")}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs uppercase tracking-wider hover:opacity-90 transition-all flex items-center gap-2 shadow-md cursor-pointer"
-                >
-                  <span>Open on Instagram</span>
-                  <ExternalLink size={14} />
-                </button>
-              </div>
-            )}
-          </motion.div>
-        </div>
-      </AnimatePresence>
-    );
-  }
-
-  // =========================================================
-  // BRANDING KIT - POSTER SHOWCASE CASE STUDY MODAL
-  // =========================================================
-  if (isBrandingKit && project.subCategory === "Posters") {
-    const posterImages =
-      details?.imageGallery && details.imageGallery.length > 0
-        ? details.imageGallery
-        : project.images && project.images.length > 0
-        ? project.images
-        : [project.image];
-    const clientInfo = details?.clientInfo || {};
-    const highlights = details?.designHighlights || [];
-    const deliverablesList = details?.deliverables || [];
-
-    return (
-      <AnimatePresence>
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5 md:p-8">
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-black/70 backdrop-blur-md"
-          />
-
-          {/* Modal Container (Premium WHITE Background) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="
-              relative z-10 w-full max-w-4xl max-h-[90vh] flex flex-col overflow-y-auto rounded-[2.5rem] bg-white shadow-2xl border border-slate-100 text-slate-900
-            "
-          >
-            {/* Floating Close Button */}
-            <button
-              onClick={onClose}
-              className="
-                absolute top-4 right-4 sm:top-5 sm:right-5 lg:top-6 lg:right-6 z-40 flex h-10 w-10 sm:h-11 sm:w-11 lg:h-12 lg:w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur-md text-slate-700 shadow-md hover:bg-white hover:text-slate-900 hover:scale-105 transition-all border border-slate-200 cursor-pointer
-              "
-              aria-label="Close poster showcase"
-            >
-              <X size={20}  aria-hidden="true" focusable="false" />
-            </button>
-
-            {/* Header / Client Info Bar */}
-            <div className="p-6 sm:p-8 border-b border-slate-100 bg-slate-50/50">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pr-12 sm:pr-16 lg:pr-20">
-                {/* Company Logo & Title */}
-                <div className="flex items-center gap-4">
-                  {clientInfo.companyLogo ? (
-                    <img
-                      src={clientInfo.companyLogo}
-                      alt={clientInfo.companyName || project.client}
-                      className="w-14 h-14 rounded-2xl object-cover border border-slate-200 shadow-sm shrink-0"
-                    />
-                  ) : (
-                    <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange font-bold text-xl shrink-0">
-                      {(clientInfo.companyName || project.client || "P")[0]}
-                    </div>
-                  )}
-                  <div>
-                    <span className="text-xs font-extrabold uppercase tracking-widest text-brand-orange block mb-1">
-                      {clientInfo.service || project.service}
-                    </span>
-                    <h2 className="heading-display text-2xl sm:text-3xl text-slate-900 font-extrabold tracking-tight">
-                      {project.title}
-                    </h2>
-                  </div>
-                </div>
-
-                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600 text-xs font-bold shrink-0">
-                  <Sparkles size={14} className="text-amber-500" />
-                  Client Case Study
-                </span>
-              </div>
-
-              {/* Dynamic Metadata Bar */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Company
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm">
-                    {clientInfo.companyName || project.client}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Industry
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm">
-                    {clientInfo.industry || project.category}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Service
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm">
-                    {clientInfo.service || project.service}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Duration
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm">
-                    {clientInfo.duration || project.duration}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Main Body Content */}
-            <div className="p-6 sm:p-8 space-y-8">
-              
-              {/* Project Overview */}
-              <div>
-                <h3 className="heading-card text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-brand-orange" />
-                  Project Overview
-                </h3>
-                <p className="body-large text-slate-600 leading-relaxed">
-                  {details?.projectOverview || project.description}
-                </p>
-              </div>
-
-              {/* 1:1 Square Poster Gallery Carousel */}
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="heading-card text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                    Poster Gallery Showcase
-                  </h3>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
-                    {currentImageIndex + 1} of {posterImages.length}
-                  </span>
-                </div>
-
-                {/* 1:1 Large Square Preview Container */}
-                <div className="relative w-full max-w-[480px] aspect-square mx-auto rounded-2xl overflow-hidden bg-slate-900 border border-slate-200 shadow-lg flex items-center justify-center">
-                  <AnimatePresence initial={false} custom={direction}>
-                    <motion.img
-                      key={currentImageIndex}
-                      custom={direction}
-                      variants={slideVariants}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{
-                        x: { type: "spring", stiffness: 300, damping: 30 },
-                      }}
-                      src={posterImages[currentImageIndex]}
-                      alt={`${project.title} poster ${currentImageIndex + 1}`}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                  </AnimatePresence>
-
-                  {/* Navigation Arrows */}
-                  {posterImages.length > 1 && (
-                    <>
-                      <button
-                        onClick={prevImage}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-white/80 backdrop-blur-md text-slate-900 hover:bg-white shadow-md transition-all border border-slate-200 cursor-pointer"
-                        aria-label="Previous poster"
-                      >
-                        <ChevronLeft size={22}  aria-hidden="true" focusable="false" />
-                      </button>
-                      <button
-                        onClick={nextImage}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-white/80 backdrop-blur-md text-slate-900 hover:bg-white shadow-md transition-all border border-slate-200 cursor-pointer"
-                        aria-label="Next poster"
-                      >
-                        <ChevronRight size={22}  aria-hidden="true" focusable="false" />
-                      </button>
-                    </>
-                  )}
-                </div>
-
-                {/* Thumbnails Row */}
-                {posterImages.length > 1 && (
-                  <div className="flex justify-center gap-3 mt-4 overflow-x-auto pb-2">
-                    {posterImages.map((img, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => {
-                          setDirection(idx > currentImageIndex ? 1 : -1);
-                          setCurrentImageIndex(idx);
-                        }}
-                        className={`
-                          relative h-16 w-16 rounded-xl overflow-hidden border-2 shrink-0 transition-all cursor-pointer
-                          ${currentImageIndex === idx ? "border-brand-orange scale-105 shadow-md" : "border-slate-200 opacity-60 hover:opacity-100"}
-                        `}
-                      >
-                        <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Design Highlights */}
-              {highlights.length > 0 && (
-                <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
-                  <h4 className="text-xs uppercase tracking-widest font-extrabold text-slate-400 block mb-2">
-                    Design Highlights
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {highlights.map((item, i) => (
-                      <div key={i} className="flex items-center gap-2.5 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-2xs">
-                        <Sparkles size={16} className="text-brand-orange shrink-0" />
-                        <span className="text-xs font-bold text-slate-800">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Deliverables */}
-              {deliverablesList.length > 0 && (
-                <div>
-                  <h4 className="text-xs uppercase tracking-widest font-extrabold text-slate-400 mb-3">
-                    Project Deliverables
-                  </h4>
-                  <div className="flex flex-wrap gap-2.5">
-                    {deliverablesList.map((item, i) => (
-                      <span
-                        key={i}
-                        className="px-4 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 text-xs font-bold flex items-center gap-2"
-                      >
-                        <span className="text-brand-orange font-bold">✓</span>
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Footer Close */}
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
-                  Navi Promotions Poster Showcase
-                </span>
-                <button
-                  onClick={onClose}
-                  className="px-6 py-3 rounded-2xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition-all shadow-md cursor-pointer"
-                >
-                  Close Case Study
-                </button>
-              </div>
-
-            </div>
-          </motion.div>
-        </div>
-      </AnimatePresence>
-    );
-  }
-
-  // =========================================================
-  // BRANDING KIT - BRAND SHOWCASE MODAL
-  // =========================================================
-  if (isBrandingKit) {
-    const clientInfo = details?.clientInfo || {};
-    const brandStory = details?.brandStory;
-    const logoConcept = details?.logoConcept;
-    const colorPalette = details?.colorPalette || [];
-    const typography = details?.typography;
-    const brandAssets = details?.brandAssets || details?.projectFiles || [];
-
-    return (
-      <AnimatePresence>
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5 md:p-8">
-          
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-black/70 backdrop-blur-md"
-          />
-
-          {/* Modal Container */}
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.95 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="
-              relative
-              z-10
-              flex
-              w-full
-              max-w-4xl
-              max-h-[90vh]
-              flex-col
-              overflow-y-auto
-              rounded-[2.5rem]
-              bg-white
-              shadow-2xl
-            "
-          >
-            {/* Floating Close Button */}
-            <button
-              onClick={onClose}
-              className="
-                absolute
-                top-4
-                right-4
-                sm:top-5
-                sm:right-5
-                lg:top-6
-                lg:right-6
-                z-40
-                flex
-                w-10
-                h-10
-                sm:w-11
-                sm:h-11
-                lg:w-12
-                lg:h-12
-                shrink-0
-                items-center
-                justify-center
-                rounded-full
-                bg-white/90
-                backdrop-blur-md
-                text-slate-700
-                shadow-lg
-                hover:bg-white
-                hover:text-slate-900
-                hover:scale-105
-                transition-all
-                duration-300
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange
-                focus:ring-2
-                focus:ring-slate-400
-              "
-              aria-label="Close modal"
-            >
-              <X size={20}  aria-hidden="true" focusable="false" />
-            </button>
-
-            {/* Hero Banner */}
-            <div className="relative w-full h-[260px] sm:h-[340px] md:h-[380px] overflow-hidden shrink-0">
-              <img
-                src={displayImages[0] || project.image}
-                alt={project.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
-
-              {/* Floating Hero Content */}
-              <div className="absolute bottom-6 left-6 right-6 sm:left-8 sm:right-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-                <div>
-                  <span className="inline-block px-3.5 py-1.5 rounded-full bg-brand-orange text-white text-xs font-bold uppercase tracking-widest mb-3 shadow-md">
-                    {clientInfo.service || project.service}
-                  </span>
-                  <h2 className="heading-display text-3xl sm:text-4xl md:text-5xl text-white font-extrabold tracking-tight drop-shadow-md">
-                    {project.title}
-                  </h2>
-                </div>
-                <div className="shrink-0">
-                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 text-xs font-bold uppercase tracking-wider">
-                    <Sparkles size={14} className="text-amber-400" />
-                    Brand Identity Showcase
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Body Content */}
-            <div className="p-6 sm:p-8 md:p-10 space-y-8">
-
-              {/* Client Information Bar */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Client
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm sm:text-base">
-                    {clientInfo.companyName || project.client}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Industry
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm sm:text-base">
-                    {clientInfo.industry || project.category}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Duration
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm sm:text-base">
-                    {clientInfo.duration || project.duration}
-                  </span>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider font-bold text-slate-400 block mb-1">
-                    Sub-Category
-                  </span>
-                  <span className="font-bold text-slate-900 text-sm sm:text-base">
-                    {project.subCategory}
-                  </span>
-                </div>
-              </div>
-
-              {/* Brand Story & Logo Concept */}
-              <div className="grid md:grid-cols-2 gap-6">
-                {brandStory && (
-                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
-                    <h4 className="text-sm uppercase tracking-wider font-extrabold text-slate-900 flex items-center gap-2">
-                      <Sparkles size={16} className="text-brand-orange" />
-                      Brand Story
-                    </h4>
-                    <p className="body-normal text-slate-600 leading-relaxed text-sm">
-                      {brandStory}
-                    </p>
-                  </div>
-                )}
-
-                {logoConcept && (
-                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
-                    <h4 className="text-sm uppercase tracking-wider font-extrabold text-slate-900 flex items-center gap-2">
-                      <Palette size={16} className="text-emerald-500" />
-                      Logo Concept
-                    </h4>
-                    <p className="body-normal text-slate-600 leading-relaxed text-sm">
-                      {logoConcept}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Color Palette & Typography */}
-              <div className="grid sm:grid-cols-2 gap-6">
-                {colorPalette.length > 0 && (
-                  <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
-                    <h4 className="text-xs uppercase tracking-widest font-extrabold text-slate-400">
-                      Color Palette
-                    </h4>
-                    <div className="flex flex-wrap items-center gap-3">
-                      {colorPalette.map((color, i) => (
-                        <div key={i} className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-xs">
-                          <span
-                            className="w-5 h-5 rounded-full border border-slate-300 shadow-xs"
-                            style={{ backgroundColor: color }}
-                          />
-                          <span className="text-xs font-mono font-bold text-slate-700">{color}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {typography && (
-                  <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
-                    <h4 className="text-xs uppercase tracking-widest font-extrabold text-slate-400">
-                      Typography
-                    </h4>
-                    <div className="flex items-center gap-2 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-xs">
-                      <Type size={18} className="text-brand-orange" />
-                      <span className="text-sm font-bold text-slate-800">{typography}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Project Overview */}
-              <div>
-                <h3 className="heading-card text-lg font-bold text-slate-900 mb-3">
-                  Project Overview
-                </h3>
-                <p className="body-large text-slate-600 leading-relaxed">
-                  {details?.projectOverview || project.description}
-                </p>
-              </div>
-
-              {/* Brand Assets & Deliverables */}
-              {brandAssets.length > 0 && (
-                <div>
-                  <h4 className="text-xs uppercase tracking-widest font-extrabold text-slate-400 mb-3">
-                    Brand Assets & Deliverables
-                  </h4>
-                  <div className="flex flex-wrap gap-2.5">
-                    {brandAssets.map((asset, i) => (
-                      <span
-                        key={i}
-                        className="px-3.5 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-800 text-xs font-bold flex items-center gap-2"
-                      >
-                        <span className="text-brand-orange">📦</span>
-                        {asset}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Campaign Gallery Carousel */}
-              {displayImages.length > 0 && (
-                <div>
-                  <h3 className="heading-card text-lg font-bold text-slate-900 mb-4 flex items-center justify-between">
-                    <span>Brand Visual Assets</span>
-                    <span className="text-xs font-normal text-slate-400">
-                      {currentImageIndex + 1} of {displayImages.length}
-                    </span>
-                  </h3>
-
-                  <div className="relative w-full h-[280px] sm:h-[350px] rounded-2xl overflow-hidden bg-slate-900">
-                    <AnimatePresence initial={false} custom={direction}>
-                      <motion.img
-                        key={currentImageIndex}
-                        custom={direction}
-                        variants={slideVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{
-                          x: { type: "spring", stiffness: 300, damping: 30 },
-                        }}
-                        src={displayImages[currentImageIndex]}
-                        alt={`${project.title} asset ${currentImageIndex + 1}`}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                    </AnimatePresence>
-
-                    {/* Navigation Arrows */}
-                    {displayImages.length > 1 && (
-                      <>
-                        <button
-                          onClick={prevImage}
-                          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur-md text-slate-900 hover:bg-white shadow-md transition-all"
-                          aria-label="Previous asset"
-                        >
-                          <ChevronLeft size={20}  aria-hidden="true" focusable="false" />
-                        </button>
-                        <button
-                          onClick={nextImage}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur-md text-slate-900 hover:bg-white shadow-md transition-all"
-                          aria-label="Next asset"
-                        >
-                          <ChevronRight size={20}  aria-hidden="true" focusable="false" />
-                        </button>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Thumbnails */}
-                  {displayImages.length > 1 && (
-                    <div className="flex gap-3 mt-4 overflow-x-auto pb-2">
-                      {displayImages.map((img, index) => (
-                        <button
-                          key={index}
-                          onClick={() => {
-                            setDirection(index > currentImageIndex ? 1 : -1);
-                            setCurrentImageIndex(index);
-                          }}
-                          className={`
-                            relative h-16 w-24 rounded-xl overflow-hidden border-2 shrink-0 transition-all
-                            ${currentImageIndex === index ? "border-brand-orange scale-105" : "border-slate-200 opacity-60 hover:opacity-100"}
-                          `}
-                        >
-                          <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Action Footer */}
-              <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
-                  Navi Promotions Brand Showcase
-                </span>
-                <button
-                  onClick={onClose}
-                  className="
-                    flex
-                    w-full
-                    sm:w-auto
-                    items-center
-                    justify-center
-                    gap-2
-                    rounded-2xl
-                    bg-slate-900
-                    px-6
-                    py-3.5
-                    text-white
-                    text-sm
-                    font-bold
-                    hover:bg-slate-800
-                    transition-all
-                    shadow-md
-                  "
-                >
-                  <span>Close Showcase</span>
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </AnimatePresence>
-    );
-  }
-
-  // =========================================================
-  // STANDARD FALLBACK MODAL
-  // =========================================================
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-        
-        {/* Backdrop */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="
-            absolute
-            inset-0
-            bg-black/70
-            backdrop-blur-md
-          "
-        />
-
-        {/* Modal */}
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 30,
-            scale: 0.95,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            scale: 1,
-          }}
-          exit={{
-            opacity: 0,
-            y: 30,
-            scale: 0.95,
-          }}
-          transition={{
-            duration: 0.35,
-          }}
-          className="
-            relative
-            z-10
-            flex
-            w-full
-            max-w-6xl
-            flex-col
-            overflow-hidden
-            rounded-[2rem]
-            bg-white
-            shadow-2xl
-            lg:flex-row
-            max-h-[90vh]
-          "
-        >
-          {/* Close */}
-          <button
+    <>
+      <AnimatePresence>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5 md:p-8 overflow-hidden">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={onClose}
-            className="
-              absolute
-              right-4
-              top-4
-              z-30
-              flex
-              h-10
-              w-10
-              items-center
-              justify-center
-              rounded-full
-              bg-white/90
-              shadow-md
-            "
-          >
-            <X size={18}  aria-hidden="true" focusable="false" />
-          </button>
+            className="absolute inset-0 bg-black/75 backdrop-blur-md"
+          />
 
-          {/* Image Section */}
-          <div
+          {/* Modal Container */}
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 30, scale: 0.96 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="
               relative
-              h-[300px]
-              sm:h-[400px]
-              lg:h-auto
-              lg:w-1/2
-              overflow-hidden
-            "
-          >
-            <AnimatePresence
-              initial={false}
-              custom={direction}
-            >
-              <motion.img
-                key={currentImageIndex}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: {
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 30,
-                  },
-                }}
-                src={
-                  displayImages[currentImageIndex] || project.image
-                }
-                alt={project.title}
-                className="
-                  absolute
-                  inset-0
-                  h-full
-                  w-full
-                  object-cover
-                "
-              />
-            </AnimatePresence>
-
-            {/* Controls */}
-            {displayImages.length > 1 && (
-              <>
-                <button
-                  onClick={prevImage}
-                  className="
-                    absolute
-                    left-4
-                    top-1/2
-                    z-20
-                    flex
-                    h-11
-                    w-11
-                    -translate-y-1/2
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-white/80
-                    backdrop-blur-md
-                  "
-                >
-                  <ChevronLeft size={20}  aria-hidden="true" focusable="false" />
-                </button>
-
-                <button
-                  onClick={nextImage}
-                  className="
-                    absolute
-                    right-4
-                    top-1/2
-                    z-20
-                    flex
-                    h-11
-                    w-11
-                    -translate-y-1/2
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-white/80
-                    backdrop-blur-md
-                  "
-                >
-                  <ChevronRight size={20}  aria-hidden="true" focusable="false" />
-                </button>
-              </>
-            )}
-
-            {/* Indicators */}
-            <div
-              className="
-                absolute
-                bottom-5
-                left-1/2
-                z-20
-                flex
-                -translate-x-1/2
-                gap-2
-              "
-            >
-              {displayImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setDirection(
-                      index > currentImageIndex
-                        ? 1
-                        : -1
-                    );
-
-                    setCurrentImageIndex(index);
-                  }}
-                  className={`
-                    h-2
-                    rounded-full
-                    transition-all
-                    duration-300
-                    ${
-                      currentImageIndex === index
-                        ? "w-8 bg-brand-orange"
-                        : "w-2 bg-white"
-                    }
-                  `}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Content */}
-          <div
-            className="
+              z-10
               flex
-              flex-1
+              w-full
+              max-w-5xl
+              max-h-[92vh]
               flex-col
               overflow-y-auto
-              p-6
-              sm:p-8
-              lg:p-12
+              rounded-[2rem]
+              sm:rounded-[2.5rem]
+              bg-white
+              shadow-2xl
+              border
+              border-slate-100
+              text-slate-900
             "
           >
-            {/* Badge */}
-            <span
+            {/* Top Close Button */}
+            <button
+              onClick={onClose}
               className="
-                mb-5
-                w-fit
+                absolute
+                top-4
+                right-4
+                sm:top-6
+                sm:right-6
+                z-50
+                flex
+                h-10
+                w-10
+                sm:h-11
+                sm:w-11
+                items-center
+                justify-center
                 rounded-full
-                bg-brand-orange/10
-                px-4
-                py-2
-                text-xs
-                font-bold
-                uppercase
-                tracking-widest
-                text-brand-orange
+                bg-white/90
+                hover:bg-white
+                text-slate-700
+                hover:text-slate-900
+                shadow-lg
+                backdrop-blur-md
+                transition-all
+                hover:scale-105
+                cursor-pointer
+                border
+                border-slate-200/60
               "
+              aria-label="Close modal"
             >
-              {project.service}
-            </span>
+              <X size={20} aria-hidden="true" focusable="false" />
+            </button>
 
-            {/* Title */}
-            <h2
-              className="
-                heading-display
-                mb-3
-                text-3xl
-                sm:text-4xl
-                lg:text-5xl
-              "
-            >
-              {project.title}
-            </h2>
-
-            <p
-              className="
-                mb-6
-                text-xl
-                font-black
-                text-brand-orange
-              "
-            >
-              {project.results}
-            </p>
-
-            {/* Description */}
-            <p
-              className="
-                body-large
-                mb-8
-                text-slate-600
-              "
-            >
-              {project.description}
-            </p>
-
-            {/* Info Grid */}
-            <div
-              className="
-                mb-8
-                grid
-                grid-cols-1
-                gap-4
-                sm:grid-cols-2
-              "
-            >
-              <div className="rounded-2xl border border-slate-200 p-5">
-                <h4 className="label-text mb-2 text-slate-500">
-                  Client
-                </h4>
-
-                <p className="font-bold text-slate-900">
-                  {project.client}
-                </p>
+            {/* =========================================================
+                1. HERO SECTION (Aligned with Service Detail Hero)
+               ========================================================= */}
+            <div className="relative w-full overflow-hidden bg-slate-950 text-white shrink-0">
+              {/* Background Cover Image with Gradient */}
+              <div className="absolute inset-0 z-0">
+                <img
+                  src={displayImages[0] || project.coverImage || project.image}
+                  alt={project.title}
+                  className="h-full w-full object-cover opacity-25 filter blur-[2px] scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
               </div>
 
-              <div className="rounded-2xl border border-slate-200 p-5">
-                <h4 className="label-text mb-2 text-slate-500">
-                  Duration
-                </h4>
+              <div className="relative z-10 px-6 sm:px-10 py-10 sm:py-14 max-w-4xl">
+                {/* Badges Bar */}
+                <div className="flex flex-wrap items-center gap-2.5 mb-4">
+                  <span
+                    className="
+                      inline-flex
+                      items-center
+                      gap-1.5
+                      rounded-full
+                      bg-brand-orange/20
+                      border
+                      border-brand-orange/40
+                      px-3.5
+                      py-1
+                      text-xs
+                      font-bold
+                      uppercase
+                      tracking-widest
+                      text-brand-orange
+                    "
+                  >
+                    <Sparkles size={13} />
+                    {project.service || project.category}
+                  </span>
 
-                <p className="font-bold text-slate-900">
-                  {project.duration}
-                </p>
-              </div>
+                  <span
+                    className="
+                      inline-flex
+                      items-center
+                      gap-1.5
+                      rounded-full
+                      bg-white/10
+                      border
+                      border-white/15
+                      px-3.5
+                      py-1
+                      text-xs
+                      font-semibold
+                      text-slate-300
+                    "
+                  >
+                    {project.subCategory}
+                  </span>
 
-              <div className="rounded-2xl border border-slate-200 p-5 sm:col-span-2">
-                <h4 className="label-text mb-2 text-slate-500">
-                  Category
-                </h4>
+                  {hasLiveUrl && (
+                    <span
+                      className="
+                        inline-flex
+                        items-center
+                        gap-1.5
+                        rounded-full
+                        bg-emerald-500/15
+                        border
+                        border-emerald-500/30
+                        px-3
+                        py-1
+                        text-xs
+                        font-semibold
+                        text-emerald-400
+                      "
+                    >
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      Live Project
+                    </span>
+                  )}
+                </div>
 
-                <p className="font-bold text-slate-900">
-                  {project.category}
-                </p>
+                {/* Title */}
+                <h2 className="heading-display text-2xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+                  {project.title}
+                </h2>
+
+                {/* Meta Strip */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 border-t border-white/10">
+                  <div>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-0.5">
+                      Client
+                    </span>
+                    <p className="text-sm sm:text-base font-semibold text-white truncate">
+                      {clientName}
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-0.5">
+                      Industry
+                    </span>
+                    <p className="text-sm sm:text-base font-semibold text-white truncate">
+                      {industry}
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-0.5">
+                      Timeline
+                    </span>
+                    <p className="text-sm sm:text-base font-semibold text-white">
+                      {duration}
+                    </p>
+                  </div>
+
+                  <div>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-0.5">
+                      Key Result
+                    </span>
+                    <p className="text-sm sm:text-base font-bold text-brand-orange whitespace-nowrap">
+                      {primaryMetric}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Live Preview Button in Hero for Website Projects */}
+                {hasLiveUrl && (
+                  <div className="mt-6 flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={handleLivePreviewClick}
+                      className="
+                        inline-flex
+                        items-center
+                        gap-2
+                        rounded-xl
+                        bg-brand-orange
+                        hover:bg-orange-600
+                        text-white
+                        px-5
+                        py-2.5
+                        text-sm
+                        font-bold
+                        shadow-lg
+                        shadow-brand-orange/20
+                        transition-all
+                        hover:scale-[1.02]
+                        cursor-pointer
+                      "
+                    >
+                      <span>Preview Live Website</span>
+                      <ExternalLink size={16} />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setIsStrategyModalOpen(true)}
+                      className="
+                        inline-flex
+                        items-center
+                        gap-2
+                        rounded-xl
+                        bg-white/10
+                        hover:bg-white/20
+                        border
+                        border-white/20
+                        text-white
+                        px-5
+                        py-2.5
+                        text-sm
+                        font-bold
+                        transition-all
+                        cursor-pointer
+                      "
+                    >
+                      <span>Book Strategy Call</span>
+                      <ArrowUpRight size={16} />
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* CTA */}
-            <button
-              disabled={!hasLiveUrl}
-              onClick={handleLiveProjectClick}
-              className={`
-                mt-auto
-                flex
-                w-full
-                items-center
-                justify-center
-                gap-2
-                rounded-2xl
-                bg-slate-900
-                px-6
-                py-4
-                text-white
-                transition-all
-                ${
-                  hasLiveUrl
-                    ? "hover:opacity-90 cursor-pointer"
-                    : "opacity-50 cursor-not-allowed"
-                }
-              `}
-            >
-              {hasLiveUrl ? "View Live Project" : "Coming Soon"}
+            {/* =========================================================
+                2. OVERVIEW & CHALLENGE (Service Detail Structure)
+               ========================================================= */}
+            <div className="p-6 sm:p-10 space-y-10">
+              <section className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-brand-orange" />
+                  <span className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                    Project Overview
+                  </span>
+                </div>
 
-              <ExternalLink size={18} />
-            </button>
-          </div>
-        </motion.div>
-      </div>
-    </AnimatePresence>
+                <p className="body-large text-slate-700 leading-relaxed max-w-4xl">
+                  {overviewText}
+                </p>
+
+                {challengeText && (
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-5 sm:p-6 mt-6">
+                    <div className="flex items-center gap-2 mb-2 text-slate-900 font-bold text-sm uppercase tracking-wider">
+                      <Target size={18} className="text-brand-orange" />
+                      <span>The Business Challenge</span>
+                    </div>
+                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                      {challengeText}
+                    </p>
+                  </div>
+                )}
+              </section>
+
+              {/* =========================================================
+                  3. SUPPORTING CONTENT (Aligned with Service Category)
+                 ========================================================= */}
+              {/* Category Case A: DEVELOPMENT / WEBSITE */}
+              {isDevelopment && (
+                <section className="space-y-6 pt-6 border-t border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <Code2 size={18} className="text-brand-orange" />
+                    <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider">
+                      Engineering & Technical Architecture
+                    </h3>
+                  </div>
+
+                  {solutionText && (
+                    <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        Delivered Solution
+                      </h4>
+                      <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+                        {solutionText}
+                      </p>
+                    </div>
+                  )}
+
+                  {keyFeatures.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
+                        Core Capabilities Delivered
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {keyFeatures.map((feature, i) => (
+                          <div
+                            key={i}
+                            className="flex items-start gap-2.5 rounded-xl border border-slate-100 bg-slate-50/60 p-3.5 text-sm text-slate-700"
+                          >
+                            <CheckCircle2
+                              size={18}
+                              className="text-emerald-500 shrink-0 mt-0.5"
+                            />
+                            <span>{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {techStack.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
+                        Technology Stack & Infrastructure
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {techStack.map((tech, i) => (
+                          <span
+                            key={i}
+                            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 shadow-xs"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Development Metrics Strip */}
+                  {campaignResults && (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-center">
+                        <span className="text-[11px] font-semibold text-slate-500 uppercase block mb-1">
+                          Primary KPI
+                        </span>
+                        <p className="text-base sm:text-lg font-bold text-slate-900">
+                          {campaignResults.primaryMetric || primaryMetric}
+                        </p>
+                      </div>
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-center">
+                        <span className="text-[11px] font-semibold text-slate-500 uppercase block mb-1">
+                          Speed / Performance
+                        </span>
+                        <p className="text-base sm:text-lg font-bold text-slate-900">
+                          {campaignResults.speed || "< 1.2s"}
+                        </p>
+                      </div>
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-center">
+                        <span className="text-[11px] font-semibold text-slate-500 uppercase block mb-1">
+                          Growth Impact
+                        </span>
+                        <p className="text-base sm:text-lg font-bold text-emerald-600">
+                          {campaignResults.leadGrowth || "+100%"}
+                        </p>
+                      </div>
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-center">
+                        <span className="text-[11px] font-semibold text-slate-500 uppercase block mb-1">
+                          Standards
+                        </span>
+                        <p className="text-base sm:text-lg font-bold text-slate-900 truncate">
+                          {campaignResults.accessibility || "High Standard"}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </section>
+              )}
+
+              {/* Category Case B: DIGITAL MARKETING */}
+              {isDigitalMarketing && (
+                <section className="space-y-6 pt-6 border-t border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <TrendingUp size={18} className="text-brand-orange" />
+                    <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider">
+                      Strategic Marketing Execution
+                    </h3>
+                  </div>
+
+                  {strategyList.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
+                        Strategic Growth Pillars
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        {strategyList.map((pillar, i) => (
+                          <div
+                            key={i}
+                            className="rounded-xl border border-slate-100 bg-slate-50 p-4 text-sm text-slate-700"
+                          >
+                            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-orange/10 text-brand-orange font-bold text-xs mb-2">
+                              0{i + 1}
+                            </span>
+                            <p>{pillar}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {platformsUsed.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
+                        Marketing Channels & Platforms
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {platformsUsed.map((p, i) => (
+                          <span
+                            key={i}
+                            className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700"
+                          >
+                            {p}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {campaignResults && (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-center">
+                        <span className="text-[11px] font-semibold text-slate-500 uppercase block mb-1">
+                          Primary Outcome
+                        </span>
+                        <p className="text-base sm:text-lg font-bold text-brand-orange">
+                          {campaignResults.primaryMetric}
+                        </p>
+                      </div>
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-center">
+                        <span className="text-[11px] font-semibold text-slate-500 uppercase block mb-1">
+                          Campaign Reach
+                        </span>
+                        <p className="text-base sm:text-lg font-bold text-slate-900">
+                          {campaignResults.reach}
+                        </p>
+                      </div>
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-center">
+                        <span className="text-[11px] font-semibold text-slate-500 uppercase block mb-1">
+                          ROAS
+                        </span>
+                        <p className="text-base sm:text-lg font-bold text-slate-900">
+                          {campaignResults.roas}
+                        </p>
+                      </div>
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-center">
+                        <span className="text-[11px] font-semibold text-slate-500 uppercase block mb-1">
+                          Lead Velocity
+                        </span>
+                        <p className="text-base sm:text-lg font-bold text-emerald-600">
+                          {campaignResults.leadGrowth}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </section>
+              )}
+
+              {/* Category Case C: BRANDING KIT (Visual Identity, Story, Palette) */}
+              {isBrandingKit && !isVideoOrReel && (
+                <section className="space-y-6 pt-6 border-t border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <Palette size={18} className="text-brand-orange" />
+                    <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider">
+                      Brand System & Identity Design
+                    </h3>
+                  </div>
+
+                  {brandStory && (
+                    <div className="rounded-2xl border border-slate-100 bg-slate-50 p-5">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        Brand Narrative
+                      </h4>
+                      <p className="text-sm sm:text-base text-slate-700 italic">
+                        "{brandStory}"
+                      </p>
+                    </div>
+                  )}
+
+                  {colorPalette.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
+                        Color Palette System
+                      </h4>
+                      <div className="flex flex-wrap gap-3">
+                        {colorPalette.map((color, idx) => (
+                          <div
+                            key={idx}
+                            className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white p-2 pr-3 shadow-xs"
+                          >
+                            <span
+                              className="h-7 w-7 rounded-lg border border-black/10 shadow-inner"
+                              style={{ backgroundColor: color }}
+                            />
+                            <span className="text-xs font-mono font-bold text-slate-700">
+                              {color}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {typography && (
+                    <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5">
+                      <Type size={18} className="text-slate-500" />
+                      <div>
+                        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block">
+                          Typography Architecture
+                        </span>
+                        <p className="text-sm font-bold text-slate-900">
+                          {typography}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </section>
+              )}
+
+              {/* =========================================================
+                  4. VISUALS SHOWCASE (Browser Mockup, Reel Player, Lightbox)
+                 ========================================================= */}
+              <section className="space-y-4 pt-6 border-t border-slate-100">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {isVideoOrReel ? (
+                      <Play size={18} className="text-brand-orange" />
+                    ) : (
+                      <Laptop size={18} className="text-brand-orange" />
+                    )}
+                    <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider">
+                      {isVideoOrReel
+                        ? "Video & Motion Showcase"
+                        : isWebsite
+                        ? "Interactive Project Screenshots & Visuals"
+                        : "Visual Showcase & Deliverables"}
+                    </h3>
+                  </div>
+
+                  {displayImages.length > 1 && !isVideoOrReel && (
+                    <span className="text-xs font-semibold text-slate-500">
+                      {currentImageIndex + 1} of {displayImages.length}
+                    </span>
+                  )}
+                </div>
+
+                {/* Case 4A: REELS & VIDEO PROJECTS */}
+                {isVideoOrReel && videoUrl ? (
+                  <div className="space-y-4">
+                    <div
+                      className={`
+                        mx-auto overflow-hidden rounded-2xl bg-slate-950 shadow-xl border border-slate-800
+                        ${
+                          isVerticalVideo
+                            ? "max-w-xs sm:max-w-sm aspect-[9/16]"
+                            : "max-w-3xl aspect-video"
+                        }
+                      `}
+                    >
+                      {embedUrl ? (
+                        <iframe
+                          src={embedUrl}
+                          title={project.title}
+                          className="w-full h-full border-0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        />
+                      ) : (
+                        <div className="flex h-full flex-col items-center justify-center p-6 text-center text-white space-y-4">
+                          <Play size={32} className="text-brand-orange" />
+                          <p className="text-sm text-slate-300">
+                            Due to platform security restrictions, this reel can be viewed directly on {project.platform || "Instagram"}.
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              window.open(videoUrl, "_blank", "noopener,noreferrer")
+                            }
+                            className="inline-flex items-center gap-2 rounded-xl bg-brand-orange px-4 py-2 text-xs font-bold text-white hover:bg-orange-600 transition-colors cursor-pointer"
+                          >
+                            <span>Open on {project.platform || "Instagram"}</span>
+                            <ExternalLink size={14} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Stills gallery below video */}
+                    {displayImages.length > 1 && (
+                      <div className="mt-4">
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
+                          Production Stills
+                        </span>
+                        <div className="grid grid-cols-3 gap-2">
+                          {displayImages.slice(0, 3).map((img, i) => (
+                            <img
+                              key={i}
+                              src={img}
+                              alt="Production Still"
+                              className="h-24 sm:h-32 w-full object-cover rounded-xl border border-slate-200"
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : isWebsite ? (
+                  /* Case 4B: WEBSITE PROJECTS (Browser Mockup Frame) */
+                  <div className="space-y-4">
+                    {/* Browser Mockup Window */}
+                    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 shadow-xl">
+                      {/* Browser Header Bar */}
+                      <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950 px-4 py-3">
+                        {/* macOS Window Controls */}
+                        <div className="flex items-center gap-1.5">
+                          <span className="h-3 w-3 rounded-full bg-rose-500/80" />
+                          <span className="h-3 w-3 rounded-full bg-amber-500/80" />
+                          <span className="h-3 w-3 rounded-full bg-emerald-500/80" />
+                        </div>
+
+                        {/* Browser Address Pill */}
+                        <div className="flex max-w-sm sm:max-w-md flex-1 items-center justify-center mx-4">
+                          <div className="flex w-full items-center gap-2 rounded-lg bg-slate-900 px-3 py-1 text-xs text-slate-300 border border-slate-800">
+                            <Globe size={12} className="text-slate-400 shrink-0" />
+                            <span className="truncate">
+                              {liveDestination || "https://preview.navipromotions.com"}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Open Action */}
+                        {hasLiveUrl ? (
+                          <button
+                            type="button"
+                            onClick={handleLivePreviewClick}
+                            className="flex items-center gap-1 text-xs font-bold text-brand-orange hover:text-orange-400 transition-colors cursor-pointer"
+                            title="Open live preview in new tab"
+                          >
+                            <span className="hidden sm:inline">Preview</span>
+                            <ExternalLink size={14} />
+                          </button>
+                        ) : (
+                          <div className="w-12" />
+                        )}
+                      </div>
+
+                      {/* Browser Screenshot Viewport */}
+                      <div className="relative aspect-video max-h-[460px] w-full overflow-hidden bg-slate-950">
+                        <img
+                          src={displayImages[currentImageIndex] || project.coverImage}
+                          alt={project.title}
+                          className="h-full w-full object-cover transition-all duration-300"
+                        />
+
+                        {/* Arrow Nav Buttons */}
+                        {displayImages.length > 1 && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={prevImage}
+                              className="
+                                absolute
+                                left-3
+                                top-1/2
+                                -translate-y-1/2
+                                flex
+                                h-10
+                                w-10
+                                items-center
+                                justify-center
+                                rounded-full
+                                bg-black/60
+                                hover:bg-black/80
+                                text-white
+                                backdrop-blur-md
+                                transition-all
+                                hover:scale-105
+                                cursor-pointer
+                              "
+                              aria-label="Previous screenshot"
+                            >
+                              <ChevronLeft size={20} />
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={nextImage}
+                              className="
+                                absolute
+                                right-3
+                                top-1/2
+                                -translate-y-1/2
+                                flex
+                                h-10
+                                w-10
+                                items-center
+                                justify-center
+                                rounded-full
+                                bg-black/60
+                                hover:bg-black/80
+                                text-white
+                                backdrop-blur-md
+                                transition-all
+                                hover:scale-105
+                                cursor-pointer
+                              "
+                              aria-label="Next screenshot"
+                            >
+                              <ChevronRight size={20} />
+                            </button>
+                          </>
+                        )}
+
+                        {/* Screenshot Caption Overlay */}
+                        {screenshots[currentImageIndex] && (
+                          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
+                            <p className="text-xs font-bold">
+                              {screenshots[currentImageIndex].title}
+                            </p>
+                            <p className="text-[11px] text-slate-300">
+                              {screenshots[currentImageIndex].caption}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Screenshot Thumbnails Strip & Preview Button */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+                      {displayImages.length > 1 && (
+                        <div className="flex flex-wrap gap-2">
+                          {displayImages.map((img, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => setCurrentImageIndex(idx)}
+                              className={`
+                                overflow-hidden
+                                rounded-lg
+                                border-2
+                                transition-all
+                                cursor-pointer
+                                ${
+                                  currentImageIndex === idx
+                                    ? "border-brand-orange scale-105 shadow-md"
+                                    : "border-slate-200 opacity-60 hover:opacity-100"
+                                }
+                              `}
+                            >
+                              <img
+                                src={img}
+                                alt={`Thumbnail ${idx + 1}`}
+                                className="h-12 w-20 object-cover"
+                              />
+                            </button>
+                          ))}
+                        </div>
+                      )}
+
+                      {hasLiveUrl && (
+                        <button
+                          type="button"
+                          onClick={handleLivePreviewClick}
+                          className="
+                            ml-auto
+                            inline-flex
+                            items-center
+                            gap-2
+                            rounded-xl
+                            bg-slate-900
+                            hover:bg-brand-orange
+                            text-white
+                            px-4
+                            py-2.5
+                            text-xs
+                            font-bold
+                            transition-colors
+                            shadow-sm
+                            cursor-pointer
+                          "
+                        >
+                          <span>Open Live Website</span>
+                          <ExternalLink size={14} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  /* Case 4C: STANDARD LIGHTBOX GALLERY (Posters, Logos, Ads) */
+                  <div className="space-y-4">
+                    <div className="relative aspect-video max-h-[460px] w-full overflow-hidden rounded-2xl bg-slate-100 border border-slate-200">
+                      <img
+                        src={displayImages[currentImageIndex] || project.image}
+                        alt={project.title}
+                        className="h-full w-full object-cover"
+                      />
+
+                      {displayImages.length > 1 && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={prevImage}
+                            className="
+                              absolute
+                              left-3
+                              top-1/2
+                              -translate-y-1/2
+                              flex
+                              h-10
+                              w-10
+                              items-center
+                              justify-center
+                              rounded-full
+                              bg-white/80
+                              hover:bg-white
+                              text-slate-800
+                              backdrop-blur-md
+                              shadow-md
+                              transition-all
+                              hover:scale-105
+                              cursor-pointer
+                            "
+                            aria-label="Previous image"
+                          >
+                            <ChevronLeft size={20} />
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={nextImage}
+                            className="
+                              absolute
+                              right-3
+                              top-1/2
+                              -translate-y-1/2
+                              flex
+                              h-10
+                              w-10
+                              items-center
+                              justify-center
+                              rounded-full
+                              bg-white/80
+                              hover:bg-white
+                              text-slate-800
+                              backdrop-blur-md
+                              shadow-md
+                              transition-all
+                              hover:scale-105
+                              cursor-pointer
+                            "
+                            aria-label="Next image"
+                          >
+                            <ChevronRight size={20} />
+                          </button>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Thumbnail Selector */}
+                    {displayImages.length > 1 && (
+                      <div className="flex flex-wrap gap-2">
+                        {displayImages.map((img, idx) => (
+                          <button
+                            key={idx}
+                            type="button"
+                            onClick={() => setCurrentImageIndex(idx)}
+                            className={`
+                              overflow-hidden
+                              rounded-lg
+                              border-2
+                              transition-all
+                              cursor-pointer
+                              ${
+                                currentImageIndex === idx
+                                  ? "border-brand-orange scale-105 shadow-md"
+                                  : "border-slate-200 opacity-60 hover:opacity-100"
+                              }
+                            `}
+                          >
+                            <img
+                              src={img}
+                              alt={`Thumbnail ${idx + 1}`}
+                              className="h-12 w-20 object-cover"
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </section>
+
+              {/* =========================================================
+                  5. CTA SECTION (Aligned with Service Detail CTA)
+                 ========================================================= */}
+              <section className="rounded-3xl bg-slate-900 text-white p-6 sm:p-10 relative overflow-hidden">
+                <div className="absolute right-0 top-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-brand-orange/20 blur-3xl" />
+
+                <div className="relative z-10 max-w-2xl space-y-4">
+                  <span className="inline-block rounded-full bg-white/10 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-brand-orange">
+                    Next Steps
+                  </span>
+
+                  <h3 className="heading-section text-2xl sm:text-3xl font-bold text-white leading-tight">
+                    {isDevelopment
+                      ? "Ready to Build Your Next Web Platform?"
+                      : isDigitalMarketing
+                      ? "Ready to Accelerate Your Brand Growth?"
+                      : "Ready to Elevate Your Visual Identity?"}
+                  </h3>
+
+                  <p className="body-large text-slate-300 text-sm sm:text-base">
+                    Partner with Navi Promotions to turn strategy, creativity, and technology into tangible business results.
+                  </p>
+
+                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setIsStrategyModalOpen(true)}
+                      className="
+                        inline-flex
+                        items-center
+                        gap-2
+                        rounded-xl
+                        bg-brand-orange
+                        hover:bg-orange-600
+                        text-white
+                        px-6
+                        py-3.5
+                        text-sm
+                        font-bold
+                        shadow-lg
+                        shadow-brand-orange/25
+                        transition-all
+                        hover:scale-[1.02]
+                        cursor-pointer
+                      "
+                    >
+                      <span>Book Strategy Call</span>
+                      <ArrowUpRight size={16} />
+                    </button>
+
+                    {hasLiveUrl && (
+                      <button
+                        type="button"
+                        onClick={handleLivePreviewClick}
+                        className="
+                          inline-flex
+                          items-center
+                          gap-2
+                          rounded-xl
+                          bg-white/10
+                          hover:bg-white/20
+                          border
+                          border-white/20
+                          text-white
+                          px-5
+                          py-3.5
+                          text-sm
+                          font-bold
+                          transition-all
+                          cursor-pointer
+                        "
+                      >
+                        <span>Visit Live Website</span>
+                        <ExternalLink size={16} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </motion.div>
+        </div>
+      </AnimatePresence>
+
+      {/* Book Strategy Form Modal */}
+      <BookStrategyModal
+        isOpen={isStrategyModalOpen}
+        onClose={() => setIsStrategyModalOpen(false)}
+      />
+    </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { useInView } from "framer-motion";
 
 /**
@@ -18,11 +18,9 @@ export default function LazySection({
   const isInView = useInView(ref, { once: true, margin });
   const [hasLoaded, setHasLoaded] = useState(false);
 
-  useEffect(() => {
-    if (isInView) {
-      setHasLoaded(true);
-    }
-  }, [isInView]);
+  if (isInView && !hasLoaded) {
+    setHasLoaded(true);
+  }
 
   return (
     <div ref={ref}>

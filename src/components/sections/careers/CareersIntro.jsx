@@ -20,9 +20,9 @@ export default function WhyJoinNavi() {
               px-4
               py-2
               text-[11px]
-              font-black
+              font-semibold
               uppercase
-              tracking-[0.25em]
+              tracking-[0.15em]
               text-brand-orange
             "
           >
@@ -120,7 +120,7 @@ export default function WhyJoinNavi() {
 
       text-xl
 
-      font-black
+      font-semibold
 
       text-slate-900
     "

@@ -35,8 +35,10 @@ const Hero = () => {
   const currentSlideRef = useRef(currentSlide);
 
   // Keep refs in sync without triggering effects
-  isPausedRef.current = isPaused;
-  currentSlideRef.current = currentSlide;
+  useEffect(() => {
+    isPausedRef.current = isPaused;
+    currentSlideRef.current = currentSlide;
+  }, [isPaused, currentSlide]);
 
   // ── Interval: created ONCE, never recreated ──────────────────────────────
   useEffect(() => {

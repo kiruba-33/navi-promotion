@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 import { Search } from "lucide-react";
 
 export default function RegulationsFilters({
@@ -27,10 +26,7 @@ export default function RegulationsFilters({
           lg:px-8
         "
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <div
           className="
             rounded-[2rem]
             border
@@ -138,7 +134,7 @@ export default function RegulationsFilters({
               ))}
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

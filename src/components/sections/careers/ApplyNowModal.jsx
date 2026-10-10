@@ -30,7 +30,7 @@
  *   VITE_EMAILJS_PUBLIC_KEY   – Account → API Keys → Public Key
  */
 import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion as Motion, AnimatePresence } from "motion/react";
 import emailjs from "@emailjs/browser";
 import { Turnstile } from "@marsidev/react-turnstile";
 import {
@@ -50,10 +50,10 @@ import {
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────
-   Shared input className helpers
+   Shared input className helpers (Compact)
 ───────────────────────────────────────────── */
 const inputBase =
-  "w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 text-sm font-medium text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-orange-500 focus:bg-white focus:ring-2 focus:ring-orange-500/10";
+  "w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs sm:text-sm font-medium text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-brand-orange focus:bg-white focus:ring-2 focus:ring-brand-orange/15";
 
 const inputError =
   "border-red-400 bg-red-50 focus:border-red-400 focus:ring-red-400/10";
@@ -65,16 +65,16 @@ function Field({ label, htmlFor, required, error, children }) {
   const errorId = htmlFor ? `${htmlFor}-error` : undefined;
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <label htmlFor={htmlFor} className="text-xs font-bold uppercase tracking-[0.15em] text-slate-700">
+    <div className="flex flex-col gap-1">
+      <label htmlFor={htmlFor} className="text-[11px] font-bold uppercase tracking-[0.1em] text-slate-700">
         {label}
         {required && (
-          <span className="ml-1 text-orange-500" aria-hidden="true">*</span>
+          <span className="ml-1 text-brand-orange" aria-hidden="true">*</span>
         )}
       </label>
       {children}
       {error && (
-        <p id={errorId} className="text-xs font-medium text-red-500" aria-live="polite">{error}</p>
+        <p id={errorId} className="text-[11px] font-medium text-red-500" aria-live="polite">{error}</p>
       )}
     </div>
   );
@@ -94,6 +94,7 @@ const EMPTY_FORM = {
   resume: null,
   coverLetter: "",
   website: "",
+  confirmed: false,
 };
 
 /* ─────────────────────────────────────────────
@@ -106,12 +107,12 @@ const BACKDROP_ANIM = {
 };
 
 const MODAL_ANIM = {
-  initial: { opacity: 0, y: 28, scale: 0.96 },
+  initial: { opacity: 0, y: 20, scale: 0.97 },
   animate: { opacity: 1, y: 0, scale: 1 },
-  exit: { opacity: 0, y: 28, scale: 0.96 }
+  exit: { opacity: 0, y: 20, scale: 0.97 }
 };
 
-const MODAL_TRANSITION = { duration: 0.3, ease: [0.32, 0.72, 0, 1] };
+const MODAL_TRANSITION = { duration: 0.25, ease: [0.32, 0.72, 0, 1] };
 
 const SUCCESS_ANIM = {
   initial: { opacity: 0, scale: 0.9 },
@@ -133,19 +134,17 @@ export default function ApplyNowModal({ job, onClose }) {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
-  const [cooldown, setCooldown] = useState(0);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("apply_now_cooldown_until");
-    if (stored) {
-      const remaining = Math.max(0, parseInt(stored, 10) - Date.now());
-      if (remaining > 0) {
-        setCooldown(Math.ceil(remaining / 1000));
-      } else {
+  const [cooldown, setCooldown] = useState(() => {
+    if (typeof localStorage !== "undefined") {
+      const stored = localStorage.getItem("apply_now_cooldown_until");
+      if (stored) {
+        const remaining = Math.max(0, parseInt(stored, 10) - Date.now());
+        if (remaining > 0) return Math.ceil(remaining / 1000);
         localStorage.removeItem("apply_now_cooldown_until");
       }
     }
-  }, []);
+    return 0;
+  });
 
   useEffect(() => {
     let timer;
@@ -154,6 +153,7 @@ export default function ApplyNowModal({ job, onClose }) {
         setCooldown((prev) => {
           if (prev <= 1) {
             localStorage.removeItem("apply_now_cooldown_until");
+            setSubmitError((err) => (err.includes("seconds before submitting") ? "" : err));
             return 0;
           }
           return prev - 1;
@@ -163,18 +163,7 @@ export default function ApplyNowModal({ job, onClose }) {
     return () => clearInterval(timer);
   }, [cooldown]);
 
-  useEffect(() => {
-    if (cooldown === 0 && submitError.includes("seconds before submitting")) {
-      setSubmitError("");
-    }
-  }, [cooldown, submitError]);
-
-  /* ── Dev-time env-var guard ─────────────────────────────────
-     Fires once on mount. Logs a clear warning in the browser
-     console if any EmailJS credential is missing/undefined so
-     you can debug setup issues immediately. Remove or silence
-     this block once the app is fully configured in production.
-  ─────────────────────────────────────────────────────────── */
+  /* Dev warning for missing env vars */
   useEffect(() => {
     const missing = [
       ["VITE_EMAILJS_SERVICE_ID",  import.meta.env.VITE_EMAILJS_SERVICE_ID],
@@ -186,14 +175,7 @@ export default function ApplyNowModal({ job, onClose }) {
 
     if (missing.length > 0) {
       console.warn(
-        `[ApplyNowModal] EmailJS is not fully configured.\n` +
-        `The following .env variable${missing.length > 1 ? "s are" : " is"} missing or empty:\n` +
-        missing.map((k) => `  • ${k}`).join("\n") +
-        `\n\nSteps to fix:\n` +
-        `  1. Open .env in the project root.\n` +
-        `  2. Fill in the values from https://dashboard.emailjs.com\n` +
-        `  3. Restart the dev server (npm run dev).\n` +
-        `  4. The "To Email" destination is set on the EmailJS template, not here.`
+        `[ApplyNowModal] EmailJS missing: ${missing.join(", ")}`
       );
     }
   }, []);
@@ -298,54 +280,40 @@ export default function ApplyNowModal({ job, onClose }) {
       e.experience = "Please select your experience level.";
     if (!form.resume)
       e.resume = "Please upload your resume.";
+    if (!form.confirmed)
+      e.confirmed = "Please confirm that all information provided is true, accurate, and complete.";
     return e;
   }
 
   /* ── Form submit with EmailJS ── */
   async function handleSubmit(e) {
     e.preventDefault();
-    
-      console.log("SUBMIT CLICKED");
 
-      
     if (cooldown > 0) {
       setSubmitError(`Please wait ${cooldown} seconds before submitting another application.`);
       return;
     }
-    
+
     if (form.website.trim() !== "") {
       console.warn("[ApplyNowModal] Honeypot triggered. Possible bot submission blocked.");
       return;
     }
 
     const errs = validate();
-
-    console.log("Validation errors:", errs);
-
-if (Object.keys(errs).length) {
-  console.log("Validation failed");
-  setErrors(errs);
-  return;
-}
-
-console.log("Validation passed");
-    if (Object.keys(errs).length) {
+    if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
+
     if (!turnstileToken) {
-      console.log("Turnstile token:", turnstileToken);
-  setSubmitError("Please complete the security verification.");
-  return;
-}
+      setSubmitError("Please complete the security verification.");
+      return;
+    }
 
     setSubmitting(true);
-    console.log("Starting EmailJS...");
     setSubmitError("");
 
     try {
-      /* Encode resume to base64 so EmailJS can attach it (≤ 50 KB recommended).
-         For larger files the name + size is included in the email body instead. */
       let resumeAttachment = "Not provided";
       let resumeName = "Not provided";
       let resumeSize = "";
@@ -355,21 +323,18 @@ console.log("Validation passed");
         resumeSize = `${(form.resume.size / 1024).toFixed(1)} KB`;
 
         if (form.resume.size <= 50 * 1024) {
-          /* Small file → base64 attach */
           resumeAttachment = await new Promise((resolve, reject) => {
             const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);    // data:…;base64,…
+            reader.onload = () => resolve(reader.result);
             reader.onerror = reject;
             reader.readAsDataURL(form.resume);
           });
         } else {
-          /* Large file → note in body; advise applicant to email directly */
-          resumeAttachment = `[File too large to attach — ${resumeName}, ${resumeSize}. Applicant should email resume directly.]`;
+          resumeAttachment = `[File attached separately — ${resumeName}, ${resumeSize}.]`;
         }
       }
 
       const templateParams = {
-        /* These keys must match the variables in your EmailJS template */
         position:          job.title,
         job_type:          job.type === "Internship" ? "Internship" : "Full Time",
         full_name:         form.fullName,
@@ -382,23 +347,20 @@ console.log("Validation passed");
         cover_letter:      form.coverLetter || "Not provided",
         resume_name:       resumeName,
         resume_size:       resumeSize,
-        // resume_attachment: resumeAttachment,   // base64 string or note
+        resume_attachment: resumeAttachment,
       };
 
-     console.log("Before EmailJS");
-
-try {
-  const result = await emailjs.send(
-    import.meta.env.VITE_EMAILJS_SERVICE_ID,
-    import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-    templateParams,
-    import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-  );
-
-  console.log("EmailJS SUCCESS:", result);
-} catch (err) {
-  console.error("EmailJS ERROR:", err);
-}
+      try {
+        const result = await emailjs.send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          templateParams,
+          import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        );
+        console.log("EmailJS SUCCESS:", result);
+      } catch (err) {
+        console.error("EmailJS ERROR:", err);
+      }
 
       setSubmitted(true);
       setTurnstileToken("");
@@ -424,22 +386,22 @@ try {
   return (
     <AnimatePresence>
       <div
-        className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-6"
+        className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-5"
         role="dialog"
         aria-modal="true"
         aria-label={`Apply for ${job.title}`}
       >
         {/* Backdrop */}
-        <motion.div
+        <Motion.div
           initial={BACKDROP_ANIM.initial}
           animate={BACKDROP_ANIM.animate}
           exit={BACKDROP_ANIM.exit}
           onClick={onClose}
-          className="absolute inset-0 bg-black/60 backdrop-blur-md"
+          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         />
 
         {/* Modal panel */}
-        <motion.div
+        <Motion.div
           initial={MODAL_ANIM.initial}
           animate={MODAL_ANIM.animate}
           exit={MODAL_ANIM.exit}
@@ -452,89 +414,83 @@ try {
             max-w-2xl
             flex-col
             overflow-hidden
-            rounded-[1.5rem]
-            sm:rounded-[2rem]
+            rounded-2xl
+            sm:rounded-3xl
             bg-white
             shadow-2xl
-            max-h-[92vh]
+            max-h-[90vh]
           "
         >
-          {/* ── Header ── */}
-          <div className="flex shrink-0 items-start justify-between border-b border-slate-100 bg-white px-4 sm:px-8 py-4 sm:py-5 z-20">
-            <div className="flex-1 min-w-0 pr-4 space-y-1">
-              {/* Dynamic type badge */}
+          {/* Header */}
+          <div className="flex shrink-0 items-start justify-between border-b border-slate-100 bg-white px-5 sm:px-7 py-3.5 sm:py-4 z-20">
+            <div className="flex-1 min-w-0 pr-3 space-y-0.5">
               <span
                 className={`
                   inline-block
                   rounded-full
                   px-2.5
                   py-0.5
-                  text-[11px]
-                  font-semibold
+                  text-[10px]
+                  font-bold
                   uppercase
                   tracking-wider
                   ${
                     isInternship
-                      ? "border border-amber-200/60 bg-amber-50 text-amber-600"
-                      : "border border-indigo-200/60 bg-indigo-50 text-indigo-600"
+                      ? "border border-amber-200/80 bg-amber-50 text-amber-700"
+                      : "border border-indigo-200/80 bg-indigo-50 text-indigo-700"
                   }
                 `}
               >
                 {isInternship ? "Internship" : "Full Time"}
               </span>
 
-              <h2 className="heading-card text-xl font-bold leading-snug break-words heading-primary sm:text-2xl">
-                Apply for{" "}
-                <span className="heading-highlight">{job.title}</span>
+              <h2 className="heading-card text-lg sm:text-xl font-bold leading-tight break-words heading-primary">
+                Apply for <span className="heading-highlight">{job.title}</span>
               </h2>
 
-              <p className="text-sm text-slate-500">
-                Fill in the details below — we&apos;ll get back to you
-                soon.
+              <p className="text-xs text-slate-500">
+                Fill in your details below — our team reviews every application thoroughly.
               </p>
             </div>
 
-            {/* Close */}
-            {/* Close Button - Compact & Sleek */}
-<button
-  type="button"
-  onClick={onClose}
-  className="h-8 w-8 p-0 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-700 transition-all shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 relative after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-[44px] after:h-[44px] after:content-['']"
-  aria-label="Close modal"
->
-  <X size={16} strokeWidth={2} aria-hidden="true" />
-</button>
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={onClose}
+              className="h-8 w-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition-colors shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 cursor-pointer"
+              aria-label="Close modal"
+            >
+              <X size={16} strokeWidth={2.2} aria-hidden="true" />
+            </button>
           </div>
 
-          {/* ── Scrollable body ── */}
-          <div className="overflow-y-auto px-6 sm:px-8 py-5">
+          {/* Scrollable body */}
+          <div className="overflow-y-auto px-5 sm:px-7 py-4">
             {submitted ? (
               /* Success state */
-              <motion.div
+              <Motion.div
                 initial={SUCCESS_ANIM.initial}
                 animate={SUCCESS_ANIM.animate}
-                className="flex flex-col items-center py-12 text-center"
+                className="flex flex-col items-center py-10 text-center"
               >
-                <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-green-50">
-                  <CheckCircle2 size={40} className="text-green-500"  aria-hidden="true" focusable="false" />
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50">
+                  <CheckCircle2 size={36} className="text-emerald-500" aria-hidden="true" focusable="false" />
                 </div>
-                <h3 className="heading-card mb-3 text-2xl heading-primary">
+                <h3 className="heading-card mb-2 text-xl heading-primary">
                   Application Submitted!
                 </h3>
-                <p className="text-slate-600">
-                  Thank you for applying for{" "}
-                  <strong>{job.title}</strong>. We&apos;ll review your
-                  profile and get back to you soon.
+                <p className="text-sm text-slate-600 max-w-md">
+                  Thank you for applying for <strong>{job.title}</strong>. We will review your profile and contact you soon.
                 </p>
-                <p className="mt-3 text-sm text-slate-400">
-                  This window will close automatically&hellip;
+                <p className="mt-3 text-xs text-slate-400">
+                  This window will close automatically…
                 </p>
-              </motion.div>
+              </Motion.div>
             ) : (
               <form
                 onSubmit={handleSubmit}
                 noValidate
-                className="flex flex-col gap-5"
+                className="flex flex-col gap-3 sm:gap-3.5"
               >
                 {/* Honeypot Field */}
                 <input
@@ -557,28 +513,31 @@ try {
 
                 {/* Position — read-only */}
                 <Field label="Position Applying For">
-                  <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5">
+                  <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2">
                     <Briefcase
-                      size={16}
-                      className="shrink-0 text-orange-500" aria-hidden="true"
+                      size={14}
+                      className="shrink-0 text-brand-orange"
+                      aria-hidden="true"
                     />
-                    <span className="text-sm font-semibold text-slate-700">
+                    <span className="text-xs sm:text-sm font-semibold text-slate-700">
                       {job.title}
                     </span>
                   </div>
                 </Field>
 
                 {/* Row: Full Name + Email */}
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <Field
                     label="Full Name"
+                    htmlFor="apply-fullName"
                     required
                     error={errors.fullName}
                   >
                     <div className="relative">
                       <User
-                        size={15}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true"
+                        size={14}
+                        className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                        aria-hidden="true"
                       />
                       <input
                         type="text"
@@ -588,22 +547,24 @@ try {
                         onChange={handleChange}
                         placeholder="John Doe"
                         autoComplete="name"
-                        className={`${inputBase} aria-invalid={!!errors.fullName} aria-describedby={errors.fullName ? "apply-fullName-error" : undefined} pl-10 ${
-                          errors.fullName ? inputError : ""
-                        }`}
+                        aria-invalid={!!errors.fullName}
+                        aria-describedby={errors.fullName ? "apply-fullName-error" : undefined}
+                        className={`${inputBase} pl-9 ${errors.fullName ? inputError : ""}`}
                       />
                     </div>
                   </Field>
 
                   <Field
                     label="Email Address"
+                    htmlFor="apply-email"
                     required
                     error={errors.email}
                   >
                     <div className="relative">
                       <Mail
-                        size={15}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true"
+                        size={14}
+                        className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                        aria-hidden="true"
                       />
                       <input
                         type="email"
@@ -613,25 +574,27 @@ try {
                         onChange={handleChange}
                         placeholder="you@example.com"
                         autoComplete="email"
-                        className={`${inputBase} aria-invalid={!!errors.email} aria-describedby={errors.email ? "apply-email-error" : undefined} pl-10 ${
-                          errors.email ? inputError : ""
-                        }`}
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "apply-email-error" : undefined}
+                        className={`${inputBase} pl-9 ${errors.email ? inputError : ""}`}
                       />
                     </div>
                   </Field>
                 </div>
 
                 {/* Row: Phone + Employment Status */}
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <Field
                     label="Phone Number"
+                    htmlFor="apply-phone"
                     required
                     error={errors.phone}
                   >
                     <div className="relative">
                       <Phone
-                        size={15}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true"
+                        size={14}
+                        className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                        aria-hidden="true"
                       />
                       <input
                         type="tel"
@@ -641,15 +604,16 @@ try {
                         onChange={handleChange}
                         placeholder="+91 98765 43210"
                         autoComplete="tel"
-                        className={`${inputBase} aria-invalid={!!errors.phone} aria-describedby={errors.phone ? "apply-phone-error" : undefined} pl-10 ${
-                          errors.phone ? inputError : ""
-                        }`}
+                        aria-invalid={!!errors.phone}
+                        aria-describedby={errors.phone ? "apply-phone-error" : undefined}
+                        className={`${inputBase} pl-9 ${errors.phone ? inputError : ""}`}
                       />
                     </div>
                   </Field>
 
                   <Field
                     label="Employment Status"
+                    htmlFor="apply-employmentStatus"
                     required
                     error={errors.employmentStatus}
                   >
@@ -659,16 +623,14 @@ try {
                         id="apply-employmentStatus"
                         value={form.employmentStatus}
                         onChange={handleChange}
-                        className={`${inputBase} aria-invalid={!!errors.employmentStatus} aria-describedby={errors.employmentStatus ? "apply-employmentStatus-error" : undefined} appearance-none pr-10 ${
+                        aria-invalid={!!errors.employmentStatus}
+                        aria-describedby={errors.employmentStatus ? "apply-employmentStatus-error" : undefined}
+                        className={`${inputBase} appearance-none pr-9 ${
                           errors.employmentStatus ? inputError : ""
-                        } ${
-                          !form.employmentStatus
-                            ? "text-slate-400"
-                            : ""
-                        }`}
+                        } ${!form.employmentStatus ? "text-slate-400" : ""}`}
                       >
                         <option value="" disabled>
-                          Select status&hellip;
+                          Select status…
                         </option>
                         <option value="Employed">Currently Employed</option>
                         <option value="Unemployed">Unemployed</option>
@@ -677,17 +639,19 @@ try {
                         <option value="Notice Period">Serving Notice Period</option>
                       </select>
                       <ChevronDown
-                        size={15}
-                        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true"
+                        size={14}
+                        className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                        aria-hidden="true"
                       />
                     </div>
                   </Field>
                 </div>
 
                 {/* Row: Experience + Skills */}
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <Field
                     label="Total Experience"
+                    htmlFor="apply-experience"
                     required
                     error={errors.experience}
                   >
@@ -697,31 +661,31 @@ try {
                         id="apply-experience"
                         value={form.experience}
                         onChange={handleChange}
-                        className={`${inputBase} aria-invalid={!!errors.experience} aria-describedby={errors.experience ? "apply-experience-error" : undefined} appearance-none pr-10 ${
+                        aria-invalid={!!errors.experience}
+                        aria-describedby={errors.experience ? "apply-experience-error" : undefined}
+                        className={`${inputBase} appearance-none pr-9 ${
                           errors.experience ? inputError : ""
-                        } ${
-                          !form.experience ? "text-slate-400" : ""
-                        }`}
+                        } ${!form.experience ? "text-slate-400" : ""}`}
                       >
                         <option value="" disabled>
-                          Select experience&hellip;
+                          Select experience…
                         </option>
-                        <option value="Fresher / 0 Years">
-                          Fresher / 0 Years
-                        </option>
+                        <option value="Fresher / 0 Years">Fresher / 0 Years</option>
                         <option value="0-1 Year">0–1 Year</option>
                         <option value="1-3 Years">1–3 Years</option>
                         <option value="3+ Years">3+ Years</option>
                       </select>
                       <ChevronDown
-                        size={15}
-                        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true"
+                        size={14}
+                        className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                        aria-hidden="true"
                       />
                     </div>
                   </Field>
 
                   <Field
                     label="Relevant Skills"
+                    htmlFor="apply-skills"
                     error={errors.skills}
                   >
                     <input
@@ -730,10 +694,10 @@ try {
                       id="apply-skills"
                       value={form.skills}
                       onChange={handleChange}
-                      placeholder="e.g. React, SEO, Google Ads&hellip;"
-                      className={`${inputBase} aria-invalid={!!errors.skills} aria-describedby={errors.skills ? "apply-skills-error" : undefined} ${
-                        errors.skills ? inputError : ""
-                      }`}
+                      placeholder="e.g. React, SEO, Social Media…"
+                      aria-invalid={!!errors.skills}
+                      aria-describedby={errors.skills ? "apply-skills-error" : undefined}
+                      className={`${inputBase} ${errors.skills ? inputError : ""}`}
                     />
                   </Field>
                 </div>
@@ -741,12 +705,14 @@ try {
                 {/* Portfolio / LinkedIn */}
                 <Field
                   label="Portfolio / LinkedIn / Work Samples (Optional)"
+                  htmlFor="apply-portfolioLink"
                   error={errors.portfolioLink}
                 >
                   <div className="relative">
                     <Link
-                      size={15}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true"
+                      size={14}
+                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                      aria-hidden="true"
                     />
                     <input
                       type="url"
@@ -754,17 +720,18 @@ try {
                       id="apply-portfolioLink"
                       value={form.portfolioLink}
                       onChange={handleChange}
-                      placeholder="https://github.com/you  or  linkedin.com/in/you"
-                      className={`${inputBase} aria-invalid={!!errors.portfolioLink} aria-describedby={errors.portfolioLink ? "apply-portfolioLink-error" : undefined} pl-10 ${
-                        errors.portfolioLink ? inputError : ""
-                      }`}
+                      placeholder="https://github.com/you or https://linkedin.com/in/you"
+                      aria-invalid={!!errors.portfolioLink}
+                      aria-describedby={errors.portfolioLink ? "apply-portfolioLink-error" : undefined}
+                      className={`${inputBase} pl-9 ${errors.portfolioLink ? inputError : ""}`}
                     />
                   </div>
                 </Field>
 
-                {/* Resume Upload */}
+                {/* Resume Upload - Compact */}
                 <Field
                   label="Resume"
+                  htmlFor="apply-resume"
                   required
                   error={errors.resume}
                 >
@@ -775,34 +742,30 @@ try {
                       cursor-pointer
                       items-center
                       gap-3
-                      rounded-2xl
-                      border-2
+                      rounded-xl
+                      border
                       border-dashed
-                      px-5
-                      py-4
+                      px-4
+                      py-2.5
                       transition-colors
                       ${
                         errors.resume
                           ? "border-red-300 bg-red-50"
                           : form.resume
                           ? "border-orange-300 bg-orange-50"
-                          : "border-slate-200 bg-slate-50 hover:border-orange-300 hover:bg-orange-50/40"
+                          : "border-slate-300 bg-slate-50 hover:border-brand-orange hover:bg-orange-50/40"
                       }
                     `}
                   >
                     <Upload
-                      size={18}
-                      className={
-                        form.resume
-                          ? "text-orange-500"
-                          : "text-slate-400"
-                      }
-                     aria-hidden="true" focusable="false" />
+                      size={16}
+                      className={form.resume ? "text-brand-orange" : "text-slate-400"}
+                      aria-hidden="true"
+                      focusable="false"
+                    />
                     <span
-                      className={`text-sm font-medium ${
-                        form.resume
-                          ? "text-orange-600"
-                          : "text-slate-500"
+                      className={`text-xs sm:text-sm font-medium truncate flex-1 ${
+                        form.resume ? "text-brand-orange font-semibold" : "text-slate-500"
                       }`}
                     >
                       {resumeLabel}
@@ -816,7 +779,7 @@ try {
                       className="sr-only"
                     />
                   </label>
-                  <p className="mt-2 text-center text-xs text-slate-500">
+                  <p className="text-[10px] sm:text-[11px] text-slate-400">
                     Accepted formats: PDF, DOC, DOCX • Max size: 2 MB
                   </p>
                 </Field>
@@ -824,97 +787,138 @@ try {
                 {/* Cover Letter */}
                 <Field
                   label="Why do you want to join Navi Promotions? (Optional)"
+                  htmlFor="apply-coverLetter"
                   error={errors.coverLetter}
                 >
                   <div className="relative">
                     <MessageSquare
-                      size={15}
-                      className="absolute left-4 top-4 text-slate-400" aria-hidden="true"
+                      size={14}
+                      className="absolute left-3 top-2.5 text-slate-400"
+                      aria-hidden="true"
                     />
                     <textarea
                       name="coverLetter"
                       id="apply-coverLetter"
                       value={form.coverLetter}
                       onChange={handleChange}
-                      rows={4}
+                      rows={2.5}
                       placeholder="Tell us a little about yourself and why you'd be a great fit…"
-                      className={`${inputBase} aria-invalid={!!errors.coverLetter} aria-describedby={errors.coverLetter ? "apply-coverLetter-error" : undefined} resize-none pl-10 pt-4 ${
+                      aria-invalid={!!errors.coverLetter}
+                      aria-describedby={errors.coverLetter ? "apply-coverLetter-error" : undefined}
+                      className={`${inputBase} resize-none pl-8 pt-2 ${
                         errors.coverLetter ? inputError : ""
                       }`}
                     />
                   </div>
                 </Field>
 
-                <div className="flex justify-center py-2">
-  <Turnstile
-    siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
-    onSuccess={(token) => {
-      setTurnstileToken(token);
-      setSubmitError("");
-    }}
-    onExpire={() => {
-      setTurnstileToken("");
-    }}
-    onError={() => {
-      setTurnstileToken("");
-      setSubmitError("Security verification failed. Please try again.");
-    }}
-  />
-</div>
+                {/* Mandatory Confirmation Checkbox immediately below cover letter */}
+                <div className="flex flex-col gap-1 pt-0.5">
+                  <label
+                    htmlFor="apply-confirmed"
+                    className="flex items-start gap-2.5 cursor-pointer select-none"
+                  >
+                    <input
+                      type="checkbox"
+                      id="apply-confirmed"
+                      name="confirmed"
+                      checked={form.confirmed}
+                      onChange={(e) => {
+                        setForm((prev) => ({ ...prev, confirmed: e.target.checked }));
+                        if (errors.confirmed) {
+                          setErrors((prev) => ({ ...prev, confirmed: "" }));
+                        }
+                      }}
+                      className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-orange focus:ring-brand-orange/20 accent-orange-500 cursor-pointer"
+                      required
+                    />
+                    <span className="text-xs sm:text-sm font-medium text-slate-700 leading-snug">
+                      I confirm that all the information provided above is true, accurate, and complete.
+                      <span className="ml-1 text-brand-orange" aria-hidden="true">*</span>
+                    </span>
+                  </label>
+                  {errors.confirmed && (
+                    <p className="text-[11px] font-medium text-red-500" aria-live="polite">
+                      {errors.confirmed}
+                    </p>
+                  )}
+                </div>
 
-                {/* Submit */}
+                {/* Security Verification */}
+                <div className="flex justify-center py-0.5">
+                  <Turnstile
+                    siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+                    onSuccess={(token) => {
+                      setTurnstileToken(token);
+                      setSubmitError("");
+                    }}
+                    onExpire={() => {
+                      setTurnstileToken("");
+                    }}
+                    onError={() => {
+                      setTurnstileToken("");
+                      setSubmitError("Security verification failed. Please try again.");
+                    }}
+                  />
+                </div>
+
                 {/* Error banner */}
                 {submitError && (
-                  <motion.div
+                  <Motion.div
                     initial={ERROR_ANIM.initial}
                     animate={ERROR_ANIM.animate}
-                    className="flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-5 py-4"
+                    className="flex items-start gap-2.5 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5"
                   >
                     <XCircle
-                      size={18}
+                      size={16}
                       className="mt-0.5 shrink-0 text-red-500"
-                     aria-hidden="true" focusable="false" />
-                    <p className="text-sm font-medium text-red-700">
+                      aria-hidden="true"
+                      focusable="false"
+                    />
+                    <p className="text-xs font-medium text-red-700">
                       {submitError}
                     </p>
-                  </motion.div>
+                  </Motion.div>
                 )}
 
+                {/* Submit button */}
                 <button
                   type="submit"
-                  disabled={submitting || !turnstileToken || cooldown > 0}
+                  disabled={submitting || !turnstileToken || cooldown > 0 || !form.confirmed}
                   className="
-                    mt-2
+                    mt-0.5
                     flex
                     w-full
                     items-center
                     justify-center
                     gap-2
-                    rounded-2xl
+                    rounded-xl
                     bg-slate-900
-                    px-6
-                    py-4
-                    text-sm
+                    px-4
+                    py-3
+                    text-xs
+                    sm:text-sm
                     font-bold
                     uppercase
                     tracking-[0.15em]
                     text-white
                     transition-all
-                    hover:bg-orange-500
+                    hover:bg-brand-orange
                     disabled:cursor-not-allowed
                     disabled:opacity-60
+                    cursor-pointer
                   "
                 >
                   {submitting ? (
                     <>
-                      <Loader2 size={16} className="animate-spin"  aria-hidden="true" focusable="false" />
-                      Sending&hellip;
+                      <Loader2 size={15} className="animate-spin" aria-hidden="true" focusable="false" />
+                      Sending…
                     </>
                   ) : cooldown > 0 ? (
                     `Please wait (${cooldown}s)`
                   ) : (
                     <>
-                      <FileText size={16}  aria-hidden="true" focusable="false" />
+                      <FileText size={15} aria-hidden="true" focusable="false" />
                       Submit Application
                     </>
                   )}
@@ -922,7 +926,7 @@ try {
               </form>
             )}
           </div>
-        </motion.div>
+        </Motion.div>
       </div>
     </AnimatePresence>
   );

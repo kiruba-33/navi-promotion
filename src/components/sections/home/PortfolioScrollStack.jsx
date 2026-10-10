@@ -50,7 +50,7 @@ const PortfolioScrollStack = () => {
                   </span>
 
                   {/* Project & Client Name */}
-                  <h3 className="heading-primary text-lg sm:text-xl md:text-2xl font-extrabold tracking-tight leading-none mt-1 sm:mt-1.5 truncate w-full select-none">
+                  <h3 className="heading-primary text-lg sm:text-xl md:text-2xl font-semibold tracking-tight leading-none mt-1 sm:mt-1.5 truncate w-full select-none">
                     {item.title} <span className="text-slate-500 font-medium text-sm sm:text-base ml-2">/ {item.client}</span>
                   </h3>
                 </div>

@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "motion/react";
+import { motion as Motion, AnimatePresence } from "motion/react";
 import { Link } from "react-router-dom";
 import { X } from "lucide-react";
 
@@ -8,13 +8,13 @@ import {
   navLinks,
 } from "./navbarData";
 
-const MobileMenu = ({ isOpen, closeMenu }) => {
+const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
   return (
     <AnimatePresence>
       {isOpen && (
         <>
           {/* Overlay */}
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -23,7 +23,7 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
           />
 
           {/* Drawer */}
-          <motion.div
+          <Motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -67,7 +67,7 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
                 <Link
                   to="/"
                   onClick={closeMenu}
-                  className="block text-2xl font-bold text-slate-900 hover:text-brand-orange transition-colors">
+                  className="block text-xl font-semibold text-slate-900 hover:text-brand-orange transition-colors">
                   Home
                 </Link>
 
@@ -76,7 +76,7 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
                     key={link.href}
                     to={link.href}
                     onClick={closeMenu}
-                    className="block text-2xl font-bold text-slate-900 hover:text-brand-orange transition-colors">
+                    className="block text-xl font-semibold text-slate-900 hover:text-brand-orange transition-colors">
                     {link.name}
                   </Link>
                 ))}
@@ -85,7 +85,7 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
               {/* About Menu */}
               <div className="space-y-4">
 
-                <span className="text-xs uppercase tracking-[0.25em] text-slate-400 font-bold">
+                <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold">
                   About
                 </span>
 
@@ -100,7 +100,7 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
                     </div>
 
                     <div>
-                      <h4 className="text-sm font-bold heading-primary">
+                      <h4 className="text-sm font-semibold heading-primary">
                         {item.name}
                       </h4>
 
@@ -115,7 +115,7 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
               {/* Services Menu */}
               <div className="space-y-4">
 
-                <span className="text-xs uppercase tracking-[0.25em] text-slate-400 font-bold">
+                <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold">
                   Services
                 </span>
 
@@ -130,7 +130,7 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
                     </div>
 
                     <div>
-                      <h4 className="text-sm font-bold heading-primary">
+                      <h4 className="text-sm font-semibold heading-primary">
                         {item.name}
                       </h4>
 
@@ -146,22 +146,26 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
             {/* Footer Buttons */}
             <div className="p-6 border-t border-slate-100 space-y-3">
 
-              <Link
-                to="/become-client"
-                onClick={closeMenu}
-                className="block w-full py-4 rounded-2xl border border-slate-200 text-center text-sm font-bold text-slate-900 hover:bg-slate-50 transition-all">
-                Become Client
-              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  closeMenu();
+                  if (onOpenBecomeClient) onOpenBecomeClient();
+                }}
+                className="block w-full py-3.5 rounded-2xl border-2 border-slate-900 text-center text-sm font-semibold text-slate-900 hover:bg-slate-900 hover:text-white transition-all cursor-pointer"
+              >
+                Become a Client
+              </button>
 
               <Link
                 to="/contact"
                 onClick={closeMenu}
-                className="block w-full py-4 rounded-2xl bg-slate-900 text-white text-center text-sm font-bold hover:bg-brand-orange transition-all">
+                className="block w-full py-3.5 rounded-2xl bg-slate-900 text-white text-center text-sm font-semibold hover:bg-brand-orange transition-all">
                 Let's Talk
               </Link>
 
             </div>
-          </motion.div>
+          </Motion.div>
         </>
       )}
     </AnimatePresence>

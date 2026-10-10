@@ -49,21 +49,21 @@ const services = [
 
 export default function HomeServices() {
   return (
-    <section id="services" className="min-h-screen py-20 sm:py-24 lg:py-32 relative flex items-center overflow-hidden">
+    <section id="services" className="py-10 sm:py-14 lg:py-16 relative flex items-center overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 w-full">
         
         {/* Header Section */}
-        <div className="max-w-3xl mx-auto text-center flex flex-col items-center mb-16 sm:mb-20 lg:mb-24">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-6 shadow-sm select-none">
+        <div className="max-w-5xl mx-auto text-center flex flex-col items-center mb-10 sm:mb-12 lg:mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-5 shadow-sm select-none">
             <BriefcaseBusiness className="w-4 h-4 text-orange-500" />
             <span>Core Capabilities</span>
           </div>
           
-          <h2 className="heading-display text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl heading-primary sm:leading-[1.1] md:leading-[1.15] lg:leading-[1.15] tracking-tighter mb-6">
+          <h2 className="heading-section text-center heading-primary mb-4 sm:mb-5">
             Enterprise<span className="heading-highlight leading-none"> Solutions</span>
           </h2>
           
-          <p className="body-large text-center text-slate-600 max-w-2xl font-medium tracking-tight drop-shadow-sm">
+          <p className="body-large text-center text-slate-600 max-w-4xl mx-auto font-normal tracking-tight drop-shadow-sm whitespace-normal lg:whitespace-nowrap">
             End-to-end digital services designed to elevate your brand and drive measurable revenue growth.
           </p>
         </div>
@@ -85,19 +85,19 @@ export default function HomeServices() {
                 </div>
                 
                 {/* Card Title */}
-                <h3 className="heading-card text-xl sm:text-2xl heading-primary mb-4 group-hover:text-orange-500 transition-colors duration-300">
+                <h3 className="heading-card text-xl sm:text-2xl heading-primary mb-4">
                   {service.title}
                 </h3>
                 
                 {/* Description */}
-                <p className="body-normal text-slate-600 mb-6 sm:mb-8 flex-grow drop-shadow-sm font-medium">
+                <p className="body-normal text-slate-600 mb-6 sm:mb-8 flex-grow drop-shadow-sm font-normal">
                   {service.description}
                 </p>
                 
                 {/* Action Link */}
                 <Link 
                   to={service.link} 
-                  className="mt-auto inline-flex items-center text-slate-700 font-bold group-hover:text-orange-500 transition-colors duration-300 cursor-pointer drop-shadow-sm text-sm sm:text-base gap-2">
+                  className="mt-auto inline-flex items-center text-slate-700 font-semibold group-hover:text-orange-500 transition-colors duration-300 cursor-pointer drop-shadow-sm text-sm sm:text-base gap-2">
                   <span>Explore Service</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5"  aria-hidden="true" focusable="false" />
                 </Link>

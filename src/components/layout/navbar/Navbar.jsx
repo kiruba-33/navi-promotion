@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
 import HamburgerButton from "./HamburgerButton";
+import BecomeClientModal from "../../ui/BecomeClientModal";
 
 function Navbar() {
   const location = useLocation();
@@ -13,6 +14,9 @@ function Navbar() {
     useState(false);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] =
+    useState(false);
+
+  const [isBecomeClientModalOpen, setIsBecomeClientModalOpen] =
     useState(false);
 
     
@@ -41,9 +45,6 @@ function Navbar() {
 
   const isLightPage =
   lightPages.includes(location.pathname);
-
-const isBlogListingPage =
-  location.pathname === "/blog";
 
 const isBlogDetailPage =
   location.pathname.startsWith("/blog/") &&
@@ -133,22 +134,24 @@ const showLightNavbar =
             {/* RIGHT CTA */}
             <div className="hidden lg:flex items-center gap-5 shrink-0">
 
-              <Link
-                to="/become-client"
-                className={`text-sm font-semibold transition-all duration-300 ${
+              <button
+                type="button"
+                onClick={() => setIsBecomeClientModalOpen(true)}
+                className={`h-12 px-7 rounded-full text-sm font-semibold inline-flex items-center justify-center transition-all duration-300 cursor-pointer ${
                   showLightNavbar
-                    ? "text-black"
-                    : "text-white"
-                }`}>
-                Become Client
-              </Link>
+                    ? "border-2 border-black text-black hover:bg-black hover:text-white"
+                    : "border-2 border-white/80 text-white hover:bg-white hover:text-black backdrop-blur-md"
+                }`}
+              >
+                Become a Client
+              </button>
 
               <Link
                 to="/contact"
-                className={`h-12 px-8 rounded-full text-sm font-bold inline-flex items-center justify-center transition-all duration-300 ${
+                className={`h-12 px-8 rounded-full text-sm font-semibold inline-flex items-center justify-center transition-all duration-300 ${
                   showLightNavbar
-                    ? "bg-black text-white"
-                    : "bg-white/10 backdrop-blur-md text-white border border-white/20"
+                    ? "bg-black text-white hover:bg-brand-orange hover:text-white"
+                    : "bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white hover:text-black"
                 }`}>
                 Let's Talk
               </Link>
@@ -181,6 +184,15 @@ const showLightNavbar =
         closeMenu={() =>
           setIsMobileMenuOpen(false)
         }
+        onOpenBecomeClient={() =>
+          setIsBecomeClientModalOpen(true)
+        }
+      />
+
+      {/* BECOME A CLIENT POPUP MODAL */}
+      <BecomeClientModal
+        isOpen={isBecomeClientModalOpen}
+        onClose={() => setIsBecomeClientModalOpen(false)}
       />
     </>
   );

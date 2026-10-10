@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "motion/react";
 import { Sparkles } from "lucide-react";
 
 export default function LetsTalkHero({
@@ -70,19 +69,7 @@ export default function LetsTalkHero({
           text-center
         "
       >
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: 30,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.8,
-          }}
-        >
+        <div>
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/10 text-white text-sm font-semibold mb-6 shadow-sm select-none backdrop-blur-md">
             <Sparkles className="w-4 h-4 text-orange-500" />
@@ -103,16 +90,14 @@ export default function LetsTalkHero({
               xl:text-6xl
               2xl:text-7xl
 
-              font-black
+              font-bold
               uppercase
               tracking-tight
 
               text-white
               drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
 
-              whitespace-nowrap
-
-              leading-[1.1]
+              leading-[1.15]
               md:leading-[1.15]
               lg:leading-[1.15]
             "
@@ -138,7 +123,7 @@ export default function LetsTalkHero({
           >
             {description}
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -135,7 +135,7 @@ export default function ServicesSelector() {
                 <span
                   className="
                     text-lg
-                    font-black
+                    font-bold
                   "
                 >
                   {String(

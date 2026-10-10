@@ -41,33 +41,39 @@ const developmentTools = [
   { name: 'PostgreSQL', icon: postgresql },
 ];
 
-function MarqueeRow({ title, items, direction }) {
+function MarqueeRow({ items, direction, ariaLabel }) {
   const sets = [items, items];
   const animationClass = direction === 'left' ? 'marquee-left' : 'marquee-right';
 
   return (
-    <div className="relative w-full overflow-hidden py-2 sm:py-3">
-      <div className="mb-3 px-4 sm:px-6 lg:px-8">
-        <h3 className="text-center text-lg font-semibold heading-primary sm:text-xl">{title}</h3>
-      </div>
-
+    <div className="relative w-full overflow-hidden py-3 sm:py-4">
       <div className="marquee-mask overflow-hidden">
         <div
           className={`marquee-track ${animationClass} flex w-max items-center whitespace-nowrap will-change-transform backface-hidden`}
           role="list"
-          aria-label={title}
+          aria-label={ariaLabel}
         >
           {sets.map((set, setIndex) => (
             <div
-              key={`${title}-${setIndex}`}
-              className="flex shrink-0 items-center gap-8"
+              key={`set-${setIndex}`}
+              className="flex shrink-0 items-center gap-6 sm:gap-8"
               role="presentation"
               aria-hidden={setIndex === 1}
             >
               {set.map((item) => (
-                <div key={`${item.name}-${setIndex}`} className="flex shrink-0 items-center gap-3 px-[18px] py-[10px] text-slate-700 sm:px-[20px] sm:py-[12px] lg:px-[22px]" role="listitem">
-                  <img src={item.icon} alt={`${item.name} icon`} className="h-9 w-9 flex-shrink-0 object-contain sm:h-10 sm:w-10 lg:h-12 lg:w-12" />
-                  <span className="whitespace-nowrap text-[13px] font-semibold leading-none sm:text-[14px] lg:text-[15px]">{item.name}</span>
+                <div
+                  key={`${item.name}-${setIndex}`}
+                  className="flex shrink-0 items-center gap-3 sm:gap-4 px-4 sm:px-5 py-2.5 sm:py-3.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 shadow-xs hover:border-orange-500/40 hover:shadow-sm transition-all duration-300"
+                  role="listitem"
+                >
+                  <img
+                    src={item.icon}
+                    alt={`${item.name} icon`}
+                    className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 flex-shrink-0 object-contain transition-transform duration-300"
+                  />
+                  <span className="whitespace-nowrap text-sm sm:text-base font-semibold leading-none text-slate-800">
+                    {item.name}
+                  </span>
                 </div>
               ))}
             </div>
@@ -80,26 +86,26 @@ function MarqueeRow({ title, items, direction }) {
 
 export default function ToolsPartners() {
   return (
-    <section className="relative w-full overflow-x-hidden py-16 sm:py-20 lg:py-32">
+    <section className="relative w-full overflow-x-hidden py-10 sm:py-14 lg:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12 lg:mb-14 flex flex-col items-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm select-none">
-            <Handshake className="w-4 h-4 text-orange-500"  aria-hidden="true" focusable="false" />
+        <div className="mx-auto mb-8 max-w-5xl text-center sm:mb-10 lg:mb-12 flex flex-col items-center">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm select-none">
+            <Handshake className="w-4 h-4 text-orange-500" aria-hidden="true" focusable="false" />
             <span>Our Tech Stack</span>
           </div>
 
-          <h2 className="heading-display mb-6 text-center text-4xl heading-primary tracking-tighter sm:mb-8 sm:text-[2.75rem] sm:leading-[1.1] md:text-5xl md:leading-[1.15] lg:text-6xl lg:leading-[1.15]">
+          <h2 className="heading-section mb-4 text-center heading-primary tracking-tight whitespace-normal lg:whitespace-nowrap">
             Empowering Success with <span className="heading-highlight">Elite Tools</span>
           </h2>
 
-          <p className="body-large mx-auto max-w-full font-medium whitespace-pre-line text-center text-slate-600 sm:max-w-[80%] lg:max-w-3xl">
+          <p className="body-large mx-auto text-center text-slate-600 max-w-5xl font-normal tracking-tight whitespace-normal lg:whitespace-nowrap">
             We blend creative precision with modern engineering to deliver experiences that are polished, reliable, and future-ready.
           </p>
         </div>
 
-        <div className="space-y-5 sm:space-y-7">
-          <MarqueeRow title="Creative & Digital Marketing Tools" items={creativeTools} direction="left" />
-          <MarqueeRow title="Development Technologies" items={developmentTools} direction="right" />
+        <div className="space-y-4 sm:space-y-6">
+          <MarqueeRow items={creativeTools} direction="left" ariaLabel="Creative and Marketing tools" />
+          <MarqueeRow items={developmentTools} direction="right" ariaLabel="Development tools" />
         </div>
       </div>
 
@@ -138,13 +144,6 @@ export default function ToolsPartners() {
         .backface-hidden {
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .marquee-track {
-            animation: none !important;
-            transform: none !important;
-          }
         }
       `}</style>
     </section>

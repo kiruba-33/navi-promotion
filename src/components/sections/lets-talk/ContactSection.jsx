@@ -93,17 +93,7 @@ export default function ContactSection() {
             >
               Ready To Start
               <br />
-              <span
-               className="
-                bg-gradient-to-r
-                from-yellow-400
-                via-orange-500
-                to-orange-600
-                bg-clip-text
-                text-transparent
-              ">
-              Growing?
-              </span>
+              <span>Growing?</span>
             </h2>
 
             <p

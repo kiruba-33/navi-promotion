@@ -1,210 +1,87 @@
 import React from "react";
-import { motion } from "motion/react";
-
-import {
-  Building2,
-  ArrowRight,
-} from "lucide-react";
-
-import {
-  entitiesData,
-} from "../../../data/about";
+import { Building2, Sparkles, ArrowUpRight } from "lucide-react";
+import { subBrandsData } from "../../../data/about";
 
 export default function OurEntities() {
   return (
     <section
-      className="
-        relative
-        overflow-hidden
-        border-y
-        border-slate-200
-        py-20
-        sm:py-24
-        lg:py-32
-      "
+      id="sub-brands"
+      className="relative overflow-hidden border-y border-slate-200 py-10 sm:py-14 lg:py-16 bg-white"
     >
       {/* Background Glow */}
-      <div
-        className="
-          absolute
-          top-0
-          left-1/2
-          h-[500px]
-          w-full
-          max-w-3xl
-          -translate-x-1/2
-          rounded-full
-          bg-slate-50/20
-          blur-[120px]
-          pointer-events-none
-        "
-      />
+      <div className="absolute top-0 left-1/2 h-[500px] w-full max-w-3xl -translate-x-1/2 rounded-full bg-slate-50/40 blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-        
         {/* Header */}
-        <div className="mx-auto mb-16 max-w-3xl text-center lg:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-6 shadow-sm select-none"
+        <div className="mx-auto mb-10 max-w-4xl text-center sm:mb-12 lg:mb-14 flex flex-col items-center">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-5 shadow-sm select-none"
           >
             <Building2 className="w-4 h-4 text-orange-500" />
-            <span>Our Entities</span>
-          </motion.div>
+            <span>Our Sub Brands</span>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="
-              heading-section
-              text-4xl
-              sm:text-5xl
-              lg:text-6xl
-              heading-primary
-              mb-6
-            "
+          <h2
+            className="heading-section text-center heading-primary tracking-tight mb-4 whitespace-normal lg:whitespace-nowrap"
           >
-            Our{" "}
-            <span className="heading-highlight">
-              Network
-            </span>
-          </motion.h2>
+            Our <span className="heading-highlight">Sub Brands</span>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="
-              body-large
-              text-slate-600
-            "
+          <p
+            className="body-large text-slate-600 max-w-4xl mx-auto font-normal tracking-tight whitespace-normal lg:whitespace-nowrap"
           >
-            A diverse ecosystem of specialized companies
-            working together to deliver comprehensive
-            solutions across industries.
-          </motion.p>
+            Specialized divisions delivering focused excellence across retail commerce, creative media, and advanced technology.
+          </p>
         </div>
 
-        {/* Grid */}
-        <div
-          className="
-            grid
-            grid-cols-1
-            gap-6
-            md:grid-cols-2
-            xl:grid-cols-3
-          "
-        >
-          {entitiesData.map((entity) => (
-            <motion.div
-              key={entity.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="
-                group
-                relative
-                overflow-hidden
-                rounded-[2rem]
-                border
-                border-slate-200
-                bg-white
-                transition-all
-                duration-300
-                hover:shadow-xl
-              "
-            >
-              {/* Image */}
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={entity.image}
-                  alt={entity.name}
-                  className="
-                    h-full
-                    w-full
-                    object-cover
-                    transition-transform
-                    duration-700
-                    group-hover:scale-105
-                  "
-                />
+        {/* Brand Cards Grid */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {subBrandsData.map((brand) => {
+            const Icon = brand.icon;
+            return (
+              <div
+                key={brand.name}
+                className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50/50 hover:bg-white transition-all duration-300 hover:shadow-xl hover:border-orange-500/40"
+              >
+                {/* Brand Visual Cover */}
+                <div className="relative h-56 sm:h-60 overflow-hidden">
+                  <img
+                    src={brand.image}
+                    alt={brand.name}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
 
-                <div
-                  className="
-                    absolute
-                    inset-0
-                    bg-gradient-to-t
-                    from-black/60
-                    via-black/20
-                    to-transparent
-                  "
-                />
-              </div>
+                  {/* Icon Badge */}
+                  <div className="absolute top-4 left-4 w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center text-slate-900 border border-white/40 shadow-md">
+                    <Icon className="w-6 h-6 text-orange-500" />
+                  </div>
 
-              {/* Content */}
-              <div className="p-8">
-                <div
-                  className={`
-                    mb-6
-                    flex
-                    h-14
-                    w-14
-                    items-center
-                    justify-center
-                    rounded-2xl
-                    bg-gradient-to-br
-                    ${entity.color}
-                  `}
-                >
-                  <entity.icon className="h-7 w-7 text-white" />
+                  {/* Tagline on image */}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-orange-400">
+                      {brand.tagline}
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-semibold text-white mt-0.5">
+                      {brand.name}
+                    </h3>
+                  </div>
                 </div>
 
-                <h3
-                  className="
-                    heading-card
-                    text-2xl
-                    text-slate-900
-                    mb-4
-                  "
-                >
-                  {entity.name}
-                </h3>
+                {/* Content */}
+                <div className="p-6 sm:p-7 flex flex-col flex-grow justify-between">
+                  <p className="body-normal text-slate-600 text-sm leading-relaxed mb-6 font-normal">
+                    {brand.description}
+                  </p>
 
-                <p
-                  className="
-                    body-normal
-                    text-slate-600
-                    mb-8
-                  "
-                >
-                  {entity.description}
-                </p>
-
-                <button
-                  className="
-                    inline-flex
-                    items-center
-                    gap-2
-                    text-sm
-                    font-semibold
-                    text-brand-orange
-                    transition-colors
-                    hover:text-slate-900
-                  "
-                >
-                  Explore Entity
-
-                  <ArrowRight className="h-4 w-4"  aria-hidden="true" focusable="false" />
-                </button>
+                  <div className="pt-4 border-t border-slate-200/70 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-700 group-hover:text-orange-500 transition-colors">
+                    <span>Explore Initiative</span>
+                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                </div>
               </div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
