@@ -1,8 +1,8 @@
 import React from "react";
 import {
+  Building2,
   Target,
   Zap,
-  Sparkles,
   MapPin,
 } from "lucide-react";
 import ArrowButton from "../../ui/ArrowButton";
@@ -60,7 +60,7 @@ export default function About() {
           <div>
             {/* SECTION BADGE */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-3 shadow-sm select-none">
-              <Sparkles className="w-4 h-4 text-orange-500" />
+              <Building2 className="w-4 h-4 text-orange-500" />
               <span>About</span>
             </div>
 

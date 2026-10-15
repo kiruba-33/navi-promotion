@@ -17,12 +17,9 @@
  *   {{phone}}             – Applicant's phone
  *   {{employment_status}} – Student / Fresher / Currently Employed
  *   {{experience}}        – Experience bracket selected
- *   {{skills}}            – Free-text skills
- *   {{portfolio_link}}    – Portfolio / LinkedIn URL
- *   {{cover_letter}}      – Optional cover letter message
- *   {{resume_name}}       – Uploaded file name
- *   {{resume_size}}       – Uploaded file size (KB)
- *   {{resume_attachment}} – base64 data URI (files ≤ 50 KB) or a text note
+ *   {{skills}}            – Free-text skills (Required)
+ *   {{portfolio_link}}    – Portfolio / LinkedIn URL (Optional)
+ *   {{cover_letter}}      – Optional cover letter message (Optional)
  *
  * ENV VARIABLES (set in .env — never commit real values):
  *   VITE_EMAILJS_SERVICE_ID   – Email Services → Service ID
@@ -44,7 +41,6 @@ import {
   MessageSquare,
   CheckCircle2,
   XCircle,
-  Upload,
   ChevronDown,
   Loader2,
 } from "lucide-react";
@@ -91,7 +87,6 @@ const EMPTY_FORM = {
   experience: "",
   skills: "",
   portfolioLink: "",
-  resume: null,
   coverLetter: "",
   website: "",
   confirmed: false,
@@ -214,53 +209,6 @@ export default function ApplyNowModal({ job, onClose }) {
     setErrors((prev) => ({ ...prev, [name]: "" }));
   }
 
-  /* ── File change handler ── */
-  function handleFile(e) {
-    const file = e.target.files?.[0] ?? null;
-
-    if (!file) {
-      setForm((prev) => ({ ...prev, resume: null }));
-      setErrors((prev) => ({ ...prev, resume: "" }));
-      e.target.value = "";
-      return;
-    }
-
-    if (file.size === 0) {
-      setForm((prev) => ({ ...prev, resume: null }));
-      setErrors((prev) => ({ ...prev, resume: "The selected file is empty." }));
-      e.target.value = "";
-      return;
-    }
-
-    if (file.size > 2 * 1024 * 1024) {
-      setForm((prev) => ({ ...prev, resume: null }));
-      setErrors((prev) => ({ ...prev, resume: "Resume must be 2 MB or smaller." }));
-      e.target.value = "";
-      return;
-    }
-
-    const allowedExtensions = [".pdf", ".doc", ".docx"];
-    const allowedMimeTypes = [
-      "application/pdf",
-      "application/msword",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    ];
-
-    const fileName = file.name.toLowerCase();
-    const isValidExtension = allowedExtensions.some(ext => fileName.endsWith(ext));
-    const isValidMimeType = allowedMimeTypes.includes(file.type);
-
-    if (!isValidExtension || !isValidMimeType) {
-      setForm((prev) => ({ ...prev, resume: null }));
-      setErrors((prev) => ({ ...prev, resume: "Only PDF, DOC, and DOCX files are allowed." }));
-      e.target.value = "";
-      return;
-    }
-
-    setForm((prev) => ({ ...prev, resume: file }));
-    setErrors((prev) => ({ ...prev, resume: "" }));
-  }
-
   /* ── Validation ── */
   function validate() {
     const e = {};
@@ -278,8 +226,8 @@ export default function ApplyNowModal({ job, onClose }) {
       e.employmentStatus = "Please select your employment status.";
     if (!form.experience)
       e.experience = "Please select your experience level.";
-    if (!form.resume)
-      e.resume = "Please upload your resume.";
+    if (!form.skills.trim())
+      e.skills = "Relevant skills are required.";
     if (!form.confirmed)
       e.confirmed = "Please confirm that all information provided is true, accurate, and complete.";
     return e;
@@ -314,40 +262,17 @@ export default function ApplyNowModal({ job, onClose }) {
     setSubmitError("");
 
     try {
-      let resumeAttachment = "Not provided";
-      let resumeName = "Not provided";
-      let resumeSize = "";
-
-      if (form.resume) {
-        resumeName = form.resume.name;
-        resumeSize = `${(form.resume.size / 1024).toFixed(1)} KB`;
-
-        if (form.resume.size <= 50 * 1024) {
-          resumeAttachment = await new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = reject;
-            reader.readAsDataURL(form.resume);
-          });
-        } else {
-          resumeAttachment = `[File attached separately — ${resumeName}, ${resumeSize}.]`;
-        }
-      }
-
       const templateParams = {
         position:          job.title,
         job_type:          job.type === "Internship" ? "Internship" : "Full Time",
-        full_name:         form.fullName,
-        applicant_email:   form.email,
-        phone:             form.phone,
+        full_name:         form.fullName.trim(),
+        applicant_email:   form.email.trim(),
+        phone:             form.phone.trim(),
         employment_status: form.employmentStatus,
         experience:        form.experience,
-        skills:            form.skills || "Not provided",
-        portfolio_link:    form.portfolioLink || "Not provided",
-        cover_letter:      form.coverLetter || "Not provided",
-        resume_name:       resumeName,
-        resume_size:       resumeSize,
-        resume_attachment: resumeAttachment,
+        skills:            form.skills.trim(),
+        portfolio_link:    form.portfolioLink.trim() || "Not provided",
+        cover_letter:      form.coverLetter.trim() || "Not provided",
       };
 
       try {
@@ -376,10 +301,6 @@ export default function ApplyNowModal({ job, onClose }) {
       setSubmitting(false);
     }
   }
-
-  const resumeLabel = form.resume
-    ? form.resume.name
-    : "Click to upload resume (PDF, DOC, DOCX)";
 
   const isInternship = job.type === "Internship";
 
@@ -686,12 +607,14 @@ export default function ApplyNowModal({ job, onClose }) {
                   <Field
                     label="Relevant Skills"
                     htmlFor="apply-skills"
+                    required
                     error={errors.skills}
                   >
                     <input
                       type="text"
                       name="skills"
                       id="apply-skills"
+                      required
                       value={form.skills}
                       onChange={handleChange}
                       placeholder="e.g. React, SEO, Social Media…"
@@ -726,62 +649,6 @@ export default function ApplyNowModal({ job, onClose }) {
                       className={`${inputBase} pl-9 ${errors.portfolioLink ? inputError : ""}`}
                     />
                   </div>
-                </Field>
-
-                {/* Resume Upload - Compact */}
-                <Field
-                  label="Resume"
-                  htmlFor="apply-resume"
-                  required
-                  error={errors.resume}
-                >
-                  <label
-                    htmlFor="apply-resume"
-                    className={`
-                      flex
-                      cursor-pointer
-                      items-center
-                      gap-3
-                      rounded-xl
-                      border
-                      border-dashed
-                      px-4
-                      py-2.5
-                      transition-colors
-                      ${
-                        errors.resume
-                          ? "border-red-300 bg-red-50"
-                          : form.resume
-                          ? "border-orange-300 bg-orange-50"
-                          : "border-slate-300 bg-slate-50 hover:border-brand-orange hover:bg-orange-50/40"
-                      }
-                    `}
-                  >
-                    <Upload
-                      size={16}
-                      className={form.resume ? "text-brand-orange" : "text-slate-400"}
-                      aria-hidden="true"
-                      focusable="false"
-                    />
-                    <span
-                      className={`text-xs sm:text-sm font-medium truncate flex-1 ${
-                        form.resume ? "text-brand-orange font-semibold" : "text-slate-500"
-                      }`}
-                    >
-                      {resumeLabel}
-                    </span>
-                    <input
-                      type="file"
-                      id="apply-resume"
-                      name="resume"
-                      accept=".pdf,.doc,.docx"
-                      onChange={handleFile}
-                      className="sr-only"
-                    />
-                  </label>
-                  <p className="text-[10px] sm:text-[11px] text-slate-400">
-                    Accepted formats: PDF, DOC, DOCX • Max size: 2 MB
-                  </p>
                 </Field>
 
                 {/* Cover Letter */}

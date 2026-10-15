@@ -4,7 +4,7 @@ import {
   Image,
   Layers,
   Brush,
-  Sparkles,
+  Share2,
   Rocket,
   Briefcase,
   ShoppingBag,
@@ -205,7 +205,7 @@ const graphicDesignData = {
       tagIcons: [
         BadgeCheck,
         Palette,
-        Sparkles,
+        Eye,
       ],
     },
 
@@ -240,7 +240,7 @@ const graphicDesignData = {
 
       tagIcons: [
         Image,
-        Sparkles,
+        Share2,
         Users,
       ],
     },
@@ -295,7 +295,7 @@ const graphicDesignData = {
       tagIcons: [
         PenTool,
         Layers,
-        Sparkles,
+        Shapes,
       ],
     },
   ],

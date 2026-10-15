@@ -95,8 +95,6 @@ export default function GalleryGrid({
                 shadow-sm
                 transition-all
                 duration-500
-                hover:-translate-y-2
-                hover:shadow-xl
               "
             >
               {/* Image */}
@@ -109,9 +107,6 @@ export default function GalleryGrid({
                   h-full
                   w-full
                   object-cover
-                  transition-transform
-                  duration-700
-                  group-hover:scale-110
                 "
               />
 
@@ -139,14 +134,7 @@ export default function GalleryGrid({
                   p-8
                 "
               >
-                <div
-                  className="
-                    translate-y-4
-                    transition-transform
-                    duration-500
-                    group-hover:translate-y-0
-                  "
-                >
+                <div>
                   {/* Date */}
                   <div className="mb-4 flex items-center">
                     <span

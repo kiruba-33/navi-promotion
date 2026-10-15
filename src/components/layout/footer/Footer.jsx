@@ -92,7 +92,7 @@ export default function Footer() {
                     target={social.href.startsWith("http") ? "_blank" : undefined}
                     rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     aria-label={`Navi Promotions on ${social.name}`}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-slate-50 flex items-center justify-center text-slate-600 hover:text-white hover:bg-brand-orange hover:border-brand-orange hover:-translate-y-0.5 transition-all duration-200 cursor-pointer shadow-xs"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-slate-50 flex items-center justify-center text-slate-600 hover:text-white hover:bg-slate-900 hover:border-slate-900 hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-900 focus-visible:bg-slate-900 focus-visible:border-slate-900 focus-visible:text-white focus-visible:-translate-y-0.5 transition-all duration-200 cursor-pointer shadow-xs"
                   >
                     <SocialIcon type={social.key} />
                   </a>

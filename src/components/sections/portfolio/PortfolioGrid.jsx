@@ -168,8 +168,7 @@ export default function PortfolioGrid() {
         </div>
 
         {/* Portfolio Grid */}
-        <motion.div
-          layout
+        <div
           className="
             grid
             grid-cols-1
@@ -179,31 +178,20 @@ export default function PortfolioGrid() {
             lg:gap-8
           "
         >
-          <AnimatePresence mode="popLayout" initial={false}>
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.id}
-                layout
-                initial={false}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 0.96 }}
-                transition={{
-                  duration: 0.25,
-                  ease: [0.16, 1, 0.3, 1],
-                  layout: { duration: 0.25, ease: [0.16, 1, 0.3, 1] },
-                }}
-                className="w-full"
-              >
-                <PortfolioCard
-                  item={project}
-                  onProjectSelect={
-                    handleProjectSelect
-                  }
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+          {filteredProjects.map((project) => (
+            <div
+              key={project.id}
+              className="w-full"
+            >
+              <PortfolioCard
+                item={project}
+                onProjectSelect={
+                  handleProjectSelect
+                }
+              />
+            </div>
+          ))}
+        </div>
 
         {/* Empty State */}
         <AnimatePresence initial={false}>

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, Suspense, lazy } from "react";
-import { ArrowRight, MapPin, Briefcase, Clock3, IndianRupee, Sparkles, Filter } from "lucide-react";
+import { ArrowRight, MapPin, Briefcase, Clock3, IndianRupee, Filter } from "lucide-react";
 import { careersJobsData } from "../../../data/careersJobsData";
 
 const ApplyNowModal = lazy(() => import("./ApplyNowModal"));
@@ -38,12 +38,12 @@ export default function OpenPositions() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 sm:mb-14">
             <div className="max-w-3xl">
               <span className="inline-flex items-center gap-2 rounded-full border border-brand-orange/20 bg-brand-orange/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-brand-orange">
-                <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+                <Briefcase className="w-3.5 h-3.5" aria-hidden="true" />
                 Careers at Navi
               </span>
 
               <h1 className="heading-section mt-4 text-3xl sm:text-4xl lg:text-5xl heading-primary font-semibold">
-                Current Open
+                Opening
                 <span className="block heading-highlight">Positions</span>
               </h1>
 
@@ -109,9 +109,7 @@ export default function OpenPositions() {
                     p-6
                     sm:p-8
                     shadow-xs
-                    hover:shadow-xl
                     hover:border-brand-orange/40
-                    hover:-translate-y-1
                     transition-all
                     duration-300
                     flex

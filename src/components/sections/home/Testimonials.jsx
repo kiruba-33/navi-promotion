@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Star, Play, X, Quote, MessageSquareQuote } from "lucide-react";
+import { CheckCircle2, Play, X, Quote, MessageSquareQuote } from "lucide-react";
 
 const testimonials = [
   {
@@ -173,7 +173,7 @@ function TestimonialCard({ item, onSelectCard }) {
   return (
     <div
       onClick={() => onSelectCard(item)}
-      className="w-[280px] sm:w-[320px] md:w-[360px] shrink-0 bg-white rounded-3xl p-3 sm:p-4 border border-slate-100 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between gap-3 cursor-pointer group"
+      className="w-[280px] sm:w-[320px] md:w-[360px] shrink-0 bg-white rounded-3xl p-3 sm:p-4 border border-slate-100 shadow-md transition-all duration-300 flex flex-col justify-between gap-3 cursor-pointer group"
     >
       {/* Video with Viewport Autoplay */}
       <div className="relative aspect-[16/10] rounded-2xl overflow-hidden group/thumb cursor-pointer bg-slate-900 border border-slate-200/50">
@@ -185,7 +185,7 @@ function TestimonialCard({ item, onSelectCard }) {
           loop
           playsInline
           preload="metadata"
-          className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover"
         />
 
         {/* Dark Overlay Gradient */}
@@ -193,7 +193,7 @@ function TestimonialCard({ item, onSelectCard }) {
 
         {/* Center Play Button Overlay */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-11 h-11 rounded-full bg-orange-500/90 text-white flex items-center justify-center shadow-lg shadow-orange-500/40 group-hover:scale-110 transition-all duration-300 relative">
+          <div className="w-11 h-11 rounded-full bg-orange-500/90 text-white flex items-center justify-center shadow-lg shadow-orange-500/40 relative">
             <Play className="w-4 h-4 fill-white ml-0.5" aria-hidden="true" focusable="false" />
           </div>
         </div>
@@ -223,14 +223,10 @@ function TestimonialCard({ item, onSelectCard }) {
           </div>
         </div>
 
-        {/* 5-Star Rating */}
-        <div className="flex items-center gap-0.5 shrink-0">
-          {Array.from({ length: item.rating }).map((_, i) => (
-            <Star
-              key={i}
-              className="w-3.5 h-3.5 fill-orange-500 text-orange-500"
-            />
-          ))}
+        {/* Verified Rating Badge */}
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200/80 text-orange-600 text-xs font-semibold shrink-0">
+          <CheckCircle2 className="w-3.5 h-3.5 text-orange-500" />
+          <span>{item.rating}.0</span>
         </div>
       </div>
     </div>

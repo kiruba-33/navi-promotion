@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion } from "motion/react";
 import { Briefcase } from "lucide-react";
 
 import {
@@ -81,14 +80,8 @@ export default function ServicesSelector() {
           "
         >
           {servicesData.map((service) => (
-            <motion.button
+            <button
               key={service.id}
-              whileHover={{
-                y: -6,
-              }}
-              whileTap={{
-                scale: 0.98,
-              }}
               onClick={() =>
                 setSelectedService(
                   service.id
@@ -152,7 +145,7 @@ export default function ServicesSelector() {
               >
                 {service.title}
               </h3>
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>

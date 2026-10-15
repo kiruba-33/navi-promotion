@@ -19,7 +19,7 @@ export const digitalMarketingServices = [
       "Trend Analysis",
     ],
     image:
-      "https://i/../components/services/digital-marketing/DigitalMarketingServicesmages.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=1000",
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=1000",
   },
   {
     id: "seo",

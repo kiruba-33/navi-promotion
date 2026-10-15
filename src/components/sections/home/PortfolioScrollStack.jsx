@@ -60,7 +60,7 @@ const PortfolioScrollStack = () => {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
+                    className="w-full h-full object-cover transform-gpu"
                     style={{ backfaceVisibility: 'hidden', transform: 'translate3d(0,0,0)' }}
                     loading="lazy"
                   />

@@ -35,35 +35,7 @@ export default function DevelopmentCard({
         "
       />
 
-      {/* Shine Effect */}
-      <div
-        className="
-          absolute
-          inset-0
-          overflow-hidden
-          pointer-events-none
-          z-20
-        "
-      >
-        <div
-          className="
-            absolute
-            top-0
-            left-[-120%]
-            h-full
-            w-[40%]
-            bg-gradient-to-r
-            from-transparent
-            via-white/40
-            to-transparent
-            skew-x-[-25deg]
-            group-hover:left-[180%]
-            transition-all
-            duration-1000
-            ease-out
-          "
-        />
-      </div>
+
 
       {/* Default Dark Overlay */}
       <div

@@ -5,7 +5,6 @@ import {
   Code2,
   Palette,
   ShoppingBag,
-  Sparkles,
 } from "lucide-react";
 
 /* =========================================

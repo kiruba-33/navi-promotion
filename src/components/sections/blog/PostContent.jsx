@@ -8,8 +8,8 @@ import {
   Heart,
   Check,
   CheckCircle2,
-  Sparkles,
   ArrowUpRight,
+  BookOpen,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { blogs } from "../../../data/blogs";
@@ -172,7 +172,7 @@ export default function PostContent({ post }) {
                 text-brand-orange
               "
             >
-              <Sparkles size={13} />
+              <BookOpen size={13} />
               {post.category}
             </span>
           </div>
@@ -548,10 +548,8 @@ export default function PostContent({ post }) {
                     hover:bg-white
                     p-3.5
                     shadow-xs
-                    hover:shadow-xl
                     transition-all
                     duration-300
-                    hover:-translate-y-1.5
                   "
                 >
                   <Link
@@ -562,7 +560,7 @@ export default function PostContent({ post }) {
                       <img
                         src={related.image}
                         alt={related.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full object-cover"
                       />
                       <div className="absolute top-3 left-3">
                         <span className="rounded-full bg-white/95 px-3 py-1 text-[9px] font-semibold uppercase tracking-wider text-slate-900 shadow-sm">

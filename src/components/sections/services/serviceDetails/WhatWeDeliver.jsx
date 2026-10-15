@@ -41,7 +41,7 @@ export default function WhatWeDeliver({
           {items.map((item, index) => (
             <div
               key={index}
-              className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-8 shadow-xs hover:border-orange-500/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-8 shadow-xs hover:border-orange-500/40 transition-all duration-300"
             >
               <div>
                 {/* Index Pill */}

@@ -201,13 +201,13 @@ export default function Portfolio() {
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-500" />
 
                     {/* Card Content Inlay */}
                     <div className="absolute inset-0 p-6 sm:p-8 md:p-10 flex flex-col justify-end z-10">
-                      <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      <div>
 
                         {/* Category Label */}
                         <p className="text-orange-500 label-text mb-2.5 tracking-wider text-xs drop-shadow-sm font-bold">

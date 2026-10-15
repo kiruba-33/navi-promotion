@@ -68,9 +68,8 @@ const PortfolioCard = memo(function PortfolioCard({
         p-2
         cursor-pointer
         transition-all
-        duration-500
-        hover:-translate-y-2
-        hover:shadow-2xl
+        duration-300
+        hover:border-orange-500/40
       "
     >
       <div className="relative h-full w-full overflow-hidden rounded-[1.5rem]">

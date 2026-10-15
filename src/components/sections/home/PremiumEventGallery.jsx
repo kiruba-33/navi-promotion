@@ -119,8 +119,6 @@ export default function PremiumEventGallery() {
                     bg-white 
                     border border-slate-100/50 
                     shadow-[0_4px_20px_rgba(0,0,0,0.02)] 
-                    hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)]
-                    hover:-translate-y-1
                     cursor-pointer 
                     w-full
                     transition-all
@@ -137,10 +135,6 @@ export default function PremiumEventGallery() {
                       w-full 
                       h-full 
                       object-cover 
-                      transition-transform 
-                      duration-700 
-                      ease-[cubic-bezier(0.16,1,0.3,1)] 
-                      group-hover:scale-[1.05]
                     "
                     loading="lazy"
                   />
@@ -167,14 +161,10 @@ export default function PremiumEventGallery() {
                   <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end z-10 text-white select-none">
                     <div 
                       className="
-                        transform 
-                        translate-y-3 
                         opacity-0 
-                        group-hover:translate-y-0 
                         group-hover:opacity-100 
-                        transition-all 
-                        duration-700 
-                        ease-[cubic-bezier(0.16,1,0.3,1)]
+                        transition-opacity 
+                        duration-500
                       "
                     >
                       <span className="inline-flex items-center gap-2 font-bold text-sm sm:text-base tracking-wide text-white">

@@ -1,5 +1,5 @@
 import React from "react";
-import { Sparkles, ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import ArrowButton from "../../ui/ArrowButton";
@@ -119,9 +119,6 @@ export default function Insights() {
                       w-full
                       h-full
                       object-cover
-                      transition-transform
-                      duration-1000
-                      group-hover:scale-105
                     "
                   />
 

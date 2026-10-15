@@ -25,12 +25,12 @@ export default function TrustedClients() {
       </div>
 
       {/* Subtle, Smooth Continuous Logo Animation Track */}
-      <div className="relative w-full overflow-hidden py-4">
+      <div className="relative w-full overflow-hidden py-1 sm:py-2">
         {/* Soft Side Fade Masks */}
         <div className="absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#f5f5f4] to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#f5f5f4] to-transparent z-10 pointer-events-none" />
 
-        <div className="client-marquee-mask overflow-hidden">
+        <div className="client-marquee-mask overflow-hidden py-3 sm:py-4">
           <div
             className="client-marquee-track flex w-max items-center whitespace-nowrap will-change-transform"
             role="list"
@@ -50,10 +50,10 @@ export default function TrustedClients() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={`Visit ${client.name} website`}
-                    className="group flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-white/80 border border-slate-200/80 hover:border-orange-500/40 hover:bg-white shadow-2xs hover:shadow-sm transition-all duration-300"
+                    className="group flex shrink-0 flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-white/80 border border-slate-200/80 hover:border-orange-500/40 hover:bg-white shadow-xs hover:shadow-sm transition-all duration-300"
                     role="listitem"
                   >
-                    <div className="flex h-[55px] w-[120px] sm:h-[65px] sm:w-[140px] lg:h-[75px] lg:w-[160px] items-center justify-center px-2">
+                    <div className="flex shrink-0 h-[55px] w-[120px] sm:h-[65px] sm:w-[140px] lg:h-[75px] lg:w-[160px] items-center justify-center px-2">
                       <img
                         src={client.logo}
                         alt={`${client.name} logo`}
@@ -62,7 +62,7 @@ export default function TrustedClients() {
                         className="block h-full w-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 opacity-80 group-hover:opacity-100"
                       />
                     </div>
-                    <span className="mt-2 text-xs font-semibold tracking-wider text-slate-500 group-hover:text-slate-900 transition-colors duration-200">
+                    <span className="mt-2 shrink-0 whitespace-nowrap text-xs font-semibold tracking-wider text-slate-500 group-hover:text-slate-900 transition-colors duration-200 select-none">
                       {client.name}
                     </span>
                   </a>

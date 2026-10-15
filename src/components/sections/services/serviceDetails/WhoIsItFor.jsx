@@ -34,11 +34,11 @@ export default function WhoIsItFor({
             return (
               <div
                 key={index}
-                className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-slate-50/50 hover:bg-white p-7 shadow-xs hover:border-orange-500/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-slate-50/50 hover:bg-white p-7 shadow-xs hover:border-orange-500/40 transition-all duration-300"
               >
                 <div>
                   {/* Icon */}
-                  <div className="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-200/60 flex items-center justify-center text-orange-500 mb-6 group-hover:scale-105 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-200/60 flex items-center justify-center text-orange-500 mb-6">
                     {Icon ? (
                       <Icon className="w-6 h-6" />
                     ) : (

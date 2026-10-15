@@ -14,28 +14,12 @@ export const iconWrapperAnimation = `
 
   mb-5
 
-  transition-all
-  duration-500
-
-  group-hover:rotate-12
-  group-hover:scale-110
+  transition-colors
+  duration-300
 `;
 
 export const iconRingAnimation = `
-  absolute
-  inset-0
-  rounded-full
-
-  border
-  border-white/30
-
-  opacity-0
-
-  group-hover:opacity-100
-  group-hover:scale-125
-
-  transition-all
-  duration-500
+  hidden
 `;
 
 export const iconAnimation = `

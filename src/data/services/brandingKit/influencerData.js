@@ -4,7 +4,6 @@ import {
   TrendingUp,
   Target,
   Camera,
-  Sparkles,
   Rocket,
   Briefcase,
   ShoppingBag,
@@ -295,7 +294,7 @@ const influencerMarketingData = {
       tagIcons: [
         Globe,
         Share2,
-        Sparkles,
+        TrendingUp,
       ],
     },
   ],

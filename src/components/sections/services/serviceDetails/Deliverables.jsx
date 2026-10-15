@@ -55,10 +55,10 @@ export default function Deliverables({
             return (
               <div
                 key={index}
-                className="group relative flex items-center justify-between gap-3.5 rounded-2xl border border-slate-200/90 bg-slate-50/50 hover:bg-white p-4.5 sm:p-5 shadow-xs hover:border-orange-500/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                className="group relative flex items-center justify-between gap-3.5 rounded-2xl border border-slate-200/90 bg-slate-50/50 hover:bg-white p-4.5 sm:p-5 shadow-xs hover:border-orange-500/40 transition-all duration-300"
               >
                 <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-orange-50 border border-orange-200/60 text-orange-500 flex-shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-orange-50 border border-orange-200/60 text-orange-500 flex-shrink-0">
                     <Icon className="w-5 h-5" />
                   </div>
 

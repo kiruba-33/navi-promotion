@@ -242,9 +242,7 @@ export default function RegulationsVault({
                           shadow-sm
                           transition-all
                           duration-500
-                          hover:-translate-y-2
                           hover:border-orange-500/30
-                          hover:shadow-xl
                         "
                       >
                         {/* Top */}

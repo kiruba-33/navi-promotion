@@ -1,5 +1,5 @@
 import { motion as Motion, AnimatePresence } from "motion/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { X } from "lucide-react";
 
 import {
@@ -9,6 +9,24 @@ import {
 } from "./navbarData";
 
 const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
+  const location = useLocation();
+
+  const isRouteActive = (href) => {
+    const current = location.pathname;
+    if (href === "/") return current === "/";
+    if (href === "/about") {
+      return (
+        current === "/about" ||
+        current.startsWith("/about/") ||
+        current === "/gallery" ||
+        current.startsWith("/gallery/") ||
+        current === "/regulations" ||
+        current.startsWith("/regulations/")
+      );
+    }
+    if (href === "/services") return current === "/services" || current.startsWith("/services/");
+    return current === href || current.startsWith(`${href}/`);
+  };
   return (
     <AnimatePresence>
       {isOpen && (
@@ -67,19 +85,32 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
                 <Link
                   to="/"
                   onClick={closeMenu}
-                  className="block text-xl font-semibold text-slate-900 hover:text-brand-orange transition-colors">
+                  className={`block text-xl font-semibold transition-colors duration-200 ${
+                    isRouteActive("/")
+                      ? "text-blue-600"
+                      : "text-slate-900 hover:text-blue-600"
+                  }`}
+                >
                   Home
                 </Link>
 
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    onClick={closeMenu}
-                    className="block text-xl font-semibold text-slate-900 hover:text-brand-orange transition-colors">
-                    {link.name}
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  const active = isRouteActive(link.href);
+                  return (
+                    <Link
+                      key={link.href}
+                      to={link.href}
+                      onClick={closeMenu}
+                      className={`block text-xl font-semibold transition-colors duration-200 ${
+                        active
+                          ? "text-blue-600"
+                          : "text-slate-900 hover:text-blue-600"
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  );
+                })}
               </div>
 
               {/* About Menu */}

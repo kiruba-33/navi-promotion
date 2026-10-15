@@ -2,7 +2,6 @@ import {
   Camera,
   Image,
   ShoppingBag,
-  Sparkles,
   Eye,
   ScanSearch,
   Crop,
@@ -229,7 +228,7 @@ const productPhotographyData = {
       ],
 
       tagIcons: [
-        Sparkles,
+        Image,
         Eye,
         Users,
       ],

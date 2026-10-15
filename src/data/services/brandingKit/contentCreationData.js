@@ -5,7 +5,6 @@ import {
   MessageSquare,
   Search,
   Globe,
-  Sparkles,
   Rocket,
   Briefcase,
   ShoppingBag,
@@ -296,7 +295,7 @@ const contentCreationData = {
       tagIcons: [
         BarChart3,
         MessageSquare,
-        Sparkles,
+        Lightbulb,
       ],
     },
   ],

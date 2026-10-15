@@ -1,4 +1,5 @@
 import React from 'react';
+import { Award } from 'lucide-react';
 import Ferrofluid from "@/components/Ferrofluid";
 
 // Declare colors array outside component to prevent reference recreation on each render
@@ -45,7 +46,8 @@ const HeroV2 = () => {
           
           {/* Top Premium Badge */}
           <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-sky-400/30 bg-sky-950/40 text-sky-300 text-xs sm:text-sm font-semibold tracking-wide uppercase select-none">
-            ★ 5+ Years of Digital Excellence
+            <Award className="w-3.5 h-3.5 text-sky-400" />
+            <span>5+ Years of Digital Excellence</span>
           </div>
 
           {/* Main Heading */}

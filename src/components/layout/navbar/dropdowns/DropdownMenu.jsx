@@ -18,6 +18,7 @@ const DropdownMenu = ({
   label,
   items,
   isScrolled,
+  isActive = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,19 +35,25 @@ const DropdownMenu = ({
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
-        className={`flex items-center gap-1 text-sm font-semibold transition-all duration-300 ${
-          isScrolled
-            ? "text-black"
-            : "text-white"
+        className={`flex items-center gap-1 text-[13px] lg:text-sm font-semibold transition-colors duration-200 whitespace-nowrap cursor-pointer ${
+          isActive
+            ? isScrolled
+              ? "text-blue-600"
+              : "text-blue-400"
+            : isScrolled
+            ? "text-slate-800 hover:text-blue-600"
+            : "text-white hover:text-blue-400"
         }`}
       >
-        {label}
+        <span>{label}</span>
 
         <ChevronDown
           className={`w-4 h-4 transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
           }`}
-         aria-hidden="true" focusable="false" />
+          aria-hidden="true"
+          focusable="false"
+        />
       </button>
 
       <AnimatePresence>

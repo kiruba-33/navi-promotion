@@ -1,6 +1,4 @@
 import React from "react";
-import { AnimatePresence } from "framer-motion";
-
 import BlogCard from "./BlogCard";
 
 export default function BlogGrid({
@@ -20,17 +18,13 @@ export default function BlogGrid({
         "
       >
 
-        <AnimatePresence mode="popLayout" initial={false}>
-
-          {posts.map((post, index) => (
-            <BlogCard
-              key={post.id}
-              post={post}
-              index={index}
-            />
-          ))}
-
-        </AnimatePresence>
+        {posts.map((post, index) => (
+          <BlogCard
+            key={post.id}
+            post={post}
+            index={index}
+          />
+        ))}
 
       </div>
 

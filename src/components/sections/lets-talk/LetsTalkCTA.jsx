@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { ArrowRight, Sparkles, Calendar } from "lucide-react";
-import { letsTalkStats } from "../../../data/letsTalk";
+import { ArrowRight, Calendar, TrendingUp } from "lucide-react";
 import AppointmentBookingModal from "../../ui/AppointmentBookingModal";
 
 export default function LetsTalkCTA() {
@@ -27,7 +26,7 @@ export default function LetsTalkCTA() {
             pointer-events-none
             absolute
             inset-0
-            bg-[radial-gradient(circle_at_30%_50%,rgba(247,168,0,0.12)_0%,transparent_60%)]
+            bg-[radial-gradient(circle_at_50%_50%,rgba(247,168,0,0.12)_0%,transparent_60%)]
           "
           aria-hidden="true"
         />
@@ -44,89 +43,69 @@ export default function LetsTalkCTA() {
               lg:p-16
               backdrop-blur-md
               shadow-2xl
+              text-center
             "
           >
-            <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-between">
-              {/* Content & Action */}
-              <div className="max-w-2xl">
-                {/* Clearly Visible Tag */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-400/30 bg-orange-500/10 text-orange-300 text-xs sm:text-sm font-bold mb-6 shadow-xs select-none">
-                  <Sparkles className="w-4 h-4 text-brand-orange" />
-                  <span>Ready To Start</span>
-                </div>
-
-                {/* Clearly Visible Heading */}
-                <h2 className="heading-section mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-bold tracking-tight">
-                  Ready To Grow
-                  <span className="block text-white">Your Business?</span>
-                </h2>
-
-                {/* High Contrast Description */}
-                <p className="body-large mb-8 max-w-xl text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
-                  From brand architecture and performance marketing to custom software systems,
-                  book a direct strategy session with our senior leadership team.
-                </p>
-
-                {/* Clearly Visible Button */}
-                <div className="flex flex-wrap items-center gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setIsAppointmentModalOpen(true)}
-                    className="
-                      inline-flex
-                      items-center
-                      gap-3
-                      rounded-2xl
-                      bg-brand-orange
-                      hover:bg-white
-                      px-8
-                      py-4
-                      sm:py-4.5
-                      text-xs
-                      sm:text-sm
-                      font-semibold
-                      uppercase
-                      tracking-wider
-                      text-slate-950
-                      transition-all
-                      duration-200
-                      cursor-pointer
-                      shadow-lg
-                      hover:shadow-orange-500/20
-                      active:scale-[0.98]
-                    "
-                  >
-                    <Calendar className="w-4 h-4 text-slate-950" />
-                    <span>Appointment Booking Form</span>
-                    <ArrowRight className="w-4 h-4 text-slate-950" />
-                  </button>
-                </div>
+            <div className="max-w-3xl mx-auto flex flex-col items-center">
+              {/* Clearly Visible Tag */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-400/30 bg-orange-500/10 text-orange-300 text-xs sm:text-sm font-bold mb-6 shadow-xs select-none">
+                <TrendingUp className="w-4 h-4 text-orange-400" />
+                <span>Ready To Start</span>
               </div>
 
-              {/* Stats Grid - High Visibility */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:w-[420px] shrink-0">
-                {letsTalkStats.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="
-                      rounded-2xl
-                      border
-                      border-white/15
-                      bg-white/10
-                      p-6
-                      text-center
-                      shadow-sm
-                    "
-                  >
-                    <p className="mb-1.5 text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                      {stat.value}
-                    </p>
+              {/* Clearly Visible Heading */}
+              <h2 className="heading-section mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-bold tracking-tight">
+                Ready To Grow
+                <span className="block text-white">Your Business?</span>
+              </h2>
 
-                    <p className="text-[11px] font-medium uppercase tracking-wider text-slate-300">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
+              {/* High Contrast Description */}
+              <p className="body-large mb-8 max-w-xl text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
+                From brand architecture and performance marketing to custom software systems,
+                book a direct strategy session with our senior leadership team.
+              </p>
+
+              {/* Clearly Visible Button */}
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => setIsAppointmentModalOpen(true)}
+                  className="
+                    inline-flex
+                    items-center
+                    justify-center
+                    gap-3
+                    rounded-2xl
+                    bg-orange-500
+                    hover:bg-orange-600
+                    px-8
+                    py-4
+                    sm:py-4.5
+                    text-xs
+                    sm:text-sm
+                    font-semibold
+                    uppercase
+                    tracking-wider
+                    text-white
+                    transition-all
+                    duration-200
+                    cursor-pointer
+                    shadow-lg
+                    shadow-orange-500/25
+                    hover:shadow-orange-500/40
+                    hover:-translate-y-0.5
+                    active:scale-[0.98]
+                    focus-visible:outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-orange-400
+                    focus-visible:ring-offset-2
+                    focus-visible:ring-offset-slate-950
+                  "
+                >
+                  <Calendar className="w-4 h-4 text-white shrink-0" />
+                  <span>Appointment Booking Form</span>
+                  <ArrowRight className="w-4 h-4 text-white shrink-0" />
+                </button>
               </div>
             </div>
           </div>

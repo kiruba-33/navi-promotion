@@ -38,7 +38,7 @@ export default function MissionVisionGoal() {
             {missionVisionGoalData.map((item) => (
               <div
                 key={item.id}
-                className="relative bg-white border border-slate-200/90 rounded-[2rem] p-7 md:p-10 overflow-hidden group transition-all duration-300 hover:shadow-xl hover:border-orange-500/40"
+                className="relative bg-white border border-slate-200/90 rounded-[2rem] p-7 md:p-10 overflow-hidden group transition-all duration-300 hover:border-orange-500/40"
               >
                 {/* Background Number */}
                 <span className="absolute -top-6 -right-3 text-[100px] md:text-[130px] font-bold text-slate-900/5 leading-none select-none pointer-events-none">

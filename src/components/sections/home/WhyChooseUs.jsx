@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Target, Zap, BarChart3, Users, ArrowUpRight, ShieldCheck } from 'lucide-react';
 
@@ -78,7 +77,6 @@ export default function WhyChooseUs() {
             return (
               <React.Fragment key={feature.id || index}>
                 <div
-                  onMouseEnter={() => handleCardSelect(index)}
                   onClick={() => handleCardSelect(index)}
                   className={`relative overflow-hidden rounded-[2.5rem] cursor-pointer border border-slate-200 shadow-md group will-change-[flex,transform] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${
                     isActive ? 'flex-[6] lg:flex-[3.5] shadow-xl shadow-slate-900/5' : 'flex-[1] lg:flex-[0.5] hover:bg-white'
@@ -88,7 +86,7 @@ export default function WhyChooseUs() {
                   <img 
                     src={feature.image} 
                     alt={feature.title}
-                    className={`absolute inset-0 w-full h-full object-cover will-change-transform transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${isActive ? 'scale-100 brightness-90' : 'scale-105 brightness-75'}`} 
+                    className={`absolute inset-0 w-full h-full object-cover will-change-transform transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${isActive ? 'scale-100 brightness-90' : 'scale-100 brightness-75'}`} 
                   />
                   
                   {/* Clean Shading Overlay Gradient */}
@@ -125,14 +123,11 @@ export default function WhyChooseUs() {
                   <div className={`absolute inset-0 p-5 sm:p-8 md:p-10 flex flex-col justify-end transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${isActive ? 'opacity-100 translate-y-0 scale-100 delay-100' : 'opacity-0 translate-y-6 scale-98 pointer-events-none'}`}>
                     
                     {/* Icon Container */}
-                    <motion.div 
-                      initial={false}
-                      animate={{ rotate: isActive ? 0 : -45, scale: isActive ? 1 : 0.85 }}
-                      transition={{ duration: 0.55, type: "spring", stiffness: 120, damping: 20 }}
+                    <div 
                       className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white flex items-center justify-center text-orange-500 mb-4 sm:mb-5 border border-slate-200 shadow-md"
                     >
                       <feature.icon className="w-6 h-6 sm:w-7 sm:h-7 drop-shadow-sm" />
-                    </motion.div>
+                    </div>
                     
                     {/* Feature Title */}
                     <h3 className="heading-card text-xl sm:text-2xl md:text-3xl text-white mb-2 sm:mb-3 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">

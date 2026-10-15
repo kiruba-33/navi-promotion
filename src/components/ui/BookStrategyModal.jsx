@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Sparkles, CheckCircle2, Send, Phone, Mail, User, Briefcase } from "lucide-react";
+import { X, CheckCircle2, Send, Phone, Mail, User, Briefcase } from "lucide-react";
 
 export default function BookStrategyModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -119,7 +119,7 @@ export default function BookStrategyModal({ isOpen, onClose }) {
                 {/* Header */}
                 <div className="mb-6 pr-8">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-200 bg-orange-50 text-orange-600 text-xs font-bold mb-3 select-none">
-                    <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+                    <Phone className="w-3.5 h-3.5 text-orange-500" />
                     <span>Free Consultation</span>
                   </div>
                   <h2

@@ -15,7 +15,6 @@ import {
   CheckCircle2,
   Check,
   ArrowUpRight,
-  Sparkles,
 } from "lucide-react";
 
 import CTA from "../components/CTA";

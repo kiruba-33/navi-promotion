@@ -5,7 +5,6 @@ import {
   Camera,
   PlayCircle,
   MonitorPlay,
-  Sparkles,
   Rocket,
   Briefcase,
   ShoppingBag,
@@ -260,7 +259,7 @@ const videoProductionData = {
       tagIcons: [
         ShoppingBag,
         Camera,
-        Sparkles,
+        TrendingUp,
       ],
     },
 

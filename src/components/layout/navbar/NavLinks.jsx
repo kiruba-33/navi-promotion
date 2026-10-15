@@ -21,8 +21,25 @@ function prefetchRoute(href) {
 const NavLinks = ({ isScrolled }) => {
   const location = useLocation();
 
-  const isActive = (path) => {
-    return location.pathname === path;
+  const isRouteActive = (href) => {
+    const current = location.pathname;
+    if (href === "/") {
+      return current === "/";
+    }
+    if (href === "/about") {
+      return (
+        current === "/about" ||
+        current.startsWith("/about/") ||
+        current === "/gallery" ||
+        current.startsWith("/gallery/") ||
+        current === "/regulations" ||
+        current.startsWith("/regulations/")
+      );
+    }
+    if (href === "/services") {
+      return current === "/services" || current.startsWith("/services/");
+    }
+    return current === href || current.startsWith(`${href}/`);
   };
 
   return (
@@ -31,15 +48,16 @@ const NavLinks = ({ isScrolled }) => {
       {/* HOME — no prefetch needed (eagerly loaded) */}
       <Link
         to="/"
-        className={`text-[13px] lg:text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
-          isActive("/")
+        className={`text-[13px] lg:text-sm font-semibold transition-colors duration-200 whitespace-nowrap ${
+          isRouteActive("/")
             ? isScrolled
-              ? "text-black"
-              : "text-white"
+              ? "text-blue-600"
+              : "text-blue-400"
             : isScrolled
-            ? "text-black"
-            : "text-white"
-        }`}>
+            ? "text-slate-800 hover:text-blue-600"
+            : "text-white hover:text-blue-400"
+        }`}
+      >
         Home
       </Link>
 
@@ -48,6 +66,7 @@ const NavLinks = ({ isScrolled }) => {
         label="About"
         items={aboutMenu}
         isScrolled={isScrolled}
+        isActive={isRouteActive("/about")}
       />
 
       {/* SERVICES — prefetch fires when dropdown opens */}
@@ -55,28 +74,32 @@ const NavLinks = ({ isScrolled }) => {
         label="Services"
         items={servicesMenu}
         isScrolled={isScrolled}
+        isActive={isRouteActive("/services")}
       />
 
       {/* FLAT LINKS — prefetch on hover & focus */}
-      {navLinks.map((link) => (
-        <Link
-          key={link.href}
-          to={link.href}
-          onMouseEnter={() => prefetchRoute(link.href)}
-          onFocus={() => prefetchRoute(link.href)}
-          className={`text-[13px] lg:text-sm font-semibold transition-all duration-300 whitespace-nowrap ${
-            isActive(link.href)
-              ? isScrolled
-                ? "text-black"
-                : "text-white"
-              : isScrolled
-              ? "text-black"
-              : "text-white"
-          }`}
-        >
-          {link.name}
-        </Link>
-      ))}
+      {navLinks.map((link) => {
+        const active = isRouteActive(link.href);
+        return (
+          <Link
+            key={link.href}
+            to={link.href}
+            onMouseEnter={() => prefetchRoute(link.href)}
+            onFocus={() => prefetchRoute(link.href)}
+            className={`text-[13px] lg:text-sm font-semibold transition-colors duration-200 whitespace-nowrap ${
+              active
+                ? isScrolled
+                  ? "text-blue-600"
+                  : "text-blue-400"
+                : isScrolled
+                ? "text-slate-800 hover:text-blue-600"
+                : "text-white hover:text-blue-400"
+            }`}
+          >
+            {link.name}
+          </Link>
+        );
+      })}
     </nav>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Sparkles } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 export default function LetsTalkHero({
   badge,
@@ -72,7 +72,7 @@ export default function LetsTalkHero({
         <div>
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/10 text-white text-sm font-semibold mb-6 shadow-sm select-none backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-orange-500" />
+            <MessageCircle className="w-4 h-4 text-orange-500" />
             <span>{badge}</span>
           </div>
 

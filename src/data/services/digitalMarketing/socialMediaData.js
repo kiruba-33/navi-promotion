@@ -8,7 +8,6 @@ import {
   Briefcase,
   Target,
   TrendingUp,
-  Sparkles,
   Share2,
   FileText,
   PenTool,
@@ -246,7 +245,7 @@ const socialMediaData = {
       tagIcons: [
         Video,
         TrendingUp,
-        Sparkles,
+        Target,
       ],
     },
 

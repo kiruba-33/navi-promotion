@@ -1,8 +1,8 @@
 import React from "react";
-import { ShieldCheck, Compass, Zap, Sparkles, Users, Award } from "lucide-react";
+import { ShieldCheck, Compass, Zap, GraduationCap, Users, Award } from "lucide-react";
 import { careersValues } from "../../../data/careersBenefits";
 
-const valueIcons = [Compass, Zap, Sparkles, Users, Award];
+const valueIcons = [Compass, Zap, GraduationCap, Users, Award];
 
 export default function ValuesSection() {
   return (
@@ -43,9 +43,7 @@ export default function ValuesSection() {
                   p-6
                   sm:p-8
                   shadow-xs
-                  hover:shadow-lg
                   hover:border-brand-orange/30
-                  hover:-translate-y-1
                   transition-all
                   duration-300
                   flex
@@ -55,7 +53,7 @@ export default function ValuesSection() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center">
                       <Icon className="w-6 h-6" />
                     </div>
                     <span className="text-3xl font-bold text-slate-200 group-hover:text-brand-orange/30 transition-colors">

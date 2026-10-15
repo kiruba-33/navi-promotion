@@ -1,5 +1,5 @@
 import React from "react";
-import { Sparkles } from "lucide-react";
+import { Layers } from "lucide-react";
 
 export default function FeaturedSolutions({
   solutions = [],
@@ -10,7 +10,7 @@ export default function FeaturedSolutions({
         {/* Section Header */}
         <div className="max-w-3xl mb-12 sm:mb-14 lg:mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-xs mb-5 select-none">
-            <Sparkles className="w-4 h-4 text-orange-500" />
+            <Layers className="w-4 h-4 text-orange-500" />
             <span className="text-xs font-semibold uppercase tracking-wider text-orange-600">
               Specialized Solutions
             </span>
@@ -30,7 +30,7 @@ export default function FeaturedSolutions({
           {solutions.map((solution, index) => (
             <div
               key={index}
-              className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-9 shadow-xs hover:border-orange-500/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-9 shadow-xs hover:border-orange-500/40 transition-all duration-300"
             >
               <div>
                 {/* Header Tag */}

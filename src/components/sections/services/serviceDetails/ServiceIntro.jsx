@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, Sparkles, CheckCircle2, ChevronRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, Cpu, CheckCircle2, ChevronRight, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function ServiceIntro({
@@ -101,7 +101,7 @@ export default function ServiceIntro({
 
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-xl bg-orange-50 flex items-center justify-center text-orange-500 flex-shrink-0 mt-0.5">
-                    <Sparkles className="w-4 h-4" />
+                    <Cpu className="w-4 h-4" />
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-slate-900">Design & Tech Precision</h4>

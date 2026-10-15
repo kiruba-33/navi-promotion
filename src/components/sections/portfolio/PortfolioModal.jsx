@@ -8,7 +8,6 @@ import {
   TrendingUp,
   Target,
   Award,
-  Sparkles,
   Palette,
   Type,
   CheckCircle2,
@@ -22,6 +21,7 @@ import {
   Laptop,
   ArrowUpRight,
   ShieldCheck,
+  FolderKanban,
 } from "lucide-react";
 
 import { getProjectDetails } from "../../../data/portfolio";
@@ -300,7 +300,7 @@ export default function PortfolioModal({ project, onClose }) {
                       text-brand-orange
                     "
                   >
-                    <Sparkles size={13} />
+                    <FolderKanban size={13} />
                     {project.service || project.category}
                   </span>
 

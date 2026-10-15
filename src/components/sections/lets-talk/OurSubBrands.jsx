@@ -40,7 +40,7 @@ export default function OurSubBrands() {
             return (
               <div
                 key={brand.name}
-                className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xs hover:shadow-xl hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-300"
+                className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xs hover:border-brand-orange/40 transition-all duration-300"
               >
                 {/* Visual Cover */}
                 <div className="relative h-56 sm:h-60 overflow-hidden">
@@ -49,7 +49,7 @@ export default function OurSubBrands() {
                     alt={brand.name}
                     loading="lazy"
                     decoding="async"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
 

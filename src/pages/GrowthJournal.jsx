@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
-import { Search, ArrowUpRight, Flame, Calendar, Clock, Sparkles } from "lucide-react";
+import { Search, ArrowUpRight, Flame, Calendar, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import CTA from "../components/CTA";
 import { journalEntries, categories } from "../data/growthJournalData";
@@ -195,7 +195,7 @@ export default function GrowthJournalPage() {
             border-slate-200/80
           "
         >
-          <div className="relative">
+          <div className="relative flex items-center">
             <Search
               className="
                 absolute
@@ -205,6 +205,7 @@ export default function GrowthJournalPage() {
                 w-5
                 h-5
                 text-slate-400
+                pointer-events-none
               "
               aria-hidden="true"
               focusable="false"
@@ -216,15 +217,15 @@ export default function GrowthJournalPage() {
               placeholder="Search experiments, metrics, or insights..."
               className="
                 w-full
-                h-13
+                h-12
                 sm:h-14
                 rounded-2xl
                 bg-slate-50
                 border-none
                 focus-visible:outline-none
                 focus-visible:ring-2
-                focus-visible:ring-brand-orange
-                pl-13
+                focus-visible:ring-orange-500
+                pl-14
                 pr-5
                 text-sm
                 font-medium
@@ -287,46 +288,33 @@ export default function GrowthJournalPage() {
         </div>
 
         {/* Journal Entries Grid (Consistent Card Structure with Blog) */}
-        <motion.div
-          layout
+        <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
         >
-          <AnimatePresence mode="popLayout" initial={false}>
-            {filteredEntries.map((entry, index) => {
-              const isFirst = index === 0 && activeCategory === "All" && !searchQuery;
+          {filteredEntries.map((entry, index) => {
+            const isFirst = index === 0 && activeCategory === "All" && !searchQuery;
 
-              return (
-                <motion.article
-                  key={entry.id}
-                  layout
-                  initial={false}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{
-                    duration: 0.25,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className={`
-                    group
-                    relative
-                    flex
-                    flex-col
-                    bg-white
-                    rounded-[2rem]
-                    sm:rounded-[2.5rem]
-                    border
-                    border-slate-200/80
-                    p-3.5
-                    sm:p-4
-                    shadow-sm
-                    hover:shadow-2xl
-                    hover:shadow-slate-200/60
-                    transition-all
-                    duration-500
-                    hover:-translate-y-1.5
-                    ${isFirst ? "md:col-span-2" : ""}
-                  `}
-                >
+            return (
+              <article
+                key={entry.id}
+                className={`
+                  group
+                  relative
+                  flex
+                  flex-col
+                  bg-white
+                  rounded-[2rem]
+                  sm:rounded-[2.5rem]
+                  border
+                  border-slate-200/80
+                  p-3.5
+                  sm:p-4
+                  shadow-sm
+                  transition-all
+                  duration-300
+                  ${isFirst ? "md:col-span-2" : ""}
+                `}
+              >
                   <Link
                     to={`/growth-journal/${entry.id}`}
                     className="flex flex-col h-full"
@@ -351,9 +339,6 @@ export default function GrowthJournalPage() {
                           w-full
                           h-full
                           object-cover
-                          transition-transform
-                          duration-700
-                          group-hover:scale-105
                         "
                       />
 
@@ -392,11 +377,9 @@ export default function GrowthJournalPage() {
                           items-center
                           justify-center
                           opacity-0
-                          scale-90
                           group-hover:opacity-100
-                          group-hover:scale-100
-                          transition-all
-                          duration-400
+                          transition-opacity
+                          duration-300
                           bg-slate-950/25
                         "
                       >
@@ -583,11 +566,10 @@ export default function GrowthJournalPage() {
                       </div>
                     </div>
                   </Link>
-                </motion.article>
+                </article>
               );
             })}
-          </AnimatePresence>
-        </motion.div>
+        </div>
 
         {/* Empty State */}
         {filteredEntries.length === 0 && (

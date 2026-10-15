@@ -3,7 +3,7 @@ import {
   Calendar,
   MessageCircle,
   Share2,
-  Sparkles,
+  User,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -55,9 +55,6 @@ export default function BlogCard({
               w-full
               h-full
               object-cover
-              transition-transform
-              duration-1000
-              group-hover:scale-105
             "
           />
 
@@ -104,11 +101,9 @@ export default function BlogCard({
               items-center
               justify-center
               opacity-0
-              scale-90
               group-hover:opacity-100
-              group-hover:scale-100
-              transition-all
-              duration-500
+              transition-opacity
+              duration-300
             "
           >
 
@@ -233,7 +228,7 @@ export default function BlogCard({
                 "
               >
 
-                <Sparkles className="w-4 h-4 text-orange-500" />
+                <User className="w-4 h-4 text-orange-500" />
 
               </div>
 

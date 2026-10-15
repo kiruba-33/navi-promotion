@@ -38,9 +38,7 @@ export default function HiringProcess() {
                 bg-white
                 p-6
                 shadow-xs
-                hover:shadow-md
                 hover:border-brand-orange/30
-                hover:-translate-y-1
                 transition-all
                 duration-300
                 flex

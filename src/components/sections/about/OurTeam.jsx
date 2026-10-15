@@ -79,8 +79,6 @@ export default function OurTeam() {
                     transition-all
                     duration-350
                     ease-out
-                    hover:-translate-y-1
-                    hover:shadow-2xl
                   "
                 >
                   {/* Image */}

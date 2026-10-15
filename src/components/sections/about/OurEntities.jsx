@@ -1,5 +1,5 @@
 import React from "react";
-import { Building2, Sparkles, ArrowUpRight } from "lucide-react";
+import { Building2, ArrowUpRight } from "lucide-react";
 import { subBrandsData } from "../../../data/about";
 
 export default function OurEntities() {
@@ -41,14 +41,14 @@ export default function OurEntities() {
             return (
               <div
                 key={brand.name}
-                className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50/50 hover:bg-white transition-all duration-300 hover:shadow-xl hover:border-orange-500/40"
+                className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50/50 hover:bg-white transition-all duration-300 hover:border-orange-500/40"
               >
                 {/* Brand Visual Cover */}
                 <div className="relative h-56 sm:h-60 overflow-hidden">
                   <img
                     src={brand.image}
                     alt={brand.name}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
 

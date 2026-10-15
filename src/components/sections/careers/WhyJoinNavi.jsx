@@ -41,9 +41,7 @@ export default function WhyJoinNavi() {
                   p-6
                   sm:p-8
                   shadow-xs
-                  hover:shadow-lg
                   hover:border-brand-orange/40
-                  hover:-translate-y-1
                   transition-all
                   duration-300
                   flex

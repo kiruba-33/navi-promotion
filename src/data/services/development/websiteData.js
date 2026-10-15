@@ -11,7 +11,7 @@ import {
   Users,
   Briefcase,
   FolderKanban,
-  Star,
+  Award,
   Rocket,
 } from "lucide-react";
 
@@ -235,7 +235,7 @@ intro: {
     tagIcons: [
       Briefcase,
       FolderKanban,
-      Star,
+      Award,
     ],
   },
 ],

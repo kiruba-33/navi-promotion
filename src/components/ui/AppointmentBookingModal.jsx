@@ -7,7 +7,6 @@ import {
   Phone,
   Calendar,
   Clock,
-  Sparkles,
   MessageSquare,
   CheckCircle2,
   Loader2,
@@ -189,7 +188,7 @@ export default function AppointmentBookingModal({ isOpen, onClose }) {
             <div className="flex shrink-0 items-start justify-between border-b border-slate-100 bg-white px-5 sm:px-7 py-4 z-20">
               <div className="flex-1 min-w-0 pr-3 space-y-0.5">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-orange/30 bg-brand-orange/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand-orange">
-                  <Sparkles className="w-3 h-3" />
+                  <CalendarCheck2 className="w-3 h-3" />
                   Strategy Session
                 </span>
 

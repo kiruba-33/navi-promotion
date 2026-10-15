@@ -30,7 +30,7 @@ export default function HowItIs({
           {steps.map((step, index) => (
             <div
               key={index}
-              className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-slate-50/50 hover:bg-white p-7 sm:p-8 shadow-xs hover:border-orange-500/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-slate-50/50 hover:bg-white p-7 sm:p-8 shadow-xs hover:border-orange-500/40 transition-all duration-300 overflow-hidden"
             >
               {/* Background Step Watermark */}
               <span className="absolute -top-4 -right-2 text-7xl font-bold text-slate-900/5 select-none pointer-events-none group-hover:text-orange-500/10 transition-colors">
