@@ -1,10 +1,17 @@
-import { memo, useState } from "react";
+import { memo, useState, lazy, Suspense } from "react";
 import ArrowButton from "../ui/ArrowButton";
-import BookStrategyModal from "../ui/BookStrategyModal";
+
+const BookStrategyModal = lazy(() => import("../ui/BookStrategyModal"));
 
 // memo: re-renders only when `slide` reference changes (i.e. when the active slide changes)
 const HeroContent = memo(({ slide }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasEverOpened, setHasEverOpened] = useState(false);
+
+  const handleOpenModal = () => {
+    setHasEverOpened(true);
+    setIsModalOpen(true);
+  };
 
   return (
     <>
@@ -27,7 +34,7 @@ const HeroContent = memo(({ slide }) => {
         {/* BUTTONS */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 mt-10 sm:mt-12 md:mt-14">
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={handleOpenModal}
             className="w-full sm:w-auto px-7 md:px-8 py-4 rounded-full bg-brand-orange text-white font-semibold hover:scale-105 transition-all duration-300 text-sm md:text-base cursor-pointer shadow-lg"
           >
             Book Strategy Call
@@ -43,10 +50,14 @@ const HeroContent = memo(({ slide }) => {
       </div>
 
       {/* REUSABLE STRATEGY MODAL POPUP */}
-      <BookStrategyModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      {hasEverOpened && (
+        <Suspense fallback={null}>
+          <BookStrategyModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
+        </Suspense>
+      )}
     </>
   );
 });

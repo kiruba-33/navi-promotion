@@ -5,7 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
 import HamburgerButton from "./HamburgerButton";
-import BecomeClientModal from "../../ui/BecomeClientModal";
+
+const BecomeClientModal = React.lazy(() => import("../../ui/BecomeClientModal"));
 
 function Navbar() {
   const location = useLocation();
@@ -18,6 +19,14 @@ function Navbar() {
 
   const [isBecomeClientModalOpen, setIsBecomeClientModalOpen] =
     useState(false);
+
+  const [hasEverOpenedClientModal, setHasEverOpenedClientModal] =
+    useState(false);
+
+  const handleOpenBecomeClientModal = () => {
+    setHasEverOpenedClientModal(true);
+    setIsBecomeClientModalOpen(true);
+  };
 
     
 
@@ -136,7 +145,7 @@ const showLightNavbar =
 
               <button
                 type="button"
-                onClick={() => setIsBecomeClientModalOpen(true)}
+                onClick={handleOpenBecomeClientModal}
                 className={`h-12 px-7 rounded-full text-sm font-semibold inline-flex items-center justify-center transition-all duration-300 cursor-pointer ${
                   showLightNavbar
                     ? "border-2 border-black text-black hover:bg-black hover:text-white"
@@ -184,16 +193,18 @@ const showLightNavbar =
         closeMenu={() =>
           setIsMobileMenuOpen(false)
         }
-        onOpenBecomeClient={() =>
-          setIsBecomeClientModalOpen(true)
-        }
+        onOpenBecomeClient={handleOpenBecomeClientModal}
       />
 
       {/* BECOME A CLIENT POPUP MODAL */}
-      <BecomeClientModal
-        isOpen={isBecomeClientModalOpen}
-        onClose={() => setIsBecomeClientModalOpen(false)}
-      />
+      {hasEverOpenedClientModal && (
+        <React.Suspense fallback={null}>
+          <BecomeClientModal
+            isOpen={isBecomeClientModalOpen}
+            onClose={() => setIsBecomeClientModalOpen(false)}
+          />
+        </React.Suspense>
+      )}
     </>
   );
 }

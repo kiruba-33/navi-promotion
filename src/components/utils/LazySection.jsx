@@ -1,5 +1,4 @@
-import React, { useRef, useState } from "react";
-import { useInView } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
 
 /**
  * LazySection
@@ -15,12 +14,35 @@ export default function LazySection({
   margin = "400px" 
 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin });
   const [hasLoaded, setHasLoaded] = useState(false);
 
-  if (isInView && !hasLoaded) {
-    setHasLoaded(true);
-  }
+  useEffect(() => {
+    if (hasLoaded) return;
+    const element = ref.current;
+    if (!element) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setHasLoaded(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry && entry.isIntersecting) {
+          setHasLoaded(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: margin }
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [margin, hasLoaded]);
 
   return (
     <div ref={ref}>
