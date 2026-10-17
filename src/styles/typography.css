@@ -241,6 +241,14 @@ p.body-normal {
   color: #f97316;
 }
 
+.bg-brand-orange {
+  background-color: #f97316;
+}
+
+.border-brand-orange {
+  border-color: #f97316;
+}
+
 .text-gradient-orange {
   color: #f97316;
 }

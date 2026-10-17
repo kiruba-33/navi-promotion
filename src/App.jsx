@@ -16,6 +16,7 @@ import Home from './pages/Home'
 
 // Core pages
 const AboutPage                   = lazy(() => import('./pages/AboutPage'))
+const CeoProfilePage              = lazy(() => import('./pages/CeoProfilePage'))
 const PortfolioPage               = lazy(() => import('./pages/PortfolioPage'))
 const GalleryPage                 = lazy(() => import('./pages/GalleryPage'))
 const RegulationsPage             = lazy(() => import('./pages/RegulationsPage'))
@@ -60,6 +61,7 @@ if (typeof window !== 'undefined') {
   window.__naviPreloadMap = {
     '/portfolio':                        () => import('./pages/PortfolioPage'),
     '/about':                            () => import('./pages/AboutPage'),
+    '/about/ceo':                        () => import('./pages/CeoProfilePage'),
     '/contact':                          () => import('./pages/LetsTalkPage'),
     '/services/digital-marketing':       () => import('./pages/services/DigitalMarketingPage'),
     '/services/development':             () => import('./pages/services/Developmentpage'),
@@ -83,6 +85,7 @@ function App() {
 
           {/* Core pages */}
           <Route path='/about'       element={<AboutPage />} />
+          <Route path='/about/ceo'   element={<CeoProfilePage />} />
           <Route path='/gallery'     element={<GalleryPage />} />
           <Route path='/regulations' element={<RegulationsPage />} />
           <Route path='/portfolio'   element={<PortfolioPage />} />

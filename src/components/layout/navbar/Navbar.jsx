@@ -31,6 +31,7 @@ function Navbar() {
     
 
   const lightPages = [
+    "/about/ceo",
     "/careers",
     "/become-client",
 

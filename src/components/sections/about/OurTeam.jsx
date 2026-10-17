@@ -47,7 +47,7 @@ export default function OurTeam() {
         >
           {teamData.map((member) => {
             const isFounder =
-              member.name === "Navin Kumar";
+              member.name === "Naga Vishnu N.";
 
             const Wrapper = isFounder
               ? Link
@@ -55,7 +55,8 @@ export default function OurTeam() {
 
             const wrapperProps = isFounder
               ? {
-                  to: "/founder",
+                  to: "/about/ceo",
+                  "aria-label": `Read full biography of ${member.name}`,
                 }
               : {};
 
@@ -65,10 +66,12 @@ export default function OurTeam() {
               >
                 <Wrapper
                   {...wrapperProps}
-                  className="
+                  className={`
                     group
                     relative
                     block
+                    w-full
+                    text-left
                     overflow-hidden
                     rounded-[2rem]
                     border
@@ -79,32 +82,35 @@ export default function OurTeam() {
                     transition-all
                     duration-350
                     ease-out
-                  "
+                    ${isFounder ? "cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-orange" : ""}
+                  `}
                 >
-                  {/* Image */}
+                  {/* Image with optimized portrait framing for CEO */}
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="
+                    className={`
                       absolute
                       inset-0
                       h-full
                       w-full
                       object-cover
-                    "
+                      ${isFounder ? "object-[center_12%]" : "object-cover"}
+                    `}
                   />
 
-                  {/* Overlay */}
+                  {/* Overlay — tailored bottom-weighted gradient for CEO to keep face 100% visible */}
                   <div
-                    className="
+                    className={`
                       absolute
                       inset-0
-                      bg-gradient-to-t
-                      from-black/90
-                      via-black/55
-                      to-transparent
                       pointer-events-none
-                    "
+                      ${
+                        isFounder
+                          ? "bg-gradient-to-t from-black/95 via-black/40 via-35% to-transparent to-70%"
+                          : "bg-gradient-to-t from-black/90 via-black/55 to-transparent"
+                      }
+                    `}
                   />
 
                   {/* Premium Navi Promotions brand gradient overlay on hover */}

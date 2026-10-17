@@ -195,15 +195,15 @@ export const locationsData = [
 
 export const teamData = [
   {
-    name: "Navin Kumar",
+    name: "Naga Vishnu N.",
     role: "Founder & CEO",
     image:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800",
     bio:
-      "Visionary leader with 10+ years in digital strategy and tech innovation.",
+      "Driving business growth through SEO, digital marketing, and tech strategy.",
     socials: {
       linkedin: "#",
-      github: "https://github.com/navin-kumar",
+      github: "#",
     },
   },
   {
