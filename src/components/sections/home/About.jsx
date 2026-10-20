@@ -24,7 +24,7 @@ export default function About() {
           <div className="relative">
             {/* MAIN IMAGE */}
             <div className="relative z-10">
-              <div className="aspect-[4/5] rounded-[2.5rem] sm:rounded-[3rem] lg:rounded-[4rem] overflow-hidden border-[8px] sm:border-[10px] lg:border-[12px] border-white shadow-2xl shadow-slate-900/10">
+              <div className="aspect-[4/5] rounded-[2.5rem] sm:rounded-[3rem] lg:rounded-[4rem] overflow-hidden shadow-2xl shadow-slate-900/10">
                 <img
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000"
                   alt="Navi Promotions Workspace"

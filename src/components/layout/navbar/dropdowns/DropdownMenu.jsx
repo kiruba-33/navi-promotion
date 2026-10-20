@@ -35,6 +35,7 @@ const DropdownMenu = ({
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
+        onClick={() => setIsOpen((prev) => !prev)}
         className={`flex items-center gap-1 text-[13px] lg:text-sm font-semibold transition-colors duration-200 whitespace-nowrap cursor-pointer ${
           isActive
             ? isScrolled

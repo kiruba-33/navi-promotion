@@ -15,3 +15,13 @@ body {
 button, input, optgroup, select, textarea {
   font-family: inherit;
 }
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  a, button, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+}

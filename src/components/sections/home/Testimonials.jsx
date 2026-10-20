@@ -257,9 +257,11 @@ export default function Testimonials() {
         .animate-marquee-right {
           animation: marquee-right 35s linear infinite;
         }
-        .animate-marquee-left:hover,
-        .animate-marquee-right:hover {
-          animation-play-state: paused;
+        @media (hover: hover) and (pointer: fine) {
+          .animate-marquee-left:hover,
+          .animate-marquee-right:hover {
+            animation-play-state: paused;
+          }
         }
       `}</style>
 

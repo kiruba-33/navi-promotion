@@ -74,7 +74,7 @@ export default function Culture() {
           {/* IMAGE SIDE */}
           <div className="relative mt-8 lg:mt-0">
             {/* MAIN IMAGE CARD */}
-            <div className="aspect-[4/5] rounded-[2.5rem] sm:rounded-[3rem] lg:rounded-[4rem] overflow-hidden border-[8px] sm:border-[10px] lg:border-[12px] border-slate-100 shadow-xl shadow-slate-200/50">
+            <div className="aspect-[4/5] rounded-[2.5rem] sm:rounded-[3rem] lg:rounded-[4rem] overflow-hidden shadow-xl shadow-slate-200/50">
               <img 
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" 
                 alt="Navi Culture Workspace" 

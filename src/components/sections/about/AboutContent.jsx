@@ -42,11 +42,11 @@ export default function AboutContent() {
 
           {/* Right */}
           <div>
-            <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-md">
+            <div className="relative overflow-hidden rounded-[2rem] shadow-md">
               <img
                 src={aboutContentData.image}
                 alt="About Navi Promotions"
-                className="w-full h-[320px] sm:h-[420px] lg:h-[480px] object-cover rounded-[1.5rem]"
+                className="w-full h-[320px] sm:h-[420px] lg:h-[480px] object-cover rounded-[2rem]"
               />
             </div>
           </div>

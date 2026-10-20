@@ -87,8 +87,10 @@ export default function TrustedClients() {
           animation: client-scroll 32s linear infinite;
         }
 
-        .client-marquee-track:hover {
-          animation-play-state: paused;
+        @media (hover: hover) and (pointer: fine) {
+          .client-marquee-track:hover {
+            animation-play-state: paused;
+          }
         }
 
         .client-marquee-mask {

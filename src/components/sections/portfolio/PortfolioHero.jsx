@@ -60,7 +60,9 @@ export default function PortfolioHero() {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
         <div
           className="
-            max-w-4xl
+            max-w-5xl
+            lg:max-w-6xl
+            xl:max-w-7xl
             mx-auto
             text-center
           "
@@ -110,13 +112,16 @@ export default function PortfolioHero() {
               mb-6
               text-3xl
               xs:text-4xl
-              sm:text-5xl
-              md:text-6xl
-              lg:text-7xl
+              sm:text-4xl
+              md:!text-[42px]
+              lg:!text-5xl
+              xl:!text-6xl
+              2xl:!text-[68px]
               font-bold
               uppercase
               text-white
               tracking-tight
+              lg:whitespace-nowrap
               drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)]
             "
           >

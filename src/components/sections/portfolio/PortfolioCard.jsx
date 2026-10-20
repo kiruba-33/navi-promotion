@@ -65,14 +65,13 @@ const PortfolioCard = memo(function PortfolioCard({
         border
         border-slate-200
         bg-white
-        p-2
         cursor-pointer
         transition-all
         duration-300
         hover:border-orange-500/40
       "
     >
-      <div className="relative h-full w-full overflow-hidden rounded-[1.5rem]">
+      <div className="relative h-full w-full overflow-hidden">
         {/* Slider Image (z-0: Bottom layer) */}
         <img
           src={images[currentIndex] || item.coverImage || item.image}
@@ -192,10 +191,11 @@ const PortfolioCard = memo(function PortfolioCard({
                   rounded-full
                   bg-brand-orange
                   text-white
-                  opacity-0
+                  opacity-100
+                  lg:opacity-0
                   transition-all
                   duration-500
-                  group-hover:opacity-100
+                  lg:group-hover:opacity-100
                 "
               >
                 <ArrowUpRight size={20} />
@@ -231,8 +231,9 @@ const PortfolioCard = memo(function PortfolioCard({
                   flex
                   items-center
                   justify-between
-                  opacity-0
-                  group-hover:opacity-100
+                  opacity-100
+                  lg:opacity-0
+                  lg:group-hover:opacity-100
                   transition-opacity
                   duration-300
                 "

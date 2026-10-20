@@ -27,9 +27,6 @@ export default function CTA() {
 
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50/80 pointer-events-none" />
 
-      <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-orange-500 blur-[128px] opacity-10 pointer-events-none" />
-
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-orange-500 blur-[128px] opacity-10 pointer-events-none" />
 
       <div
         className="
