@@ -207,27 +207,27 @@ export const teamData = [
     },
   },
   {
-    name: "Priya Sharma",
-    role: "Chief Marketing Officer",
+    name: "Kiruba karan R",
+    role: "Junior developer",
     image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800",
+      "/team/kiruba.webp",
     bio:
       "Data-driven marketer specializing in brand positioning and growth strategy.",
     socials: {
-      linkedin: "#",
-      github: "https://github.com",
+      linkedin: "https://www.linkedin.com/in/kirubakaran33/",
+      github: "https://github.com/kiruba-33",
     },
   },
   {
-    name: "Rahul Desai",
-    role: "Head of Development",
+    name: "Gobi krishanan K",
+    role: "Junior Fullstack Engineer",
     image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800",
+      "/team/gobi.webp",
     bio:
       "Full-stack architect passionate about scalable applications and web systems.",
     socials: {
-      linkedin: "#",
-      github: "https://github.com",
+      linkedin: "https://www.linkedin.com/in/gobikrishnanpro/",
+      github: "https://github.com/KGobikrishnan",
     },
   },
   {

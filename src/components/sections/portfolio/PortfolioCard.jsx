@@ -4,6 +4,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ExternalLink,
+  Globe,
 } from "lucide-react";
 
 const PortfolioCard = memo(function PortfolioCard({
@@ -17,6 +18,8 @@ const PortfolioCard = memo(function PortfolioCard({
     : item.image
     ? [item.image]
     : [];
+
+  const currentImage = images[currentIndex] || item.coverImage || item.image;
 
   const nextSlide = (event) => {
     event.stopPropagation();
@@ -72,21 +75,32 @@ const PortfolioCard = memo(function PortfolioCard({
       "
     >
       <div className="relative h-full w-full overflow-hidden">
-        {/* Slider Image (z-0: Bottom layer) */}
-        <img
-          src={images[currentIndex] || item.coverImage || item.image}
-          alt={item.title}
-          className="
-            absolute
-            inset-0
-            h-full
-            w-full
-            object-cover
-            z-0
-            transition-opacity
-            duration-300
-          "
-        />
+        {/* Slider Image / Clean Fallback (z-0: Bottom layer) */}
+        {currentImage ? (
+          <img
+            src={currentImage}
+            alt={item.title}
+            className="
+              absolute
+              inset-0
+              h-full
+              w-full
+              object-cover
+              z-0
+              transition-opacity
+              duration-300
+            "
+          />
+        ) : (
+          <div className="absolute inset-0 z-0 flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 text-center select-none">
+            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-3 backdrop-blur-sm">
+              <Globe className="w-8 h-8 text-brand-orange/80" />
+            </div>
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+              Official Web Platform
+            </span>
+          </div>
+        )}
 
         {/* Custom Premium Dark Overlay Fade (z-10: Behind the text) */}
         <div

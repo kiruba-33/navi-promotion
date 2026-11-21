@@ -271,11 +271,13 @@ export default function PortfolioModal({ project, onClose }) {
             <div className="relative w-full overflow-hidden bg-slate-950 text-white shrink-0">
               {/* Background Cover Image with Gradient */}
               <div className="absolute inset-0 z-0">
-                <img
-                  src={displayImages[0] || project.coverImage || project.image}
-                  alt={project.title}
-                  className="h-full w-full object-cover opacity-25 filter blur-[2px] scale-105"
-                />
+                {(displayImages[0] || project.coverImage || project.image) && (
+                  <img
+                    src={displayImages[0] || project.coverImage || project.image}
+                    alt={project.title}
+                    className="h-full w-full object-cover opacity-25 filter blur-[2px] scale-105"
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
               </div>
 
@@ -859,12 +861,36 @@ export default function PortfolioModal({ project, onClose }) {
                       </div>
 
                       {/* Browser Screenshot Viewport */}
-                      <div className="relative aspect-video max-h-[460px] w-full overflow-hidden bg-slate-950">
-                        <img
-                          src={displayImages[currentImageIndex] || project.coverImage}
-                          alt={project.title}
-                          className="h-full w-full object-cover transition-all duration-300"
-                        />
+                      <div className="relative aspect-video max-h-[460px] w-full overflow-hidden bg-slate-950 flex items-center justify-center">
+                        {(displayImages[currentImageIndex] || project.coverImage) ? (
+                          <img
+                            src={displayImages[currentImageIndex] || project.coverImage}
+                            alt={project.title}
+                            className="h-full w-full object-cover transition-all duration-300"
+                          />
+                        ) : (
+                          <div className="h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-400 p-8 text-center select-none">
+                            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+                              <Globe className="w-8 h-8 text-brand-orange" />
+                            </div>
+                            <span className="text-lg font-bold text-white mb-1">
+                              {project.title}
+                            </span>
+                            <span className="text-xs text-slate-400 uppercase tracking-wider mb-4">
+                              Official Web Project
+                            </span>
+                            {hasLiveUrl && (
+                              <button
+                                type="button"
+                                onClick={handleLivePreviewClick}
+                                className="inline-flex items-center gap-2 rounded-xl bg-brand-orange hover:bg-orange-600 text-white px-4 py-2 text-xs font-bold transition-all shadow-md shadow-brand-orange/20 cursor-pointer"
+                              >
+                                <span>Launch Live Website</span>
+                                <ExternalLink size={14} />
+                              </button>
+                            )}
+                          </div>
+                        )}
 
                         {/* Arrow Nav Buttons */}
                         {displayImages.length > 1 && (
