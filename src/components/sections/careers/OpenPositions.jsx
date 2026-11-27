@@ -53,9 +53,8 @@ export default function OpenPositions() {
                 Careers at Navi
               </span>
 
-              <h1 className="heading-section mt-4 text-[clamp(1.875rem,3.4vw,3rem)] leading-[1.12] tracking-[-0.025em] text-[#0F172A] font-semibold">
-                Opening
-                <span className="block">Positions</span>
+              <h1 className="heading-section mt-4 text-[clamp(1.625rem,3.4vw,3rem)] leading-[1.12] tracking-[-0.025em] text-[#0F172A] font-semibold whitespace-nowrap">
+                Opening Positions
               </h1>
 
               <p className="body-large mt-4 text-[#0F172A]/80 max-w-2xl text-[15px] sm:text-[17px] leading-[1.65] font-normal">
