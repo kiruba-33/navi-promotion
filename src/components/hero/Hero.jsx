@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
 import { heroSlides } from "../../data/heroData";
+import { useHeroScrollAnimation } from "../../hooks/useHeroScrollAnimation";
 import HeroSlider from "./HeroSlider";
 import HeroContent from "./HeroContent";
 import HeroControls from "./HeroControls";
@@ -30,6 +35,7 @@ const SLIDE_DURATION = 5000; // ms
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const { containerRef, yText, opacityHero, scaleImage } = useHeroScrollAnimation();
   // Stable refs avoid re-creating the interval on every render
   const isPausedRef = useRef(isPaused);
   const currentSlideRef = useRef(currentSlide);
@@ -69,25 +75,38 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative h-screen min-h-[700px] overflow-hidden">
+    <section
+      ref={containerRef}
+      className="relative h-screen min-h-[640px] sm:min-h-[700px] overflow-hidden bg-[#0F172A]"
+      style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}
+    >
       {/* BACKGROUND */}
-      <HeroSlider slides={heroSlides} currentSlide={currentSlide} />
+      <motion.div style={{ scale: scaleImage }} className="absolute inset-0 z-0">
+        <HeroSlider slides={heroSlides} currentSlide={currentSlide} />
+      </motion.div>
 
       {/* CONTENT */}
       <div className="relative z-20 h-full">
         <div className="max-w-[1600px] mx-auto h-full px-5 sm:px-6 md:px-10 lg:px-16 xl:px-20 flex items-center">
-          <HeroContent slide={heroSlides[currentSlide]} />
+          <motion.div
+            style={{ y: yText, opacity: opacityHero }}
+            className="w-full max-w-3xl"
+          >
+            <HeroContent slide={heroSlides[currentSlide]} />
+          </motion.div>
         </div>
       </div>
 
       {/* CONTROLS */}
-      <HeroControls
-        slides={heroSlides}
-        currentSlide={currentSlide}
-        setCurrentSlide={handleSetCurrentSlide}
-        isPaused={isPaused}
-        setIsPaused={handleSetIsPaused}
-      />
+      <motion.div style={{ opacity: opacityHero }} className="absolute inset-x-0 bottom-0 z-30">
+        <HeroControls
+          slides={heroSlides}
+          currentSlide={currentSlide}
+          setCurrentSlide={handleSetCurrentSlide}
+          isPaused={isPaused}
+          setIsPaused={handleSetIsPaused}
+        />
+      </motion.div>
     </section>
   );
 };

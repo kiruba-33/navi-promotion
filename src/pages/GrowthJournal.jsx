@@ -1,24 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { motion } from "framer-motion";
 import { Search, ArrowUpRight, Flame, Calendar, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import CTA from "../components/CTA";
+import { useHeroScrollAnimation } from "../hooks/useHeroScrollAnimation";
 import { journalEntries, categories } from "../data/growthJournalData";
 
 export default function GrowthJournalPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const containerRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const yText = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacityHero = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const scaleImage = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const { containerRef, yText, opacityHero, scaleImage } = useHeroScrollAnimation();
 
   const filteredEntries = journalEntries.filter((entry) => {
     const matchesFilter =
@@ -34,7 +26,7 @@ export default function GrowthJournalPage() {
   });
 
   return (
-    <main className="min-h-screen bg-slate-50 selection:bg-brand-orange selection:text-white overflow-hidden">
+    <main className="min-h-screen bg-[#F1F5F9] selection:bg-[#2563EB] selection:text-white overflow-hidden">
       <Helmet>
         <title>Growth Journal | Navi Promotions - Execution Insights</title>
         <meta
@@ -56,7 +48,8 @@ export default function GrowthJournalPage() {
           w-full
           overflow-hidden
           border-b
-          border-slate-800
+          border-white/15
+          bg-[#0F172A]
           flex
           items-center
           justify-center
@@ -73,18 +66,18 @@ export default function GrowthJournalPage() {
             className="h-full w-full object-cover"
           />
 
-          {/* Dark Overlay */}
-          <div className="absolute inset-0 bg-black/65" />
+          {/* Subtle Neutral Overlay */}
+          <div className="absolute inset-0 bg-black/18" />
 
-          {/* Cinematic Fade */}
+          {/* Balanced Center Vignette */}
           <div
             className="
               absolute
               inset-0
-              bg-gradient-to-t
-              from-black/50
-              via-transparent
-              to-black/20
+              bg-gradient-to-b
+              from-black/25
+              via-black/38
+              to-black/30
             "
           />
         </div>
@@ -100,27 +93,26 @@ export default function GrowthJournalPage() {
             {/* Badge */}
             <div
               className="
-                mb-6
+                mb-5
                 inline-flex
                 items-center
-                gap-2.5
-                rounded-full
+                gap-2
+                rounded-lg
                 border
-                border-white/15
-                bg-white/10
+                border-white/25
+                bg-black/35
                 backdrop-blur-md
                 px-4
-                py-2
+                py-1.5
               "
             >
-              <Flame className="h-4 w-4 text-brand-orange" />
+              <Flame className="h-4 w-4 text-[#F97316]" />
               <span
                 className="
-                  text-[11px]
-                  sm:text-xs
-                  font-bold
+                  text-[12px]
+                  font-medium
                   uppercase
-                  tracking-[0.2em]
+                  tracking-[0.16em]
                   text-white
                 "
               >
@@ -132,20 +124,15 @@ export default function GrowthJournalPage() {
             <h1
               className="
                 heading-display
-                mb-6
-                text-3xl
-                xs:text-4xl
-                sm:text-5xl
-                md:text-6xl
-                lg:text-7xl
-                font-bold
-                uppercase
+                mb-5
+                text-[clamp(2rem,3.6vw,3.125rem)]
+                leading-[1.12]
+                font-semibold
                 text-white
-                tracking-tight
-                drop-shadow-[0_4px_24px_rgba(0,0,0,0.85)]
+                tracking-[-0.025em]
               "
             >
-              REAL WORLD EXECUTION
+              Real World Execution
             </h1>
 
             {/* Description */}
@@ -154,8 +141,10 @@ export default function GrowthJournalPage() {
                 body-large
                 mx-auto
                 max-w-3xl
-                text-white/90
-                drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]
+                text-[15px]
+                sm:text-[17px]
+                leading-[1.65]
+                text-[#F1F5F9]/90
               "
             >
               Documenting our experiments, data points, and strategic pivots. No
@@ -187,24 +176,23 @@ export default function GrowthJournalPage() {
             max-w-2xl
             mx-auto
             bg-white
-            p-3
-            sm:p-3.5
-            rounded-[2rem]
-            shadow-xl
+            p-3.5
+            rounded-2xl
+            shadow-lg
             border
-            border-slate-200/80
+            border-slate-200
           "
         >
           <div className="relative flex items-center">
             <Search
               className="
                 absolute
-                left-5
+                left-4
                 top-1/2
                 -translate-y-1/2
                 w-5
                 h-5
-                text-slate-400
+                text-[#2563EB]
                 pointer-events-none
               "
               aria-hidden="true"
@@ -219,17 +207,21 @@ export default function GrowthJournalPage() {
                 w-full
                 h-12
                 sm:h-14
-                rounded-2xl
-                bg-slate-50
-                border-none
+                rounded-[10px]
+                bg-[#F1F5F9]
+                border
+                border-transparent
                 focus-visible:outline-none
                 focus-visible:ring-2
-                focus-visible:ring-orange-500
-                pl-14
+                focus-visible:ring-[#2563EB]/25
+                focus-visible:border-[#2563EB]
+                focus:bg-white
+                pl-12
                 pr-5
                 text-sm
+                sm:text-[15px]
                 font-medium
-                text-slate-900
+                text-[#0F172A]
                 placeholder:text-slate-400
                 transition-all
               "
@@ -255,30 +247,27 @@ export default function GrowthJournalPage() {
           z-10
         "
       >
-        {/* Category Filter Pills (Consistent styling with Blog Categories) */}
+        {/* Category Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3 mb-10 sm:mb-12">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
               className={`
-                px-5
+                px-4
                 py-2.5
-                sm:px-6
-                sm:py-3
-                rounded-2xl
-                text-[10px]
-                sm:text-xs
-                font-semibold
-                uppercase
-                tracking-wider
+                sm:px-5
+                sm:py-2.5
+                rounded-[10px]
+                text-[13px]
+                font-medium
                 transition-all
-                duration-300
+                duration-200
                 cursor-pointer
                 ${
                   activeCategory === category
-                    ? "bg-slate-900 text-white shadow-lg shadow-slate-900/15 scale-105"
-                    : "bg-white text-slate-500 border border-slate-200/70 hover:text-slate-900 hover:border-slate-300"
+                    ? "bg-[#2563EB] text-white shadow-sm"
+                    : "bg-white text-[#102A56] border border-slate-200 hover:border-[#2563EB]/40"
                 }
               `}
             >
@@ -289,7 +278,7 @@ export default function GrowthJournalPage() {
 
         {/* Journal Entries Grid (Consistent Card Structure with Blog) */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 lg:gap-8"
         >
           {filteredEntries.map((entry, index) => {
             const isFirst = index === 0 && activeCategory === "All" && !searchQuery;
@@ -303,13 +292,14 @@ export default function GrowthJournalPage() {
                   flex
                   flex-col
                   bg-white
-                  rounded-[2rem]
-                  sm:rounded-[2.5rem]
+                  rounded-2xl
                   border
                   border-slate-200/80
+                  hover:border-[#2563EB]/40
                   p-3.5
                   sm:p-4
-                  shadow-sm
+                  shadow-xs
+                  hover:shadow-md
                   transition-all
                   duration-300
                   ${isFirst ? "md:col-span-2" : ""}
@@ -324,11 +314,10 @@ export default function GrowthJournalPage() {
                       className={`
                         relative
                         overflow-hidden
-                        rounded-[1.6rem]
-                        sm:rounded-[2rem]
-                        bg-slate-100
-                        mb-6
-                        shadow-md
+                        rounded-xl
+                        bg-[#F1F5F9]
+                        mb-5
+                        shadow-sm
                         ${isFirst ? "aspect-[21/9]" : "aspect-[16/10]"}
                       `}
                     >
@@ -339,29 +328,30 @@ export default function GrowthJournalPage() {
                           w-full
                           h-full
                           object-cover
+                          transition-transform
+                          duration-500
+                          group-hover:scale-[1.03]
                         "
                       />
 
                       {/* Dark Overlay Gradient */}
-                      <div className="absolute inset-0 bg-slate-950/20 group-hover:bg-slate-950/10 transition-colors duration-500" />
+                      <div className="absolute inset-0 bg-[#102A56]/20 group-hover:bg-[#102A56]/10 transition-colors duration-500" />
 
                       {/* Category Badge */}
                       <div className="absolute top-4 left-4">
                         <span
                           className="
-                            px-3.5
+                            px-3
                             py-1.5
                             bg-white/95
                             backdrop-blur-md
-                            rounded-full
-                            text-[10px]
-                            font-semibold
+                            rounded-lg
+                            text-[11px]
+                            font-medium
                             uppercase
                             tracking-wider
-                            text-slate-900
+                            text-[#102A56]
                             shadow-md
-                            border
-                            border-white/30
                           "
                         >
                           {entry.type}
@@ -380,25 +370,22 @@ export default function GrowthJournalPage() {
                           group-hover:opacity-100
                           transition-opacity
                           duration-300
-                          bg-slate-950/25
+                          bg-[#102A56]/25
                         "
                       >
                         <div
                           className="
-                            w-20
-                            h-20
-                            rounded-full
-                            bg-brand-orange
+                            px-5
+                            py-2.5
+                            rounded-[10px]
+                            bg-[#2563EB]
                             text-white
                             flex
                             items-center
                             justify-center
-                            font-semibold
-                            uppercase
-                            tracking-wider
-                            text-[11px]
-                            shadow-2xl
-                            shadow-brand-orange/40
+                            font-medium
+                            text-[13px]
+                            shadow-xl
                           "
                         >
                           Read Log
@@ -415,23 +402,21 @@ export default function GrowthJournalPage() {
                             flex
                             items-center
                             gap-3
-                            text-slate-400
+                            text-[#0F172A]/55
                             mb-3
-                            text-[11px]
-                            font-semibold
-                            uppercase
-                            tracking-wider
+                            text-[12px]
+                            font-medium
                           "
                         >
                           <div className="flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5 text-brand-orange" />
+                            <Calendar className="w-3.5 h-3.5 text-[#F97316]" />
                             <span>{entry.date}</span>
                           </div>
 
                           <span className="w-1 h-1 rounded-full bg-slate-300" />
 
                           <div className="flex items-center gap-1.5">
-                            <Clock className="w-3.5 h-3.5 text-slate-400" />
+                            <Clock className="w-3.5 h-3.5 text-[#2563EB]" />
                             <span>{entry.readingTime}</span>
                           </div>
                         </div>
@@ -448,19 +433,18 @@ export default function GrowthJournalPage() {
                                   gap-1.5
                                   px-3
                                   py-1
-                                  rounded-full
-                                  bg-brand-orange/10
+                                  rounded-lg
+                                  bg-[#F1F5F9]
                                   border
-                                  border-brand-orange/25
-                                  text-brand-orange
+                                  border-[#2563EB]/20
                                   text-xs
-                                  font-bold
+                                  font-medium
                                 "
                               >
-                                <span className="font-bold text-sm text-slate-900">
+                                <span className="font-semibold text-[13px] text-[#102A56]">
                                   {m.value}
                                 </span>
-                                <span className="text-[10px] uppercase tracking-wider text-slate-600">
+                                <span className="text-[11px] text-[#0F172A]/65">
                                   {m.label}
                                 </span>
                               </span>
@@ -472,17 +456,18 @@ export default function GrowthJournalPage() {
                         <h2
                           className={`
                             heading-card
-                            text-slate-900
-                            tracking-tight
+                            text-[#0F172A]
+                            font-semibold
+                            tracking-[-0.02em]
                             transition-colors
                             duration-300
-                            group-hover:text-brand-orange
+                            group-hover:text-[#2563EB]
                             mb-3
-                            leading-snug
+                            leading-[1.25]
                             ${
                               isFirst
-                                ? "text-2xl sm:text-3xl md:text-4xl"
-                                : "text-xl sm:text-2xl"
+                                ? "text-[clamp(1.5rem,2.4vw,2rem)]"
+                                : "text-[20px]"
                             }
                           `}
                         >
@@ -492,11 +477,11 @@ export default function GrowthJournalPage() {
                         {/* Summary / Excerpt */}
                         <p
                           className={`
-                            text-slate-600
+                            text-[#0F172A]/75
                             font-normal
-                            leading-relaxed
-                            mb-6
-                            ${isFirst ? "text-base sm:text-lg max-w-3xl" : "text-sm"}
+                            leading-[1.6]
+                            mb-5
+                            ${isFirst ? "text-[16px] sm:text-[17px] max-w-3xl" : "text-[14px] sm:text-[15px]"}
                           `}
                         >
                           {entry.summary}
@@ -509,9 +494,9 @@ export default function GrowthJournalPage() {
                           flex
                           items-center
                           justify-between
-                          pt-5
+                          pt-4
                           border-t
-                          border-slate-100
+                          border-slate-200/70
                           mt-auto
                         "
                       >
@@ -520,25 +505,23 @@ export default function GrowthJournalPage() {
                             className="
                               w-7
                               h-7
-                              rounded-full
-                              bg-brand-orange/10
+                              rounded-lg
+                              bg-[#F1F5F9]
                               border
-                              border-brand-orange/20
+                              border-[#2563EB]/20
                               flex
                               items-center
                               justify-center
                             "
                           >
-                            <Flame className="w-3.5 h-3.5 text-brand-orange" />
+                            <Flame className="w-3.5 h-3.5 text-[#F97316]" />
                           </div>
 
                           <span
                             className="
-                              text-[10px]
-                              font-semibold
-                              uppercase
-                              tracking-wider
-                              text-slate-700
+                              text-[12px]
+                              font-medium
+                              text-[#102A56]
                             "
                           >
                             Navi Growth Lab
@@ -549,10 +532,10 @@ export default function GrowthJournalPage() {
                           className="
                             w-9
                             h-9
-                            rounded-full
-                            bg-slate-100
-                            group-hover:bg-brand-orange
-                            text-slate-500
+                            rounded-lg
+                            bg-[#F1F5F9]
+                            group-hover:bg-[#2563EB]
+                            text-[#102A56]
                             group-hover:text-white
                             flex
                             items-center
@@ -573,11 +556,11 @@ export default function GrowthJournalPage() {
 
         {/* Empty State */}
         {filteredEntries.length === 0 && (
-          <div className="text-center py-16 sm:py-20 bg-white rounded-3xl border border-slate-200 p-10">
-            <h3 className="heading-card text-2xl heading-primary mb-2">
+          <div className="text-center py-16 sm:py-20 bg-white rounded-2xl border border-slate-200 p-10">
+            <h3 className="heading-card text-2xl text-[#0F172A] font-semibold mb-2">
               No Journal Entries Found
             </h3>
-            <p className="body-normal text-slate-500">
+            <p className="body-normal text-[#0F172A]/70">
               No experiments matched your search query. Try searching for
               another metric or topic.
             </p>

@@ -39,27 +39,24 @@ export default function BlogHero({
     className="w-full h-full object-cover"
   />
 
-  {/* Main Dark Fade */}
+  {/* Subtle Neutral Overlay */}
   <div
     className="
       absolute
       inset-0
-      bg-gradient-to-r
-      from-black/65
-      via-black/40
-      to-black/20
+      bg-black/18
     "
   />
 
-  {/* Extra Depth */}
+  {/* Center Readability Gradient */}
   <div
     className="
       absolute
       inset-0
-      bg-gradient-to-t
-      from-black/30
-      via-transparent
-      to-black/10
+      bg-gradient-to-b
+      from-black/25
+      via-black/38
+      to-black/28
     "
   />
 </motion.div>
@@ -85,19 +82,22 @@ export default function BlogHero({
     inline-flex
     items-center
     gap-2
-    px-5
-    py-2.5
-    rounded-full
-    bg-white/10
+    px-4
+    py-2
+    rounded-lg
+    bg-black/35
     backdrop-blur-md
     border
-    border-white/20
+    border-white/25
     text-white
-    label-text
-    mb-8
+    text-[12px]
+    font-medium
+    uppercase
+    tracking-[0.14em]
+    mb-6
   "
 >
-  <Newspaper className="w-4 h-4 text-orange-500" />
+  <Newspaper className="w-4 h-4 text-[#F97316]" />
   Navi Insights
 </div>
 
@@ -105,13 +105,12 @@ export default function BlogHero({
          <h1
   className="
     heading-display
-    text-4xl
-    sm:text-5xl
-    md:text-6xl
-    lg:text-7xl
+    text-[clamp(2rem,3.6vw,3.125rem)]
+    leading-[1.12]
+    font-semibold
     text-white
-    tracking-tight
-    mb-8
+    tracking-[-0.025em]
+    mb-6
   "
 >
   Insights That Drive Growth
@@ -121,10 +120,13 @@ export default function BlogHero({
          <p
   className="
     body-large
-    text-white/90
+    text-[#F1F5F9]/90
+    text-[15px]
+    sm:text-[17px]
+    leading-[1.65]
     max-w-3xl
     mx-auto
-    mb-12
+    mb-10
   "
 >
   Explore expert perspectives, industry trends,
@@ -138,7 +140,7 @@ export default function BlogHero({
               flex
               flex-wrap
               justify-center
-              gap-3
+              gap-2.5
             "
           >
 
@@ -150,21 +152,19 @@ export default function BlogHero({
                   setActiveCategory(category)
                 }
                 className={`
-                  px-6
-                  py-3
-                  rounded-2xl
-                  text-[10px]
-                  sm:text-xs
-                  font-semibold
-                  uppercase
-                  tracking-wider
+                  px-4
+                  py-2.5
+                  rounded-[10px]
+                  text-[13px]
+                  font-medium
                   transition-all
-                  duration-300
+                  duration-200
+                  cursor-pointer
 
                   ${
                     activeCategory === category
-                      ? "bg-slate-900 text-white"
-                      : "bg-white text-slate-500 hover:text-slate-900"
+                      ? "bg-[#2563EB] text-white shadow-sm"
+                      : "bg-white/95 text-[#102A56] hover:bg-[#F1F5F9]"
                   }
                 `}
               >

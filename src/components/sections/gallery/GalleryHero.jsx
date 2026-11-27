@@ -1,5 +1,7 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { HeartHandshake } from "lucide-react";
+import { useHeroScrollAnimation } from "../../../hooks/useHeroScrollAnimation";
 
 export default function GalleryHero({
   badge,
@@ -7,20 +9,24 @@ export default function GalleryHero({
   description,
   image,
 }) {
+  const { containerRef, yText, opacityHero, scaleImage } = useHeroScrollAnimation();
+
   return (
     <section
+      ref={containerRef}
       className="
         relative
         h-[60vh]
         min-h-[520px]
         overflow-hidden
+        bg-[#0F172A]
         flex
         items-center
         justify-center
       "
     >
       {/* Background */}
-      <div className="absolute inset-0 z-0">
+      <motion.div style={{ scale: scaleImage }} className="absolute inset-0 z-0">
         <img
           src={image}
           alt={title}
@@ -31,30 +37,27 @@ export default function GalleryHero({
           "
         />
 
-        {/* Portfolio Style Cinematic Overlay */}
+        {/* Subtle Neutral Overlay */}
         <div
           className="
             absolute
             inset-0
-            bg-gradient-to-r
-            from-black/65
-            via-black/40
-            to-black/20
+            bg-black/15
           "
         />
 
-        {/* Extra Depth */}
+        {/* Centered Text Readability Vignette */}
         <div
           className="
             absolute
             inset-0
-            bg-gradient-to-t
-            from-black/30
-            via-transparent
-            to-black/10
+            bg-gradient-to-b
+            from-black/20
+            via-black/35
+            to-black/25
           "
         />
-      </div>
+      </motion.div>
 
       {/* Content */}
       <div
@@ -69,9 +72,10 @@ export default function GalleryHero({
           lg:px-8
         "
       >
-        <div
+        <motion.div
+          style={{ y: yText, opacity: opacityHero }}
           className="
-            max-w-5xl
+            max-w-3xl
             mx-auto
             text-center
           "
@@ -79,34 +83,37 @@ export default function GalleryHero({
           {/* Badge */}
           <div
             className="
-              mb-6
+              mb-5
               inline-flex
               items-center
-              gap-3
-              rounded-full
+              gap-2
+              rounded-lg
               border
-              border-white/15
-              bg-white/10
+              border-white/25
+              bg-black/35
               backdrop-blur-md
-              px-5
-              py-3
+              px-3.5
+              py-1.5
             "
           >
             <HeartHandshake
               className="
                 h-4
                 w-4
-                text-white
+                text-[#F97316]
               "
+              aria-hidden="true"
             />
 
             <span
               className="
-                text-xs
-                font-bold
+                text-[12px]
+                sm:text-[13px]
+                font-medium
                 uppercase
-                tracking-[0.2em]
-                text-white
+                tracking-[0.04em]
+                leading-[1.4]
+                text-[#F1F5F9]
               "
             >
               {badge}
@@ -117,18 +124,9 @@ export default function GalleryHero({
           <h1
             className="
               heading-display
-
-              mb-6
-
-              text-4xl
-              sm:text-5xl
-              md:text-6xl
-              lg:text-6xl
-              xl:text-7xl
-
+              mb-5
               uppercase
-              text-white
-              drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
+              text-[#FFFFFF]
             "
           >
             LIFE AT NAVI
@@ -138,17 +136,14 @@ export default function GalleryHero({
           <p
             className="
               body-large
-
-              max-w-3xl
+              max-w-2xl
               mx-auto
-
-              text-white/90
-              drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
+              text-[#F1F5F9]/90
             "
           >
             {description}
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

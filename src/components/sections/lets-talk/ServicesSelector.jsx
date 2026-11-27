@@ -12,10 +12,10 @@ export default function ServicesSelector() {
   return (
     <section
       className="
-        bg-slate-50
-        py-20
-        sm:py-24
-        lg:py-32
+        bg-[#F1F5F9]
+        py-14
+        sm:py-16
+        lg:py-20
       "
     >
       <div
@@ -32,28 +32,25 @@ export default function ServicesSelector() {
         <div
           className="
             mx-auto
-            mb-16
+            mb-12
             max-w-3xl
             text-center
           "
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-6 shadow-sm select-none">
-            <Briefcase className="w-4 h-4 text-orange-500"  aria-hidden="true" focusable="false" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#FFFFFF] text-[#102A56] text-[12px] sm:text-[13px] font-medium mb-4 shadow-xs select-none">
+            <Briefcase className="w-4 h-4 text-[#F97316]" aria-hidden="true" focusable="false" />
             <span>Our Services</span>
           </div>
 
           <h2
             className="
               heading-section
-              mb-6
-              text-4xl
-              sm:text-5xl
-              md:text-6xl
-              heading-primary
+              mb-4
+              text-[#0F172A]
             "
           >
-            What Are You
-            <span className="block heading-highlight">
+            What Are You{" "}
+            <span className="block">
               Looking For?
             </span>
           </h2>
@@ -61,7 +58,7 @@ export default function ServicesSelector() {
           <p
             className="
               body-large
-              text-slate-600
+              text-[#0F172A]/80
             "
           >
             Select the service that best
@@ -74,7 +71,7 @@ export default function ServicesSelector() {
           className="
             grid
             grid-cols-1
-            gap-6
+            gap-5
             sm:grid-cols-2
             lg:grid-cols-3
           "
@@ -88,47 +85,45 @@ export default function ServicesSelector() {
                 )
               }
               className={`
-                rounded-[2rem]
+                rounded-2xl
                 border
-                p-8
+                p-6
+                sm:p-7
                 text-left
                 transition-all
-                duration-300
+                duration-200
+                cursor-pointer
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]
 
                 ${
                   selectedService ===
                   service.id
-                    ? `
-                      border-brand-orange
-                      bg-brand-orange
-                      text-slate-900
-                      shadow-lg
-                    `
-                    : `
-                      border-slate-200
-                      bg-white
-                      text-slate-900
-                      hover:border-brand-orange
-                    `
+                    ? "border-[#102A56] bg-[#102A56] text-[#FFFFFF] shadow-md"
+                    : "border-[#0F172A]/10 bg-[#FFFFFF] text-[#102A56] hover:border-[#2563EB]/40 shadow-xs"
                 }
               `}
             >
               <div
-                className="
-                  mb-6
+                className={`
+                  mb-5
                   flex
-                  h-14
-                  w-14
+                  h-11
+                  w-11
                   items-center
                   justify-center
-                  rounded-2xl
-                  bg-slate-100
-                "
+                  rounded-xl
+                  transition-colors
+                  ${
+                    selectedService === service.id
+                      ? "bg-[#2563EB] text-[#FFFFFF]"
+                      : "bg-[#F1F5F9] text-[#2563EB]"
+                  }
+                `}
               >
                 <span
                   className="
-                    text-lg
-                    font-bold
+                    text-[15px]
+                    font-semibold
                   "
                 >
                   {String(
@@ -138,10 +133,10 @@ export default function ServicesSelector() {
               </div>
 
               <h3
-                className="
+                className={`
                   heading-card
-                  text-2xl
-                "
+                  ${selectedService === service.id ? "text-[#FFFFFF]" : "text-[#0F172A]"}
+                `}
               >
                 {service.title}
               </h3>

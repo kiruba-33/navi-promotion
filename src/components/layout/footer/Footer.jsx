@@ -53,35 +53,35 @@ export default function Footer() {
   const { company, quickLinks, services, resources, contact } = footerData;
 
   return (
-    <footer className="relative bg-white text-slate-700 font-sans border-t border-slate-200 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10 pt-16 sm:pt-20 lg:pt-24">
+    <footer className="relative bg-[#102A56] text-[#F1F5F9] font-sans border-t border-white/10 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10 pt-16 sm:pt-20">
         
         {/* =========================================================
             FOOTER MAIN NAVIGATION GRID (EQUAL & CONSISTENT SPACING)
            ========================================================= */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-10 lg:gap-8 pb-16 border-b border-slate-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-white/15">
           
-          {/* SECTION 1: LARGER LOGO, DESCRIPTION & SOCIAL MEDIA PROFILES */}
+          {/* SECTION 1: LOGO, DESCRIPTION & SOCIAL MEDIA PROFILES */}
           <div className="sm:col-span-2 md:col-span-4 lg:col-span-4 pr-0 lg:pr-6 flex flex-col justify-between">
             <div>
-              {/* Larger Logo while maintaining visual balance */}
+              {/* Logo */}
               <div className="mb-6 select-none">
                 <img
-                  src="/logo-color.png"
+                  src="/logo-white.png"
                   alt="Navi Promotions"
-                  className="h-16 sm:h-20 lg:h-22 w-auto object-contain pointer-events-none"
+                  className="h-14 sm:h-16 lg:h-18 w-auto object-contain pointer-events-none"
                 />
               </div>
 
               {/* Company Description */}
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 font-normal max-w-sm">
+              <p className="text-[#F1F5F9]/80 text-[14px] leading-[1.6] mb-6 font-normal max-w-sm">
                 {company.description}
               </p>
             </div>
 
             {/* Social Media Profile Links directly below logo/description */}
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-3">
+              <p className="text-[12px] font-medium uppercase tracking-[0.05em] text-[#F1F5F9]/60 mb-3">
                 Connect With Us
               </p>
               <div className="flex flex-wrap items-center gap-2.5">
@@ -92,7 +92,7 @@ export default function Footer() {
                     target={social.href.startsWith("http") ? "_blank" : undefined}
                     rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     aria-label={`Navi Promotions on ${social.name}`}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-slate-200 bg-slate-50 flex items-center justify-center text-slate-600 hover:text-white hover:bg-slate-900 hover:border-slate-900 hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-900 focus-visible:bg-slate-900 focus-visible:border-slate-900 focus-visible:text-white focus-visible:-translate-y-0.5 transition-all duration-200 cursor-pointer shadow-xs"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg border border-white/20 bg-white/5 flex items-center justify-center text-[#F97316] hover:text-[#FFFFFF] hover:bg-[#F97316] hover:border-[#F97316] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] transition-all duration-200 cursor-pointer"
                   >
                     <SocialIcon type={social.key} />
                   </a>
@@ -103,15 +103,15 @@ export default function Footer() {
 
           {/* SECTION 2: QUICK LINKS (Equal Width) */}
           <div className="lg:col-span-2">
-            <h3 className="text-slate-900 text-sm font-semibold uppercase tracking-wider mb-6">
+            <h3 className="text-[#FFFFFF] text-[13px] font-semibold uppercase tracking-[0.04em] mb-5">
               Quick Links
             </h3>
-            <ul className="space-y-3.5 text-sm font-medium">
+            <ul className="space-y-3 text-[14px] font-normal">
               {quickLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     to={link.href}
-                    className="group text-slate-600 hover:text-brand-orange transition-colors duration-200 inline-flex items-center"
+                    className="group text-[#F1F5F9]/80 hover:text-[#FFFFFF] transition-colors duration-200 inline-flex items-center"
                   >
                     <span className="group-hover:translate-x-1 transition-transform duration-200">
                       {link.label}
@@ -124,15 +124,15 @@ export default function Footer() {
 
           {/* SECTION 3: SERVICES (Equal Width) */}
           <div className="lg:col-span-2">
-            <h3 className="text-slate-900 text-sm font-semibold uppercase tracking-wider mb-6">
+            <h3 className="text-[#FFFFFF] text-[13px] font-semibold uppercase tracking-[0.04em] mb-5">
               Services
             </h3>
-            <ul className="space-y-3.5 text-sm font-medium">
+            <ul className="space-y-3 text-[14px] font-normal">
               {services.map((item) => (
                 <li key={item.label}>
                   <Link
                     to={item.href}
-                    className="group text-slate-600 hover:text-brand-orange transition-colors duration-200 inline-flex items-center"
+                    className="group text-[#F1F5F9]/80 hover:text-[#FFFFFF] transition-colors duration-200 inline-flex items-center"
                   >
                     <span className="group-hover:translate-x-1 transition-transform duration-200">
                       {item.label}
@@ -145,15 +145,15 @@ export default function Footer() {
 
           {/* SECTION 4: RESOURCES (Equal Width) */}
           <div className="lg:col-span-2">
-            <h3 className="text-slate-900 text-sm font-semibold uppercase tracking-wider mb-6">
+            <h3 className="text-[#FFFFFF] text-[13px] font-semibold uppercase tracking-[0.04em] mb-5">
               Resources
             </h3>
-            <ul className="space-y-3.5 text-sm font-medium">
+            <ul className="space-y-3 text-[14px] font-normal">
               {resources.map((item) => (
                 <li key={item.label}>
                   <Link
                     to={item.href}
-                    className="group text-slate-600 hover:text-brand-orange transition-colors duration-200 inline-flex items-center"
+                    className="group text-[#F1F5F9]/80 hover:text-[#FFFFFF] transition-colors duration-200 inline-flex items-center"
                   >
                     <span className="group-hover:translate-x-1 transition-transform duration-200">
                       {item.label}
@@ -166,46 +166,46 @@ export default function Footer() {
 
           {/* SECTION 5: CONTACT (Equal Width) */}
           <div className="lg:col-span-2">
-            <h3 className="text-slate-900 text-sm font-semibold uppercase tracking-wider mb-6">
+            <h3 className="text-[#FFFFFF] text-[13px] font-semibold uppercase tracking-[0.04em] mb-5">
               Contact
             </h3>
-            <ul className="space-y-4 text-sm font-normal text-slate-600">
+            <ul className="space-y-3.5 text-[14px] font-normal text-[#F1F5F9]/80">
               <li className="flex items-start gap-3 group">
-                <div className="w-8 h-8 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-brand-orange group-hover:border-brand-orange transition-all duration-200">
-                  <MapPin className="w-3.5 h-3.5 text-brand-orange group-hover:text-white transition-colors duration-200" aria-hidden="true" />
+                <div className="w-8 h-8 rounded-lg bg-[#2563EB]/25 border border-[#2563EB]/40 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#F97316] group-hover:border-[#F97316] transition-all duration-200">
+                  <MapPin className="w-3.5 h-3.5 text-[#F97316] group-hover:text-[#FFFFFF] transition-colors duration-200" aria-hidden="true" />
                 </div>
-                <span className="pt-0.5 text-xs sm:text-sm leading-snug">{contact.address}</span>
+                <span className="pt-0.5 text-[13px] leading-[1.5]">{contact.address}</span>
               </li>
 
               <li className="flex items-center gap-3 group">
-                <div className="w-8 h-8 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0 group-hover:bg-brand-orange group-hover:border-brand-orange transition-all duration-200">
-                  <Mail className="w-3.5 h-3.5 text-brand-orange group-hover:text-white transition-colors duration-200" aria-hidden="true" />
+                <div className="w-8 h-8 rounded-lg bg-[#2563EB]/25 border border-[#2563EB]/40 flex items-center justify-center shrink-0 group-hover:bg-[#F97316] group-hover:border-[#F97316] transition-all duration-200">
+                  <Mail className="w-3.5 h-3.5 text-[#F97316] group-hover:text-[#FFFFFF] transition-colors duration-200" aria-hidden="true" />
                 </div>
                 <a
                   href={`mailto:${contact.email}`}
-                  className="hover:text-brand-orange transition-colors duration-200 text-xs sm:text-sm truncate"
+                  className="hover:text-[#FFFFFF] transition-colors duration-200 text-[13px] truncate"
                 >
                   {contact.email}
                 </a>
               </li>
 
               <li className="flex items-center gap-3 group">
-                <div className="w-8 h-8 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0 group-hover:bg-brand-orange group-hover:border-brand-orange transition-all duration-200">
-                  <Phone className="w-3.5 h-3.5 text-brand-orange group-hover:text-white transition-colors duration-200" aria-hidden="true" />
+                <div className="w-8 h-8 rounded-lg bg-[#2563EB]/25 border border-[#2563EB]/40 flex items-center justify-center shrink-0 group-hover:bg-[#F97316] group-hover:border-[#F97316] transition-all duration-200">
+                  <Phone className="w-3.5 h-3.5 text-[#F97316] group-hover:text-[#FFFFFF] transition-colors duration-200" aria-hidden="true" />
                 </div>
                 <a
                   href={`tel:${contact.phone}`}
-                  className="hover:text-brand-orange transition-colors duration-200 text-xs sm:text-sm"
+                  className="hover:text-[#FFFFFF] transition-colors duration-200 text-[13px]"
                 >
                   {contact.phone}
                 </a>
               </li>
 
               <li className="flex items-start gap-3 group">
-                <div className="w-8 h-8 rounded-full bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-brand-orange group-hover:border-brand-orange transition-all duration-200">
-                  <Clock className="w-3.5 h-3.5 text-brand-orange group-hover:text-white transition-colors duration-200" aria-hidden="true" />
+                <div className="w-8 h-8 rounded-lg bg-[#2563EB]/25 border border-[#2563EB]/40 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#F97316] group-hover:border-[#F97316] transition-all duration-200">
+                  <Clock className="w-3.5 h-3.5 text-[#F97316] group-hover:text-[#FFFFFF] transition-colors duration-200" aria-hidden="true" />
                 </div>
-                <span className="pt-0.5 text-xs sm:text-sm leading-snug">{contact.hours}</span>
+                <span className="pt-0.5 text-[13px] leading-[1.5]">{contact.hours}</span>
               </li>
             </ul>
           </div>
@@ -213,21 +213,21 @@ export default function Footer() {
         </div>
 
         {/* =========================================================
-            BOTTOM COPYRIGHT BAR (WITHOUT SYSTEMS OPERATIONAL)
+            BOTTOM COPYRIGHT BAR
            ========================================================= */}
-        <div className="py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
+        <div className="py-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] sm:text-[13px] font-normal text-[#F1F5F9]/70">
           <div>
-            © {new Date().getFullYear()} <span className="text-slate-900 font-bold">Navi Promotions</span>. All rights reserved.
+            © {new Date().getFullYear()} <span className="text-[#FFFFFF] font-medium">Navi Promotions</span>. All rights reserved.
           </div>
 
           <div className="flex items-center gap-6">
-            <Link to="/regulations" className="hover:text-brand-orange transition-colors duration-200">
+            <Link to="/regulations" className="hover:text-[#FFFFFF] transition-colors duration-200">
               Privacy Policy
             </Link>
-            <Link to="/regulations" className="hover:text-brand-orange transition-colors duration-200">
+            <Link to="/regulations" className="hover:text-[#FFFFFF] transition-colors duration-200">
               Terms and Conditions
             </Link>
-            <Link to="/regulations" className="hover:text-brand-orange transition-colors duration-200">
+            <Link to="/regulations" className="hover:text-[#FFFFFF] transition-colors duration-200">
               Cookies
             </Link>
           </div>

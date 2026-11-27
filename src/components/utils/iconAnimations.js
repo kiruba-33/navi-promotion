@@ -1,12 +1,12 @@
 export const iconWrapperAnimation = `
   relative
-  w-14
-  h-14
-  rounded-full
+  w-12
+  h-12
+  rounded-xl
   bg-white/15
   backdrop-blur-md
   border
-  border-white/20
+  border-white/25
 
   flex
   items-center
@@ -16,6 +16,8 @@ export const iconWrapperAnimation = `
 
   transition-colors
   duration-300
+  group-hover:bg-[#2563EB]
+  group-hover:border-[#2563EB]
 `;
 
 export const iconRingAnimation = `
@@ -23,12 +25,11 @@ export const iconRingAnimation = `
 `;
 
 export const iconAnimation = `
-  w-6
-  h-6
+  w-5
+  h-5
   text-white
 
-  transition-all
-  duration-500
-
-  group-hover:rotate-[360deg]
+  transition-transform
+  duration-300
+  group-hover:scale-105
 `;

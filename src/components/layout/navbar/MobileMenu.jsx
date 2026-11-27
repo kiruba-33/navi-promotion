@@ -36,7 +36,7 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-40 lg:hidden"
+            className="fixed inset-0 bg-[#102A56]/50 backdrop-blur-sm z-40 lg:hidden"
             onClick={closeMenu}
           />
 
@@ -50,17 +50,17 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
               damping: 24,
               stiffness: 220,
             }}
-            className="fixed top-0 right-0 bottom-0 w-[85vw] max-w-sm bg-white z-50 lg:hidden border-l border-slate-200 flex flex-col"
+            className="fixed top-0 right-0 bottom-0 w-[85vw] max-w-sm bg-[#FFFFFF] z-50 lg:hidden border-l border-[#0F172A]/10 flex flex-col"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-6 border-b border-slate-100">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-[#0F172A]/10">
 
               <div>
-                <h2 className="text-lg font-bold heading-primary">
+                <h2 className="text-[18px] font-semibold text-[#0F172A]">
                   Navi Promotions
                 </h2>
 
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-[12px] text-[#0F172A]/65 mt-0.5">
                   Enterprise Digital Agency
                 </p>
               </div>
@@ -68,27 +68,28 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
               {/* CLOSE BUTTON */}
               <button
                 onClick={closeMenu}
-                className="w-11 h-11 rounded-full bg-slate-100 hover:bg-slate-200 transition-all flex items-center justify-center"
+                aria-label="Close mobile menu"
+                className="w-10 h-10 rounded-lg bg-[#F1F5F9] hover:bg-[#102A56] text-[#102A56] hover:text-[#FFFFFF] transition-colors flex items-center justify-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
               >
-                <X className="w-5 h-5 text-slate-900"  aria-hidden="true" focusable="false" />
+                <X className="w-5 h-5" aria-hidden="true" focusable="false" />
               </button>
 
             </div>
 
             {/* Menu Body */}
-            <div className="flex-1 overflow-y-auto px-6 py-8 space-y-8">
+            <div className="flex-1 overflow-y-auto px-6 py-7 space-y-8">
 
               {/* Main Links */}
-              <div className="space-y-4">
+              <div className="space-y-3.5">
 
                 {/* HOME */}
                 <Link
                   to="/"
                   onClick={closeMenu}
-                  className={`block text-xl font-semibold transition-colors duration-200 ${
+                  className={`block text-[18px] font-semibold transition-colors duration-200 ${
                     isRouteActive("/")
-                      ? "text-blue-600"
-                      : "text-slate-900 hover:text-blue-600"
+                      ? "text-[#2563EB]"
+                      : "text-[#102A56] hover:text-[#2563EB]"
                   }`}
                 >
                   Home
@@ -101,10 +102,10 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
                       key={link.href}
                       to={link.href}
                       onClick={closeMenu}
-                      className={`block text-xl font-semibold transition-colors duration-200 ${
+                      className={`block text-[18px] font-semibold transition-colors duration-200 ${
                         active
-                          ? "text-blue-600"
-                          : "text-slate-900 hover:text-blue-600"
+                          ? "text-[#2563EB]"
+                          : "text-[#102A56] hover:text-[#2563EB]"
                       }`}
                     >
                       {link.name}
@@ -114,9 +115,9 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
               </div>
 
               {/* About Menu */}
-              <div className="space-y-4">
+              <div className="space-y-3">
 
-                <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold">
+                <span className="text-[12px] uppercase tracking-[0.05em] text-[#0F172A]/55 font-medium">
                   About
                 </span>
 
@@ -125,17 +126,17 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
                     key={item.href}
                     to={item.href}
                     onClick={closeMenu}
-                    className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-all">
-                    <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center border border-slate-100">
-                      <item.icon className="w-5 h-5 text-brand-orange" />
+                    className="flex items-start gap-3.5 p-3.5 rounded-xl bg-[#F1F5F9] hover:bg-[#F1F5F9]/80 border border-[#0F172A]/5 hover:border-[#2563EB]/30 transition-all">
+                    <div className="w-10 h-10 rounded-lg bg-[#FFFFFF] flex items-center justify-center border border-[#0F172A]/10 shrink-0">
+                      <item.icon className="w-4 h-4 text-[#F97316]" />
                     </div>
 
                     <div>
-                      <h4 className="text-sm font-semibold heading-primary">
+                      <h4 className="text-[14px] font-semibold text-[#0F172A]">
                         {item.name}
                       </h4>
 
-                      <p className="text-xs text-slate-500 mt-1">
+                      <p className="text-[12px] text-[#0F172A]/70 mt-0.5 leading-[1.4]">
                         {item.desc}
                       </p>
                     </div>
@@ -144,9 +145,9 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
               </div>
 
               {/* Services Menu */}
-              <div className="space-y-4">
+              <div className="space-y-3">
 
-                <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold">
+                <span className="text-[12px] uppercase tracking-[0.05em] text-[#0F172A]/55 font-medium">
                   Services
                 </span>
 
@@ -155,17 +156,17 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
                     key={item.href}
                     to={item.href}
                     onClick={closeMenu}
-                    className="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 hover:bg-slate-100 transition-all">
-                    <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center border border-slate-100">
-                      <item.icon className="w-5 h-5 text-brand-orange" />
+                    className="flex items-start gap-3.5 p-3.5 rounded-xl bg-[#F1F5F9] hover:bg-[#F1F5F9]/80 border border-[#0F172A]/5 hover:border-[#2563EB]/30 transition-all">
+                    <div className="w-10 h-10 rounded-lg bg-[#FFFFFF] flex items-center justify-center border border-[#0F172A]/10 shrink-0">
+                      <item.icon className="w-4 h-4 text-[#F97316]" />
                     </div>
 
                     <div>
-                      <h4 className="text-sm font-semibold heading-primary">
+                      <h4 className="text-[14px] font-semibold text-[#0F172A]">
                         {item.name}
                       </h4>
 
-                      <p className="text-xs text-slate-500 mt-1">
+                      <p className="text-[12px] text-[#0F172A]/70 mt-0.5 leading-[1.4]">
                         {item.desc}
                       </p>
                     </div>
@@ -175,7 +176,7 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
             </div>
 
             {/* Footer Buttons */}
-            <div className="p-6 border-t border-slate-100 space-y-3">
+            <div className="p-6 border-t border-[#0F172A]/10 space-y-3">
 
               <button
                 type="button"
@@ -183,7 +184,7 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
                   closeMenu();
                   if (onOpenBecomeClient) onOpenBecomeClient();
                 }}
-                className="block w-full py-3.5 rounded-2xl border-2 border-slate-900 text-center text-sm font-semibold text-slate-900 hover:bg-slate-900 hover:text-white transition-all cursor-pointer"
+                className="block w-full py-3 rounded-[10px] border border-[#102A56]/30 text-center text-[14px] font-medium text-[#102A56] hover:bg-[#102A56] hover:text-[#FFFFFF] transition-colors cursor-pointer"
               >
                 Become a Client
               </button>
@@ -191,7 +192,7 @@ const MobileMenu = ({ isOpen, closeMenu, onOpenBecomeClient }) => {
               <Link
                 to="/contact"
                 onClick={closeMenu}
-                className="block w-full py-3.5 rounded-2xl bg-slate-900 text-white text-center text-sm font-semibold hover:bg-brand-orange transition-all">
+                className="block w-full py-3 rounded-[10px] bg-[#F97316] text-[#FFFFFF] text-center text-[14px] font-medium hover:bg-[#102A56] transition-colors">
                 Let's Talk
               </Link>
 

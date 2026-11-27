@@ -47,7 +47,7 @@ export default function GalleryPage() {
         />
       </Helmet>
 
-      <main className="bg-slate-50">
+      <main className="bg-[#FFFFFF]">
         {/* Hero Section */}
         <GalleryHero
           badge={galleryHeroData.badge}

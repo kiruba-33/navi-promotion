@@ -7,10 +7,11 @@ const HamburgerButton = ({
 }) => {
   return (
     <button
-      className={`lg:hidden p-2 rounded-xl border transition-all duration-300 ${
+      aria-label={isOpen ? "Close menu" : "Open menu"}
+      className={`lg:hidden p-2.5 rounded-lg border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
         isScrolled
-          ? "bg-white border-black/10 text-black"
-          : "bg-white/10 backdrop-blur-md border-white/20 text-white"
+          ? "bg-[#FFFFFF] border-[#0F172A]/15 text-[#102A56]"
+          : "bg-[#102A56]/70 backdrop-blur-md border-white/25 text-[#FFFFFF]"
       }`}
       onClick={toggleMenu}
     >

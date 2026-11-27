@@ -49,10 +49,10 @@ export default function ContactSection() {
   return (
     <section
       className="
-        bg-white
-        py-20
-        sm:py-24
-        lg:py-32
+        bg-[#FFFFFF]
+        py-14
+        sm:py-16
+        lg:py-20
       "
     >
       <div
@@ -68,40 +68,36 @@ export default function ContactSection() {
         <div
           className="
             grid
-            gap-16
+            gap-12
             lg:grid-cols-2
-            lg:gap-24
+            lg:gap-20
           "
         >
           {/* Left Side */}
-          <div className="lg:sticky lg:top-32 h-fit">
-            <div className="mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold shadow-sm select-none">
-                <MessageCircle className="w-4 h-4 text-orange-500" />
+          <div className="lg:sticky lg:top-28 h-fit">
+            <div className="mb-5">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#F1F5F9] text-[#102A56] text-[12px] sm:text-[13px] font-medium shadow-xs select-none">
+                <MessageCircle className="w-4 h-4 text-[#F97316]" aria-hidden="true" />
                 <span>Contact Information</span>
               </div>
             </div>
 
-            {/* Typography CSS based dynamic Heading styling */}
             <h2
               className="
-                heading-display
-                 text-4xl sm:text-5xl lg:text-6xl text-slate-900 
-                 sm:leading-[1.1] md:leading-[1.15] lg:leading-[1.15] 
-                 tracking-tighter mb-6 sm:mb-8
+                heading-section
+                text-[#0F172A]
+                mb-5
               "
             >
-              Ready To Start
-              <br />
-              <span>Growing?</span>
+              Ready To Start Growing?
             </h2>
 
             <p
               className="
                 body-large
-                mb-12
+                mb-10
                 max-w-md
-                text-slate-600
+                text-[#0F172A]/80
               "
             >
               Tell us about your project and
@@ -109,7 +105,7 @@ export default function ContactSection() {
               24 business hours.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
               {contactInfo.map((item) => {
                 const Icon =
                   iconMap[item.icon];
@@ -122,46 +118,46 @@ export default function ContactSection() {
                       group
                       flex
                       items-center
-                      gap-5
+                      gap-4
                     "
                   >
-                    {/* Icon Border and BG handling on Hover */}
                     <div
                       className="
                         flex
-                        h-14
-                        w-14
+                        h-12
+                        w-12
                         items-center
                         justify-center
-                        rounded-2xl
+                        rounded-xl
                         border
-                        border-slate-200
-                        bg-slate-50
-                        transition-all
-                        duration-300
-                        group-hover:bg-brand-orange
-                        group-hover:border-brand-orange
+                        border-[#102A56]/10
+                        bg-[#F1F5F9]
+                        text-[#2563EB]
+                        transition-colors
+                        duration-200
+                        group-hover:bg-[#2563EB]
+                        group-hover:border-[#2563EB]
+                        group-hover:text-[#FFFFFF]
                       "
                     >
-                      {/* Icon text color retains default Slate-900 even on hover now */}
                       <Icon
                         className="
                           h-5
                           w-5
-                          text-slate-900
                         "
+                        aria-hidden="true"
                       />
                     </div>
 
                     <div>
                       <p
                         className="
-                          mb-1
-                          text-[10px]
-                          font-bold
+                          mb-0.5
+                          text-[11px]
+                          font-medium
                           uppercase
-                          tracking-[0.2em]
-                          text-slate-400
+                          tracking-[0.04em]
+                          text-[#0F172A]/60
                         "
                       >
                         {item.label}
@@ -169,8 +165,9 @@ export default function ContactSection() {
 
                       <p
                         className="
-                          font-semibold
-                          text-slate-900
+                          text-[15px]
+                          font-medium
+                          text-[#102A56]
                         "
                       >
                         {item.value}
@@ -186,20 +183,25 @@ export default function ContactSection() {
               target="_blank"
               rel="noreferrer"
               className="
-                mt-10
+                mt-9
                 inline-flex
                 items-center
-                gap-3
-                rounded-2xl
-                bg-green-600
+                gap-2.5
+                rounded-[10px]
+                bg-[#FFFFFF]
+                border border-[#102A56]/25
+                hover:border-[#2563EB]
+                hover:text-[#2563EB]
                 px-6
-                py-4
-                text-sm
-                font-bold
-                text-white
+                py-3.5
+                text-[14px]
+                sm:text-[15px]
+                font-medium
+                text-[#102A56]
+                transition-colors
               "
             >
-              <MessageCircle className="h-5 w-5" />
+              <MessageCircle className="h-5 w-5 text-[#F97316]" aria-hidden="true" />
               Chat On WhatsApp
             </a>
           </div>
@@ -207,23 +209,24 @@ export default function ContactSection() {
           {/* Right Side */}
           <div
             className="
-              rounded-[2rem]
+              rounded-2xl
               border
-              border-slate-200
-              bg-white
-              p-8
+              border-[#0F172A]/10
+              bg-[#FFFFFF]
+              p-6
               shadow-sm
-              md:p-10
+              sm:p-8
+              lg:p-10
             "
           >
             <form
               onSubmit={handleSubmit}
-              className="space-y-6"
+              className="space-y-5"
             >
               <div
                 className="
                   grid
-                  gap-6
+                  gap-5
                   md:grid-cols-2
                 "
               >
@@ -232,7 +235,7 @@ export default function ContactSection() {
                   name="name"
                   placeholder="Full Name"
                   onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus:border-brand-orange"
+                  className="w-full rounded-[10px] border border-[#0F172A]/15 bg-[#F1F5F9] px-4 py-3.5 text-[14px] text-[#0F172A] placeholder:text-[#0F172A]/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus:border-[#2563EB] focus:bg-[#FFFFFF] transition-colors"
                 />
 
                 <input
@@ -240,14 +243,14 @@ export default function ContactSection() {
                   name="email"
                   placeholder="Email Address"
                   onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus:border-brand-orange"
+                  className="w-full rounded-[10px] border border-[#0F172A]/15 bg-[#F1F5F9] px-4 py-3.5 text-[14px] text-[#0F172A] placeholder:text-[#0F172A]/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus:border-[#2563EB] focus:bg-[#FFFFFF] transition-colors"
                 />
               </div>
 
               <div
                 className="
                   grid
-                  gap-6
+                  gap-5
                   md:grid-cols-2
                 "
               >
@@ -256,7 +259,7 @@ export default function ContactSection() {
                   name="phone"
                   placeholder="Phone Number"
                   onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus:border-brand-orange"
+                  className="w-full rounded-[10px] border border-[#0F172A]/15 bg-[#F1F5F9] px-4 py-3.5 text-[14px] text-[#0F172A] placeholder:text-[#0F172A]/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus:border-[#2563EB] focus:bg-[#FFFFFF] transition-colors"
                 />
 
                 <input
@@ -264,14 +267,14 @@ export default function ContactSection() {
                   name="company"
                   placeholder="Company Name"
                   onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus:border-brand-orange"
+                  className="w-full rounded-[10px] border border-[#0F172A]/15 bg-[#F1F5F9] px-4 py-3.5 text-[14px] text-[#0F172A] placeholder:text-[#0F172A]/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus:border-[#2563EB] focus:bg-[#FFFFFF] transition-colors"
                 />
               </div>
 
               <select
                 name="service"
                 onChange={handleChange}
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus:border-brand-orange"
+                className="w-full rounded-[10px] border border-[#0F172A]/15 bg-[#F1F5F9] px-4 py-3.5 text-[14px] text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus:border-[#2563EB] focus:bg-[#FFFFFF] transition-colors cursor-pointer"
               >
                 <option value="">
                   Select Service
@@ -292,14 +295,14 @@ export default function ContactSection() {
               <div
                 className="
                   grid
-                  gap-6
+                  gap-5
                   md:grid-cols-2
                 "
               >
                 <select
                   name="budget"
                   onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus:border-brand-orange"
+                  className="w-full rounded-[10px] border border-[#0F172A]/15 bg-[#F1F5F9] px-4 py-3.5 text-[14px] text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus:border-[#2563EB] focus:bg-[#FFFFFF] transition-colors cursor-pointer"
                 >
                   <option value="">
                     Budget Range
@@ -320,7 +323,7 @@ export default function ContactSection() {
                 <select
                   name="timeline"
                   onChange={handleChange}
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus:border-brand-orange"
+                  className="w-full rounded-[10px] border border-[#0F172A]/15 bg-[#F1F5F9] px-4 py-3.5 text-[14px] text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus:border-[#2563EB] focus:bg-[#FFFFFF] transition-colors cursor-pointer"
                 >
                   <option value="">
                     Project Timeline
@@ -340,24 +343,28 @@ export default function ContactSection() {
               </div>
 
               <textarea
-                rows="6"
+                rows="5"
                 name="project"
                 placeholder="Tell us about your project..."
                 onChange={handleChange}
                 className="
                   w-full
                   resize-none
-                  rounded-2xl
+                  rounded-[10px]
                   border
-                  border-slate-200
-                  bg-slate-50
+                  border-[#0F172A]/15
+                  bg-[#F1F5F9]
                   p-4
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange
-                  focus:border-brand-orange
+                  text-[14px]
+                  text-[#0F172A]
+                  placeholder:text-[#0F172A]/45
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]
+                  focus:border-[#2563EB]
+                  focus:bg-[#FFFFFF]
+                  transition-colors
                 "
               />
 
-              {/* Updated Button: Background switches to brand-orange on hover, text remains white */}
               <button
                 type="submit"
                 className="
@@ -365,29 +372,30 @@ export default function ContactSection() {
                   w-full
                   items-center
                   justify-center
-                  gap-3
-                  rounded-2xl
-                  bg-slate-900
-                  py-5
-                  text-sm
-                  font-bold
-                  uppercase
-                  tracking-[0.15em]
-                  text-white
-                  transition-all
-                  duration-300
-                  hover:bg-brand-orange
+                  gap-2.5
+                  rounded-[10px]
+                  bg-[#F97316]
+                  hover:bg-[#102A56]
+                  py-3.5
+                  text-[14px]
+                  sm:text-[15px]
+                  font-medium
+                  text-[#FFFFFF]
+                  transition-colors
+                  duration-200
+                  cursor-pointer
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] focus-visible:ring-offset-2
                 "
               >
                 Send Inquiry
-                <Send className="h-4 w-4 text-white" />
+                <Send className="h-4 w-4 text-[#FFFFFF]" />
               </button>
 
               <p
                 className="
                   text-center
-                  text-xs
-                  text-slate-500
+                  text-[12px]
+                  text-[#0F172A]/65
                 "
               >
                 Typical response time:

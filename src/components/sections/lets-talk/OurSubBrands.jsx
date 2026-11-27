@@ -6,41 +6,35 @@ export default function OurSubBrands() {
   return (
     <section
       id="our-sub-brands"
-      className="relative overflow-hidden border-t border-slate-200 py-20 sm:py-24 lg:py-32 bg-slate-50/60"
+      className="relative overflow-hidden border-t border-[#0F172A]/10 py-14 sm:py-16 lg:py-20 bg-[#FFFFFF]"
     >
-      {/* Background Glow */}
-      <div
-        className="pointer-events-none absolute top-10 left-1/2 h-[450px] w-full max-w-3xl -translate-x-1/2 rounded-full bg-brand-orange/5 blur-3xl"
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mx-auto mb-14 sm:mb-16 max-w-3xl text-center flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-6 shadow-xs select-none">
-            <Building2 className="w-4 h-4 text-brand-orange" aria-hidden="true" />
+        <div className="mx-auto mb-12 sm:mb-14 max-w-3xl text-center flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#F1F5F9] text-[#102A56] text-[12px] sm:text-[13px] font-medium mb-4 shadow-xs select-none">
+            <Building2 className="w-4 h-4 text-[#F97316]" aria-hidden="true" />
             <span>Our Sub Brands</span>
           </div>
 
-          <h2 className="heading-section text-3xl sm:text-4xl md:text-5xl lg:text-6xl heading-primary font-bold tracking-tight mb-5">
-            Our <span className="heading-highlight">Sub Brands</span>
+          <h2 className="heading-section text-[#0F172A] mb-4">
+            Our Sub Brands
           </h2>
 
-          <p className="body-large text-slate-600 max-w-2xl text-base sm:text-lg leading-relaxed font-normal">
+          <p className="body-large text-[#0F172A]/80 max-w-2xl">
             Specialized divisions delivering focused excellence across regional retail commerce,
             creative brand media, and advanced digital software engineering.
           </p>
         </div>
 
         {/* 3 Sub-Brand Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {subBrandsData.map((brand) => {
             const Icon = brand.icon;
 
             return (
               <div
                 key={brand.name}
-                className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xs hover:border-brand-orange/40 transition-all duration-300"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#0F172A]/10 bg-[#F1F5F9]/60 hover:bg-[#FFFFFF] shadow-xs hover:shadow-md hover:border-[#2563EB]/40 transition-all duration-300"
               >
                 {/* Visual Cover */}
                 <div className="relative h-56 sm:h-60 overflow-hidden">
@@ -51,33 +45,33 @@ export default function OurSubBrands() {
                     decoding="async"
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#102A56]/95 via-[#102A56]/40 to-transparent" />
 
                   {/* Icon Badge */}
-                  <div className="absolute top-4 left-4 w-12 h-12 rounded-2xl bg-white/95 backdrop-blur-md flex items-center justify-center text-slate-900 border border-white/50 shadow-md">
-                    <Icon className="w-6 h-6 text-brand-orange" />
+                  <div className="absolute top-4 left-4 w-11 h-11 rounded-xl bg-[#FFFFFF] flex items-center justify-center text-[#2563EB] border border-[#0F172A]/10 shadow-sm">
+                    <Icon className="w-5 h-5" aria-hidden="true" />
                   </div>
 
                   {/* Tagline on image */}
                   <div className="absolute bottom-4 left-4 right-4">
-                    <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-amber-300">
+                    <span className="text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.04em] text-[#F97316]">
                       {brand.tagline}
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-semibold text-white mt-0.5">
+                    <h3 className="text-[19px] sm:text-[21px] font-semibold text-[#FFFFFF] leading-[1.25] mt-0.5">
                       {brand.name}
                     </h3>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 sm:p-7 flex flex-col flex-grow justify-between">
-                  <p className="text-sm leading-relaxed text-slate-600 mb-6 font-normal">
+                <div className="p-6 flex flex-col flex-grow justify-between">
+                  <p className="body-normal text-[#0F172A]/80 mb-5">
                     {brand.description}
                   </p>
 
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-slate-800 group-hover:text-brand-orange transition-colors">
+                  <div className="pt-4 border-t border-[#0F172A]/10 flex items-center justify-between text-[13px] font-medium text-[#2563EB] group-hover:text-[#102A56] transition-colors">
                     <span>Focused Capabilities</span>
-                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight className="w-4 h-4 text-[#F97316] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                   </div>
                 </div>
               </div>

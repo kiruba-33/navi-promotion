@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { CheckCircle2, Play, X, Quote, MessageSquareQuote } from "lucide-react";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/400-italic.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
 
 const testimonials = [
   {
@@ -173,10 +177,19 @@ function TestimonialCard({ item, onSelectCard }) {
   return (
     <div
       onClick={() => onSelectCard(item)}
-      className="w-[280px] sm:w-[320px] md:w-[360px] shrink-0 bg-white rounded-3xl p-3 sm:p-4 border border-slate-100 shadow-md transition-all duration-300 flex flex-col justify-between gap-3 cursor-pointer group"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSelectCard(item);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label={`Watch testimonial from ${item.author}, ${item.company}`}
+      className="w-[280px] sm:w-[320px] md:w-[360px] shrink-0 bg-[#F1F5F9]/60 hover:bg-[#FFFFFF] rounded-2xl p-3.5 sm:p-4 border border-[#0F172A]/10 hover:border-[#2563EB]/40 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between gap-3.5 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
     >
       {/* Video with Viewport Autoplay */}
-      <div className="relative aspect-[16/10] rounded-2xl overflow-hidden group/thumb cursor-pointer bg-slate-900 border border-slate-200/50">
+      <div className="relative aspect-[16/10] rounded-xl overflow-hidden group/thumb cursor-pointer bg-[#102A56] border border-[#0F172A]/10">
         <video
           ref={videoRef}
           src={item.videoUrl}
@@ -189,43 +202,43 @@ function TestimonialCard({ item, onSelectCard }) {
         />
 
         {/* Dark Overlay Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#102A56]/90 via-[#102A56]/25 to-transparent pointer-events-none" />
 
         {/* Center Play Button Overlay */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-11 h-11 rounded-full bg-orange-500/90 text-white flex items-center justify-center shadow-lg shadow-orange-500/40 relative">
+          <div className="w-11 h-11 rounded-lg bg-[#2563EB] group-hover:bg-[#F97316] text-[#FFFFFF] flex items-center justify-center shadow-lg transition-colors duration-300 relative">
             <Play className="w-4 h-4 fill-white ml-0.5" aria-hidden="true" focusable="false" />
           </div>
         </div>
 
         {/* Bottom Overlay Quote */}
-        <p className="absolute bottom-3 left-4 right-4 text-xs sm:text-sm font-semibold text-white line-clamp-2 drop-shadow-md pointer-events-none">
+        <p className="absolute bottom-3 left-4 right-4 text-[13px] sm:text-[14px] font-medium leading-[1.4] text-[#FFFFFF] line-clamp-2 pointer-events-none">
           "{item.headline}"
         </p>
       </div>
 
       {/* Client Info & Rating Footer */}
-      <div className="flex items-center justify-between gap-3 px-1 py-1">
+      <div className="flex items-center justify-between gap-3 px-1 py-0.5">
         <div className="flex items-center gap-3 min-w-0">
           <img
             src={item.image}
             alt={item.author}
-            className="w-10 h-10 rounded-full object-cover border border-slate-200 shrink-0"
+            className="w-10 h-10 rounded-full object-cover border border-[#0F172A]/15 shrink-0"
           />
           <div className="min-w-0">
-            <h4 className="text-sm font-semibold heading-primary truncate">
+            <h4 className="text-[14px] sm:text-[15px] font-semibold leading-[1.35] text-[#0F172A] truncate">
               {item.author}
             </h4>
-            <p className="text-xs text-slate-500 truncate font-normal">
+            <p className="text-[12px] sm:text-[13px] leading-[1.4] text-[#0F172A]/70 truncate font-normal">
               {item.role},{" "}
-              <span className="text-orange-500 font-semibold">{item.company}</span>
+              <span className="text-[#2563EB] font-medium">{item.company}</span>
             </p>
           </div>
         </div>
 
         {/* Verified Rating Badge */}
-        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200/80 text-orange-600 text-xs font-semibold shrink-0">
-          <CheckCircle2 className="w-3.5 h-3.5 text-orange-500" />
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#FFFFFF] border border-[#0F172A]/10 text-[#102A56] text-[12px] font-medium leading-[1.3] shrink-0">
+          <CheckCircle2 className="w-3.5 h-3.5 text-[#F97316]" aria-hidden="true" focusable="false" />
           <span>{item.rating}.0</span>
         </div>
       </div>
@@ -239,7 +252,7 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="py-10 sm:py-14 lg:py-16 relative overflow-hidden bg-slate-50/50"
+      className="py-12 sm:py-16 lg:py-20 relative overflow-hidden bg-[#FFFFFF]"
     >
       {/* CSS Keyframe Animations for Dual Opposite-Direction Marquees */}
       <style>{`
@@ -265,23 +278,18 @@ export default function Testimonials() {
         }
       `}</style>
 
-      {/* Background Ambient Decor */}
-      <div className="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] [background-size:16px_16px] opacity-20 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-slate-200/50 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-orange-100/40 rounded-full blur-3xl pointer-events-none" />
-
       {/* Header Block Section */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 mb-10 sm:mb-12 text-center relative z-10 flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-5 shadow-sm select-none">
-          <MessageSquareQuote className="w-4 h-4 text-orange-500" />
+      <div className="max-w-3xl mx-auto px-5 sm:px-6 lg:px-8 mb-10 sm:mb-12 text-center relative z-10 flex flex-col items-center">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#F1F5F9] text-[#102A56] text-[12px] sm:text-[13px] font-medium leading-[1.4] mb-4 shadow-xs select-none">
+          <MessageSquareQuote className="w-4 h-4 text-[#F97316]" aria-hidden="true" focusable="false" />
           <span>Client Love</span>
         </div>
 
-        <h2 className="heading-section text-center heading-primary tracking-tight mb-4 whitespace-normal lg:whitespace-nowrap">
-          Trusted by the World's <span className="heading-highlight leading-none">Ambitious Brands</span>
+        <h2 className="text-[clamp(1.75rem,2.8vw,2.375rem)] font-semibold leading-[1.16] tracking-[-0.015em] text-center text-[#0F172A] mb-4">
+          Trusted by the World's Ambitious Brands
         </h2>
 
-        <p className="body-large text-slate-600 max-w-4xl mx-auto font-normal tracking-tight leading-relaxed whitespace-normal lg:whitespace-nowrap">
+        <p className="text-[15px] sm:text-[16px] lg:text-[17px] text-[#0F172A]/80 max-w-2xl mx-auto font-normal leading-[1.65]">
           Hear from the founders and marketing leaders who have scaled their businesses and dominated their markets.
         </p>
       </div>
@@ -289,8 +297,8 @@ export default function Testimonials() {
       {/* Dual-Row Infinite Horizontal Marquee Tracks */}
       <div className="relative w-full overflow-hidden flex flex-col gap-6 py-4">
         {/* Soft Side Fade Masks */}
-        <div className="absolute inset-y-0 left-0 w-12 sm:w-28 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-12 sm:w-28 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-12 sm:w-28 bg-gradient-to-r from-[#FFFFFF] to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-12 sm:w-28 bg-gradient-to-l from-[#FFFFFF] to-transparent z-10 pointer-events-none" />
 
         {/* ROW 1: Right to Left */}
         <div className="flex gap-5 min-w-max animate-marquee-left">
@@ -318,24 +326,24 @@ export default function Testimonials() {
       {/* Interactive Video Player Lightbox Modal */}
       {activeVideo && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-opacity duration-300"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0F172A]/80 backdrop-blur-sm transition-opacity duration-300"
           onClick={() => setActiveVideo(null)}
         >
           <div
-            className="relative w-full max-w-4xl bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex flex-col md:flex-row max-h-[90vh]"
+            className="relative w-full max-w-4xl bg-[#102A56] rounded-2xl overflow-hidden shadow-2xl border border-white/15 flex flex-col md:flex-row max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setActiveVideo(null)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 z-20 bg-slate-950/50 cursor-pointer"
+              className="absolute top-4 right-4 text-[#F1F5F9]/80 hover:text-[#FFFFFF] transition-colors p-2 rounded-lg hover:bg-white/10 z-20 bg-[#102A56]/70 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF]"
               aria-label="Close modal"
             >
               <X className="w-6 h-6" aria-hidden="true" focusable="false" />
             </button>
 
             {/* Video Player */}
-            <div className="flex-grow bg-black flex items-center justify-center aspect-video md:aspect-auto md:w-3/5">
+            <div className="flex-grow bg-[#0F172A] flex items-center justify-center aspect-video md:aspect-auto md:w-3/5">
               <video
                 src={activeVideo.videoUrl}
                 controls
@@ -346,27 +354,27 @@ export default function Testimonials() {
             </div>
 
             {/* Client Detail Info Panel */}
-            <div className="p-6 md:p-8 flex flex-col justify-between bg-slate-900 md:w-2/5 max-h-[40vh] md:max-h-none overflow-y-auto">
+            <div className="p-6 md:p-8 flex flex-col justify-between bg-[#102A56] md:w-2/5 max-h-[40vh] md:max-h-none overflow-y-auto">
               <div className="mt-4 md:mt-8">
-                <Quote className="w-8 h-8 text-orange-500/25 mb-4" aria-hidden="true" focusable="false" />
-                <p className="text-white text-base md:text-lg font-medium leading-relaxed mb-6 italic">
+                <Quote className="w-8 h-8 text-[#F97316]/60 mb-4" aria-hidden="true" focusable="false" />
+                <p className="text-[#FFFFFF] text-[15px] md:text-[17px] font-normal leading-[1.65] mb-6 italic">
                   "{activeVideo.content}"
                 </p>
               </div>
 
-              <div className="flex items-center gap-4 pt-6 border-t border-white/10 mt-auto">
+              <div className="flex items-center gap-4 pt-6 border-t border-white/15 mt-auto">
                 <img
                   src={activeVideo.image}
                   alt={activeVideo.author}
-                  className="w-12 h-12 rounded-full object-cover border border-white/10 shadow-sm"
+                  className="w-12 h-12 rounded-full object-cover border border-white/20 shadow-sm"
                 />
                 <div>
-                  <h4 className="text-white text-base font-bold leading-tight">
+                  <h4 className="text-[#FFFFFF] text-[15px] sm:text-[16px] font-semibold leading-[1.3]">
                     {activeVideo.author}
                   </h4>
-                  <p className="text-slate-400 text-sm font-medium mt-0.5">
+                  <p className="text-[#F1F5F9]/80 text-[13px] sm:text-[14px] font-normal leading-[1.4] mt-0.5">
                     {activeVideo.role},{" "}
-                    <span className="text-orange-500 font-bold">
+                    <span className="text-[#F97316] font-medium">
                       {activeVideo.company}
                     </span>
                   </p>

@@ -1,13 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import {
-  useScroll,
-  useTransform,
-} from "framer-motion";
 
 import BlogHero from "../../components/sections/blog/BlogHero";
 import BlogSearch from "../../components/sections/blog/BlogSearch";
 import BlogGrid from "../../components/sections/blog/BlogGrid";
+import { useHeroScrollAnimation } from "../../hooks/useHeroScrollAnimation";
 
 import {
   blogs,
@@ -21,30 +18,7 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] =
     useState("");
 
-  const containerRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const yText = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, 300]
-  );
-
-  const opacityHero = useTransform(
-    scrollYProgress,
-    [0, 0.5],
-    [1, 0]
-  );
-
-  const scaleImage = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [1, 1.1]
-  );
+  const { containerRef, yText, opacityHero, scaleImage } = useHeroScrollAnimation();
 
   const filteredPosts = blogs.filter(
     (post) => {
@@ -90,7 +64,7 @@ export default function BlogPage() {
 
       <main
         className="
-          bg-slate-50
+          bg-white
           min-h-screen
         "
       >

@@ -1,6 +1,9 @@
 import React, { useRef, useState, useLayoutEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { ArrowUpRight, FolderOpen } from 'lucide-react';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
 
 const projects = [
   {
@@ -111,28 +114,25 @@ export default function Portfolio() {
     <section
       id="portfolio"
       ref={targetRef}
-      className="relative bg-slate-950"
-      style={{ height: isDesktop ? '300vh' : (scrollRange ? `calc(100vh + ${scrollRange}px)` : '300vh') }}
+      className="relative bg-[#102A56]"
+      style={{
+        height: isDesktop ? '300vh' : (scrollRange ? `calc(100vh + ${scrollRange}px)` : '300vh'),
+      }}
     >
       {/* Container tracking full flex structure layouts safely */}
       <div className={`sticky top-0 h-screen overflow-hidden flex flex-col pt-24 sm:pt-28 lg:pt-32 pb-12 lg:pb-16 ${isDesktop ? "justify-between" : ""}`}>
 
-        {/* Premium Transparent Tint Mask - Background image is explicitly visible now */}
+        {/* Subtle Deep Navy Ambient Background */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1600"
             alt="Background Structure"
             loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover opacity-35 mix-blend-luminosity"
+            className="w-full h-full object-cover opacity-20 mix-blend-luminosity"
           />
-          {/* Gentle cinematic linear shading mask instead of pitch-black opaque wall */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-slate-950/30 to-slate-950/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#102A56]/90 via-[#102A56]/75 to-[#102A56]" />
         </div>
-
-        {/* Crisp Ambient Radial Accent Glows */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,72,142,0.3),transparent_60%)] pointer-events-none z-0" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,140,0,0.18),transparent_60%)] pointer-events-none z-0" />
 
         <div
           ref={containerRef}
@@ -143,7 +143,7 @@ export default function Portfolio() {
           }
         >
 
-          {/* Header Frame - Static Flex Layer element to completely prevent overlapping */}
+          {/* Header Frame */}
           <motion.div
             style={{
               y: headerY,
@@ -156,36 +156,20 @@ export default function Portfolio() {
                 : `w-full max-w-2xl origin-top will-change-transform z-20 text-center flex flex-col items-center mx-auto ${isHeaderHidden ? "pointer-events-none" : ""}`
             }
           >
-            {/* Local Text Back Shading Layer block for anti-blending typography backdrop setup */}
-            <div className="absolute -inset-4 bg-slate-950/20 blur-xl rounded-full -z-10 pointer-events-none" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-white/20 bg-[#FFFFFF] text-[#102A56] text-[12px] sm:text-[13px] font-medium leading-[1.4] mb-4 shadow-xs select-none">
+              <FolderOpen className="w-4 h-4 text-[#F97316]" aria-hidden="true" focusable="false" />
+              <span>Selected Works</span>
+            </div>
 
-            <React.Fragment>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-4 shadow-sm select-none">
-                <FolderOpen className="w-4 h-4 text-orange-500"  aria-hidden="true" focusable="false" />
-                <span>Selected Works</span>
-              </div>
-            </React.Fragment>
-
-            {/* Added dynamic inline high-fidelity text-shadow wrappers to completely isolate text colors from image blend */}
-            <h2
-              className="heading-display text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white sm:leading-[1.1] md:leading-[1.15] lg:leading-[1.15] tracking-tighter"
-              style={{
-                textShadow: '0 4px 18px rgba(0, 0, 0, 0.95), 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.2)'
-              }}
-            >
+            <h2 className="text-center text-[clamp(1.75rem,2.8vw,2.375rem)] text-[#FFFFFF] leading-[1.16] tracking-[-0.015em] font-semibold">
               Work that drives <br />
-              <span
-                className="text-orange-500 font-bold"
-                style={{
-                  textShadow: '0 4px 12px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.7)'
-                }}
-              >
+              <span className="text-[#F97316]">
                 Real Results
               </span>
             </h2>
           </motion.div>
 
-          {/* Horizontal Track Slider Container - Scale Optimized Specifically For Laptop Viewports */}
+          {/* Horizontal Track Slider Container */}
           <div className={isDesktop ? "w-full overflow-visible mt-auto pt-6 z-10" : "w-full overflow-visible z-10"}>
             <motion.div
               ref={trackRef}
@@ -195,7 +179,7 @@ export default function Portfolio() {
               {projects.map((project, index) => (
                 <React.Fragment key={project.id || index}>
                   <div
-                    className="group relative w-[86vw] sm:w-[460px] md:w-[520px] lg:w-[480px] h-[45vh] sm:h-[48vh] md:h-[460px] lg:h-[420px] rounded-[2.5rem] overflow-hidden flex-shrink-0 cursor-pointer border border-white/10 bg-slate-900 shadow-2xl shadow-black/40 will-change-transform"
+                    className="group relative w-[86vw] sm:w-[460px] md:w-[520px] lg:w-[480px] h-[45vh] sm:h-[48vh] md:h-[460px] lg:h-[420px] rounded-2xl overflow-hidden flex-shrink-0 cursor-pointer border border-white/15 bg-[#102A56] shadow-xl shadow-black/25 will-change-transform"
                   >
                     {/* Scalable Card Media Cover */}
                     <img
@@ -203,26 +187,26 @@ export default function Portfolio() {
                       alt={project.title}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#102A56] via-[#102A56]/35 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-500" />
 
                     {/* Card Content Inlay */}
                     <div className="absolute inset-0 p-6 sm:p-8 md:p-10 flex flex-col justify-end z-10">
                       <div>
 
                         {/* Category Label */}
-                        <p className="text-orange-500 label-text mb-2.5 tracking-wider text-xs drop-shadow-sm font-bold">
+                        <p className="text-[#F97316] mb-2 tracking-[0.04em] uppercase text-[12px] font-medium leading-[1.4]">
                           {project.category}
                         </p>
 
                         {/* Title and Dynamic CTA Action Wrapper */}
                         <div className="flex items-end justify-between gap-4">
-                          <h3 className="heading-card text-2xl sm:text-3xl lg:text-3xl text-white drop-shadow-md">
+                          <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-semibold leading-[1.25] tracking-[-0.01em] text-[#FFFFFF]">
                             {project.title}
                           </h3>
 
-                          {/* Action Button Rounded Layout matching ArrowButton theme */}
-                          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white group-hover:bg-orange-500 group-hover:border-orange-500 transition-all duration-500 shrink-0">
-                            <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                          {/* Action Button */}
+                          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-[#2563EB] border border-white/15 flex items-center justify-center text-[#FFFFFF] group-hover:bg-[#F97316] group-hover:border-[#F97316] transition-all duration-300 shrink-0">
+                            <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" focusable="false" />
                           </div>
                         </div>
 

@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Calendar, Users, Briefcase, TrendingUp, BarChart3 } from 'lucide-react';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
 
 function Counter({ from, to, duration = 2, delay = 0, suffix = "" }) {
   const [display, setDisplay] = useState(from);
@@ -51,15 +54,17 @@ function Counter({ from, to, duration = 2, delay = 0, suffix = "" }) {
 }
 
 const stats = [
-  { id: 1, label: 'Years Experience', value: 5, suffix: '+', icon: Calendar, color: 'text-orange-500', bg: 'bg-white/5', border: 'border-white/10' },
-  { id: 2, label: 'Customers', value: 75, suffix: '+', icon: Users, color: 'text-orange-500', bg: 'bg-white/5', border: 'border-white/10' },
-  { id: 3, label: 'Projects Delivered', value: 300, suffix: '+', icon: Briefcase, color: 'text-orange-500', bg: 'bg-white/5', border: 'border-white/10' },
-  { id: 4, label: 'Average ROI for Our Clients', value: 98, suffix: '%', icon: TrendingUp, color: 'text-orange-500', bg: 'bg-white/5', border: 'border-white/10' },
+  { id: 1, label: 'Years Experience', value: 5, suffix: '+', icon: Calendar, color: 'text-[#F97316]', bg: 'bg-white/5', border: 'border-white/10' },
+  { id: 2, label: 'Customers', value: 75, suffix: '+', icon: Users, color: 'text-[#F97316]', bg: 'bg-white/5', border: 'border-white/10' },
+  { id: 3, label: 'Projects Delivered', value: 300, suffix: '+', icon: Briefcase, color: 'text-[#F97316]', bg: 'bg-white/5', border: 'border-white/10' },
+  { id: 4, label: 'Average ROI for Our Clients', value: 98, suffix: '%', icon: TrendingUp, color: 'text-[#F97316]', bg: 'bg-white/5', border: 'border-white/10' },
 ];
 
 export default function Stats() {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-slate-950 relative overflow-hidden flex items-center">
+    <section
+      className="py-14 sm:py-16 lg:py-20 bg-[#102A56] relative overflow-hidden flex items-center"
+    >
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -67,54 +72,47 @@ export default function Stats() {
           alt="Background Visuals" 
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover opacity-20 mix-blend-luminosity"
+          className="w-full h-full object-cover opacity-15 mix-blend-luminosity"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/40 to-slate-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#102A56]/95 via-[#102A56]/80 to-[#102A56]" />
       </div>
-
-      {/* Ambient Deep Gradients Accent Glows */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,72,142,0.2),transparent_60%)] pointer-events-none z-0" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(255,140,0,0.12),transparent_60%)] pointer-events-none z-0" />
 
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10 w-full">
         {/* Header Block Section */}
-        <div className="text-center max-w-5xl mx-auto mb-10 sm:mb-12 lg:mb-14 flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-5 shadow-sm select-none">
-            <BarChart3 className="w-4 h-4 text-orange-500" />
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 lg:mb-14 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-white/20 bg-[#FFFFFF] text-[#102A56] text-[12px] sm:text-[13px] font-medium leading-[1.4] mb-4 shadow-xs select-none">
+            <BarChart3 className="w-4 h-4 text-[#F97316]" aria-hidden="true" focusable="false" />
             <span>Our Impact</span>
           </div>
 
-          <h2 className="heading-section text-center text-white mb-4 sm:mb-5 tracking-tight drop-shadow-xl whitespace-normal lg:whitespace-nowrap">
-            Proven Results <span className="heading-highlight leading-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]">Beyond Metrics</span>
+          <h2 className="text-[clamp(1.75rem,2.8vw,2.375rem)] font-semibold leading-[1.16] tracking-[-0.015em] text-center text-[#FFFFFF] mb-4">
+            Proven Results <span className="text-[#F97316]">Beyond Metrics</span>
           </h2>
 
-          <p className="body-large text-slate-300 max-w-4xl mx-auto font-normal tracking-tight drop-shadow-md leading-relaxed whitespace-normal lg:whitespace-nowrap">
+          <p className="text-[15px] sm:text-[16px] lg:text-[17px] text-[#F1F5F9]/85 max-w-2xl mx-auto font-normal leading-[1.65]">
             We don't just track growth; we engineer it. Our track record is built on consistency and relentless optimization.
           </p>
         </div>
 
         {/* Stats Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
           {stats.map((stat, index) => (
             <div 
               key={stat.id}
-              className="p-8 group flex flex-col items-center text-center relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-slate-900/60 backdrop-blur-md shadow-2xl shadow-black/30"
+              className="p-7 sm:p-8 group flex flex-col items-center text-center relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:border-[#2563EB]/60 transition-all duration-300 shadow-lg shadow-black/15"
             >
-              {/* Card Hover Ambient Shimmer */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 pointer-events-none" />
-              
-              {/* Icon Container matching capsule round shape theme */}
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-white/5 text-orange-500 border border-white/10 shadow-md">
-                <stat.icon className="w-8 h-8 drop-shadow-sm" />
+              {/* Icon Container */}
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-5 bg-[#2563EB]/25 text-[#F97316] border border-[#2563EB]/40 group-hover:bg-[#2563EB] group-hover:text-[#FFFFFF] transition-colors duration-300">
+                <stat.icon className="w-6 h-6" aria-hidden="true" focusable="false" />
               </div>
 
               {/* Counter Text */}
-              <div className="heading-display text-4xl md:text-5xl font-semibold text-white mb-3 tracking-tight drop-shadow-md">
+              <div className="text-[clamp(2rem,2.8vw,2.5rem)] font-semibold leading-[1.15] text-[#FFFFFF] mb-2 tracking-[-0.02em] tabular-nums">
                 <Counter from={0} to={stat.value} duration={2.5} delay={index * 0.1} suffix={stat.suffix} />
               </div>
 
               {/* Stat Label */}
-              <span className="label-text text-slate-400 group-hover:text-white transition-colors duration-300 drop-shadow-xs font-medium tracking-wider">
+              <span className="text-[13px] sm:text-[14px] leading-[1.45] text-[#F1F5F9]/85 group-hover:text-[#FFFFFF] transition-colors duration-300 font-medium">
                 {stat.label}
               </span>
             </div>

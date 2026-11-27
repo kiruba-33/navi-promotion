@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ArrowRight, Camera } from 'lucide-react';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
 import { premiumEventsData } from '../../../data/premiumEventsData';
 import ArrowButton from '../../ui/ArrowButton';
 
@@ -63,51 +66,49 @@ export default function PremiumEventGallery() {
   }, [columns]);
 
   return (
-    <section id="premium-event-gallery" className="py-20 sm:py-28 lg:py-32 bg-[#FAF8F4] relative overflow-hidden w-full">
-      {/* Background Ambient Glow Elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-slate-900/5 rounded-full blur-[120px] pointer-events-none" />
-
+    <section
+      id="premium-event-gallery"
+      className="py-16 sm:py-24 lg:py-28 bg-[#FFFFFF] relative overflow-hidden w-full"
+    >
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10 w-full">
         
         {/* Minimal Premium Header Section */}
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 sm:mb-20 gap-8">
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 sm:mb-14 gap-8">
           <div className="max-w-2xl">
             {/* Small Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-6 shadow-sm select-none">
-              <Camera className="w-4 h-4 text-orange-500" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#F1F5F9] text-[#102A56] text-[12px] sm:text-[13px] font-medium leading-[1.4] mb-4 shadow-xs select-none">
+              <Camera className="w-4 h-4 text-[#F97316]" aria-hidden="true" focusable="false" />
               <span>Latest Events</span>
             </div>
 
             {/* Large Heading */}
-            <h2 className="heading-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl heading-primary tracking-tighter leading-[1.05] sm:leading-[1.1] md:leading-[1.15]">
-              Moments <span className="heading-highlight leading-none">In Motion</span>
+            <h2 className="text-[clamp(1.75rem,2.8vw,2.375rem)] font-semibold text-[#0F172A] tracking-[-0.015em] leading-[1.16]">
+              Moments In Motion
             </h2>
 
             {/* Small Description */}
-            <p className="mt-6 text-slate-600 text-base sm:text-lg font-medium leading-relaxed max-w-xl">
+            <p className="mt-4 text-[#0F172A]/80 text-[15px] sm:text-[16px] lg:text-[17px] font-normal leading-[1.65] max-w-xl">
               Discover memorable moments from conferences, corporate events, exhibitions, launches and community initiatives.
             </p>
           </div>
 
           {/* Reusable ArrowButton CTA */}
           <div className="mt-2 sm:mt-4">
-
               <ArrowButton
                 text="Explore Gallery"
                 to="/gallery"
+                className="!text-[14px] sm:!text-[15px] !font-medium !py-3.5 !px-6 !rounded-[10px] !bg-[#2563EB] hover:!bg-[#102A56] !shadow-md !shadow-[#2563EB]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
               />
-
-        </div>
+          </div>
         </div>
 
         {/* Gallery Grid Columns Container */}
         <div 
-          className="grid gap-[8px] sm:gap-[12px] lg:gap-[16px] w-full" 
+          className="grid gap-3 sm:gap-4 w-full" 
           style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
         >
           {columnItems.map((col, colIdx) => (
-            <div key={colIdx} className="flex flex-col gap-[8px] sm:gap-[12px] lg:gap-[16px]">
+            <div key={colIdx} className="flex flex-col gap-3 sm:gap-4">
               {col.map((item) => (
                 <div
                   key={item.id}
@@ -115,14 +116,14 @@ export default function PremiumEventGallery() {
                     group 
                     relative 
                     overflow-hidden 
-                    rounded-[28px] sm:rounded-[32px] 
-                    bg-white 
-                    border border-slate-100/50 
-                    shadow-[0_4px_20px_rgba(0,0,0,0.02)] 
+                    rounded-2xl 
+                    bg-[#F1F5F9] 
+                    border border-[#0F172A]/10 
+                    shadow-xs hover:shadow-md 
                     cursor-pointer 
                     w-full
                     transition-all
-                    duration-700
+                    duration-500
                     ease-[cubic-bezier(0.16,1,0.3,1)]
                   "
                   style={{ aspectRatio: `800 / ${item.height}` }}
@@ -139,26 +140,26 @@ export default function PremiumEventGallery() {
                     loading="lazy"
                   />
 
-                  {/* Subtle Dark Gradient Overlay (Reveals on Hover) */}
+                  {/* Subtle Deep Navy Gradient Overlay (Reveals on Hover) */}
                   <div 
                     className="
                       absolute 
                       inset-0 
                       bg-gradient-to-t 
-                      from-black/60 
-                      via-black/10 
+                      from-[#102A56]/85 
+                      via-[#102A56]/25 
                       to-transparent 
                       opacity-0 
                       group-hover:opacity-100 
                       transition-opacity 
-                      duration-700 
+                      duration-500 
                       ease-[cubic-bezier(0.16,1,0.3,1)] 
                       pointer-events-none
                     " 
                   />
 
                   {/* Overlay Content Container */}
-                  <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end z-10 text-white select-none">
+                  <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end z-10 text-[#FFFFFF] select-none">
                     <div 
                       className="
                         opacity-0 
@@ -167,9 +168,9 @@ export default function PremiumEventGallery() {
                         duration-500
                       "
                     >
-                      <span className="inline-flex items-center gap-2 font-bold text-sm sm:text-base tracking-wide text-white">
+                      <span className="inline-flex items-center gap-2 font-medium text-[14px] sm:text-[15px] leading-[1.4] tracking-[0.01em] text-[#FFFFFF]">
                         View Event
-                        <ArrowRight className="w-4 h-4 stroke-[2.5] text-orange-400 group-hover:translate-x-1 transition-transform duration-300"  aria-hidden="true" focusable="false" />
+                        <ArrowRight className="w-4 h-4 stroke-[2] text-[#F97316] group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true" focusable="false" />
                       </span>
                     </div>
 

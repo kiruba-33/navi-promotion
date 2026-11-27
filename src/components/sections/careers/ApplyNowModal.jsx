@@ -49,7 +49,7 @@ import {
    Shared input className helpers (Compact)
 ───────────────────────────────────────────── */
 const inputBase =
-  "w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs sm:text-sm font-medium text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-brand-orange focus:bg-white focus:ring-2 focus:ring-brand-orange/15";
+  "w-full rounded-[10px] border border-slate-200 bg-[#F1F5F9] px-3.5 py-2 text-xs sm:text-sm font-normal text-[#0F172A] outline-none transition-all placeholder:text-slate-400 focus:border-[#2563EB] focus:bg-white focus:ring-2 focus:ring-[#2563EB]/15";
 
 const inputError =
   "border-red-400 bg-red-50 focus:border-red-400 focus:ring-red-400/10";
@@ -62,10 +62,10 @@ function Field({ label, htmlFor, required, error, children }) {
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={htmlFor} className="text-[11px] font-bold uppercase tracking-[0.1em] text-slate-700">
+      <label htmlFor={htmlFor} className="text-[11px] font-medium uppercase tracking-[0.1em] text-[#102A56]">
         {label}
         {required && (
-          <span className="ml-1 text-brand-orange" aria-hidden="true">*</span>
+          <span className="ml-1 text-[#F97316]" aria-hidden="true">*</span>
         )}
       </label>
       {children}
@@ -336,40 +336,41 @@ export default function ApplyNowModal({ job, onClose }) {
             flex-col
             overflow-hidden
             rounded-2xl
-            sm:rounded-3xl
             bg-white
+            border
+            border-slate-200
             shadow-2xl
             max-h-[90vh]
           "
         >
           {/* Header */}
-          <div className="flex shrink-0 items-start justify-between border-b border-slate-100 bg-white px-5 sm:px-7 py-3.5 sm:py-4 z-20">
+          <div className="flex shrink-0 items-start justify-between border-b border-slate-200 bg-white px-5 sm:px-7 py-3.5 sm:py-4 z-20">
             <div className="flex-1 min-w-0 pr-3 space-y-0.5">
               <span
                 className={`
                   inline-block
-                  rounded-full
+                  rounded-lg
                   px-2.5
                   py-0.5
-                  text-[10px]
-                  font-bold
+                  text-[11px]
+                  font-medium
                   uppercase
                   tracking-wider
                   ${
                     isInternship
-                      ? "border border-amber-200/80 bg-amber-50 text-amber-700"
-                      : "border border-indigo-200/80 bg-indigo-50 text-indigo-700"
+                      ? "border border-[#F97316]/30 bg-[#F97316]/10 text-[#F97316]"
+                      : "border border-[#2563EB]/20 bg-[#F1F5F9] text-[#102A56]"
                   }
                 `}
               >
                 {isInternship ? "Internship" : "Full Time"}
               </span>
 
-              <h2 className="heading-card text-lg sm:text-xl font-bold leading-tight break-words heading-primary">
-                Apply for <span className="heading-highlight">{job.title}</span>
+              <h2 className="heading-card text-lg sm:text-[20px] font-semibold leading-tight break-words text-[#0F172A]">
+                Apply for {job.title}
               </h2>
 
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#0F172A]/65">
                 Fill in your details below — our team reviews every application thoroughly.
               </p>
             </div>
@@ -378,7 +379,7 @@ export default function ApplyNowModal({ job, onClose }) {
             <button
               type="button"
               onClick={onClose}
-              className="h-8 w-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition-colors shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 cursor-pointer"
+              className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#F1F5F9] hover:bg-[#102A56] text-[#0F172A] hover:text-white transition-colors shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] cursor-pointer"
               aria-label="Close modal"
             >
               <X size={16} strokeWidth={2.2} aria-hidden="true" />
@@ -394,16 +395,16 @@ export default function ApplyNowModal({ job, onClose }) {
                 animate={SUCCESS_ANIM.animate}
                 className="flex flex-col items-center py-10 text-center"
               >
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50">
-                  <CheckCircle2 size={36} className="text-emerald-500" aria-hidden="true" focusable="false" />
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#F1F5F9]">
+                  <CheckCircle2 size={36} className="text-[#2563EB]" aria-hidden="true" focusable="false" />
                 </div>
-                <h3 className="heading-card mb-2 text-xl heading-primary">
+                <h3 className="heading-card mb-2 text-xl font-semibold text-[#0F172A]">
                   Application Submitted!
                 </h3>
-                <p className="text-sm text-slate-600 max-w-md">
+                <p className="text-sm text-[#0F172A]/75 max-w-md">
                   Thank you for applying for <strong>{job.title}</strong>. We will review your profile and contact you soon.
                 </p>
-                <p className="mt-3 text-xs text-slate-400">
+                <p className="mt-3 text-xs text-[#0F172A]/50">
                   This window will close automatically…
                 </p>
               </Motion.div>
@@ -434,13 +435,13 @@ export default function ApplyNowModal({ job, onClose }) {
 
                 {/* Position — read-only */}
                 <Field label="Position Applying For">
-                  <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2">
+                  <div className="flex items-center gap-2 rounded-[10px] border border-slate-200 bg-[#F1F5F9] px-3.5 py-2">
                     <Briefcase
                       size={14}
-                      className="shrink-0 text-brand-orange"
+                      className="shrink-0 text-[#F97316]"
                       aria-hidden="true"
                     />
-                    <span className="text-xs sm:text-sm font-semibold text-slate-700">
+                    <span className="text-xs sm:text-sm font-medium text-[#102A56]">
                       {job.title}
                     </span>
                   </div>
@@ -696,12 +697,12 @@ export default function ApplyNowModal({ job, onClose }) {
                           setErrors((prev) => ({ ...prev, confirmed: "" }));
                         }
                       }}
-                      className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-orange focus:ring-brand-orange/20 accent-orange-500 cursor-pointer"
+                      className="mt-0.5 h-4 w-4 rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB]/20 accent-[#2563EB] cursor-pointer"
                       required
                     />
-                    <span className="text-xs sm:text-sm font-medium text-slate-700 leading-snug">
+                    <span className="text-xs sm:text-sm font-normal text-[#0F172A]/80 leading-snug">
                       I confirm that all the information provided above is true, accurate, and complete.
-                      <span className="ml-1 text-brand-orange" aria-hidden="true">*</span>
+                      <span className="ml-1 text-[#F97316]" aria-hidden="true">*</span>
                     </span>
                   </label>
                   {errors.confirmed && (
@@ -734,7 +735,7 @@ export default function ApplyNowModal({ job, onClose }) {
                   <Motion.div
                     initial={ERROR_ANIM.initial}
                     animate={ERROR_ANIM.animate}
-                    className="flex items-start gap-2.5 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5"
+                    className="flex items-start gap-2.5 rounded-[10px] border border-red-200 bg-red-50 px-4 py-2.5"
                   >
                     <XCircle
                       size={16}
@@ -759,18 +760,15 @@ export default function ApplyNowModal({ job, onClose }) {
                     items-center
                     justify-center
                     gap-2
-                    rounded-xl
-                    bg-slate-900
+                    rounded-[10px]
+                    bg-[#F97316]
                     px-4
                     py-3
-                    text-xs
-                    sm:text-sm
-                    font-bold
-                    uppercase
-                    tracking-[0.15em]
+                    text-[14px]
+                    font-medium
                     text-white
                     transition-all
-                    hover:bg-brand-orange
+                    hover:bg-[#102A56]
                     disabled:cursor-not-allowed
                     disabled:opacity-60
                     cursor-pointer

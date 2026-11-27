@@ -41,15 +41,15 @@ export default function PortfolioGrid() {
   );
 
   return (
-    <section className="py-14 sm:py-16 lg:py-20">
+    <section className="py-14 sm:py-16 lg:py-20 bg-[#FFFFFF]">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
 
         {/* Section Heading */}
-        <div className="mb-12 text-center">
+        <div className="mb-10 text-center">
           <span
             className="
               label-text
-              text-brand-orange
+              text-[#2563EB]
             "
           >
             Portfolio
@@ -58,11 +58,8 @@ export default function PortfolioGrid() {
           <h2
             className="
               heading-section
-              heading-primary
-              mt-3
-              text-3xl
-              sm:text-4xl
-              lg:text-5xl
+              text-[#0F172A]
+              mt-2.5
             "
           >
             Featured Projects
@@ -72,9 +69,9 @@ export default function PortfolioGrid() {
             className="
               body-large
               mx-auto
-              mt-4
-              max-w-3xl
-              text-slate-600
+              mt-3.5
+              max-w-2xl
+              text-[#0F172A]/80
             "
           >
             Discover our work across digital marketing, development, branding, and creative production.
@@ -84,7 +81,7 @@ export default function PortfolioGrid() {
         {/* Main Categories */}
         <div
           className="
-            mb-8
+            mb-6
             flex
             flex-wrap
             justify-center
@@ -99,20 +96,21 @@ export default function PortfolioGrid() {
                   handleCategoryChange(category)
                 }
                 className={`
-                  rounded-2xl
-                  px-6
-                  py-3
-                  text-sm
-                  font-bold
+                  rounded-[10px]
+                  px-5
+                  py-2.5
+                  text-[14px]
+                  font-medium
                   transition-all
-                  duration-300
-                  ease-out
+                  duration-200
                   select-none
+                  cursor-pointer
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]
 
                   ${
                     activeCategory === category
-                      ? "bg-slate-900 text-white shadow-lg shadow-slate-900/10"
-                      : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-900 hover:text-white hover:border-slate-900"
+                      ? "bg-[#102A56] text-[#FFFFFF] shadow-sm"
+                      : "bg-[#F1F5F9] text-[#0F172A] border border-[#0F172A]/10 hover:bg-[#102A56] hover:text-[#FFFFFF]"
                   }
                 `}
               >
@@ -125,11 +123,11 @@ export default function PortfolioGrid() {
         {/* Sub Categories */}
         <div
           className="
-            mb-16
+            mb-12
             flex
             flex-wrap
             justify-center
-            gap-3
+            gap-2.5
           "
         >
           {categories[activeCategory].map(
@@ -142,22 +140,23 @@ export default function PortfolioGrid() {
                   )
                 }
                 className={`
-                  rounded-full
-                  px-5
+                  rounded-[8px]
+                  px-4
                   py-2
-                  text-xs
-                  font-bold
-                  uppercase
-                  tracking-wider
+                  text-[12px]
+                  sm:text-[13px]
+                  font-medium
+                  tracking-[0.02em]
                   transition-all
-                  duration-300
-                  ease-out
+                  duration-200
                   select-none
+                  cursor-pointer
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]
 
                   ${
                     activeSubCategory === subCategory
-                      ? "bg-orange-500 text-white border border-orange-500 shadow-md shadow-orange-500/20"
-                      : "border border-slate-200 bg-white text-slate-600 hover:bg-orange-500 hover:text-white hover:border-orange-500"
+                      ? "bg-[#2563EB] text-[#FFFFFF] border border-[#2563EB] shadow-xs"
+                      : "border border-[#0F172A]/15 bg-[#FFFFFF] text-[#0F172A]/75 hover:border-[#2563EB] hover:text-[#2563EB]"
                   }
                 `}
               >

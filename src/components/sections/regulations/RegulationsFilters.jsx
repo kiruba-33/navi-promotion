@@ -28,19 +28,20 @@ export default function RegulationsFilters({
       >
         <div
           className="
-            rounded-[2rem]
+            rounded-2xl
             border
-            border-slate-200
-            bg-white
+            border-[#0F172A]/10
+            bg-[#FFFFFF]
             p-5
-            shadow-xl
+            shadow-lg
+            shadow-[#102A56]/10
           "
         >
           <div
             className="
               flex
               flex-col
-              gap-5
+              gap-4
               lg:flex-row
               lg:items-center
             "
@@ -50,12 +51,12 @@ export default function RegulationsFilters({
               <Search
                 className="
                   absolute
-                  left-5
+                  left-4
                   top-1/2
                   h-4
                   w-4
                   -translate-y-1/2
-                  text-orange-500
+                  text-[#2563EB]
                 "
                aria-hidden="true" focusable="false" />
 
@@ -67,21 +68,22 @@ export default function RegulationsFilters({
                 }
                 placeholder="Search documents, policies or tags..."
                 className="
-                  h-14
+                  h-12
                   w-full
-                  rounded-2xl
+                  rounded-[10px]
                   border
-                  border-slate-200
-                  bg-slate-50
-                  pl-12
-                  pr-5
-                  text-sm
-                  font-medium
-                  text-slate-900
-                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange
+                  border-[#0F172A]/15
+                  bg-[#F1F5F9]
+                  pl-11
+                  pr-4
+                  text-[14px]
+                  font-normal
+                  text-[#0F172A]
+                  placeholder:text-[#0F172A]/45
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]
                   transition-all
-                  focus:border-orange-500
-                  focus:bg-white
+                  focus:border-[#2563EB]
+                  focus:bg-[#FFFFFF]
                 "
               />
             </div>
@@ -91,7 +93,7 @@ export default function RegulationsFilters({
               className="
                 flex
                 flex-wrap
-                gap-3
+                gap-2.5
               "
             >
               {filters.map((filter) => (
@@ -101,31 +103,21 @@ export default function RegulationsFilters({
                     setActiveCategory(filter.id)
                   }
                   className={`
-                    rounded-2xl
-                    px-5
-                    py-3
-                    text-xs
-                    font-bold
-                    uppercase
-                    tracking-[0.15em]
-                    transition-all
-                    duration-300
+                    rounded-[10px]
+                    px-4
+                    py-2.5
+                    text-[13px]
+                    font-medium
+                    tracking-[0.02em]
+                    transition-colors
+                    duration-200
+                    cursor-pointer
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]
 
                     ${
                       activeCategory === filter.id
-                        ? `
-                          bg-slate-900
-                          text-white
-                          shadow-lg
-                        `
-                        : `
-                          border
-                          border-slate-200
-                          bg-white
-                          text-slate-600
-                          hover:border-slate-900
-                          hover:text-slate-900
-                        `
+                        ? "bg-[#2563EB] text-[#FFFFFF] shadow-xs"
+                        : "border border-[#0F172A]/15 bg-[#FFFFFF] text-[#0F172A]/75 hover:border-[#2563EB] hover:text-[#2563EB]"
                     }
                   `}
                 >

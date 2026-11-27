@@ -10,10 +10,10 @@ export default function GalleryGrid({
       className="
         relative
         overflow-hidden
-        bg-slate-50
-        py-20
-        sm:py-24
-        lg:py-32
+        bg-[#FFFFFF]
+        py-14
+        sm:py-16
+        lg:py-20
       "
     >
       <div
@@ -30,27 +30,24 @@ export default function GalleryGrid({
         <div
           className="
             mx-auto
-            mb-16
+            mb-12
             max-w-3xl
             text-center
-            lg:mb-20
+            lg:mb-14
           "
         >
           <div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-6 shadow-sm select-none"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#F1F5F9] text-[#102A56] text-[12px] sm:text-[13px] font-medium mb-4 shadow-xs select-none"
           >
-            <Camera className="w-4 h-4 text-orange-500" />
+            <Camera className="w-4 h-4 text-[#F97316]" aria-hidden="true" />
             <span>Our Events</span>
           </div>
 
           <h2
             className="
               heading-section
-              mb-6
-              text-4xl
-              sm:text-5xl
-              md:text-6xl
-              text-slate-900
+              mb-4
+              text-[#0F172A]
             "
           >
             Moments That Matter
@@ -61,7 +58,7 @@ export default function GalleryGrid({
               body-large
               mx-auto
               max-w-2xl
-              text-slate-600
+              text-[#0F172A]/80
             "
           >
             Explore memorable events, team celebrations,
@@ -75,7 +72,8 @@ export default function GalleryGrid({
           className="
             grid
             grid-cols-1
-            gap-8
+            gap-6
+            sm:gap-7
             md:grid-cols-2
             xl:grid-cols-3
           "
@@ -87,14 +85,17 @@ export default function GalleryGrid({
               className="
                 group
                 relative
-                h-[420px]
+                h-[400px]
+                sm:h-[420px]
                 cursor-pointer
                 overflow-hidden
-                rounded-[2rem]
-                bg-white
-                shadow-sm
+                rounded-2xl
+                border border-[#0F172A]/10
+                bg-[#FFFFFF]
+                shadow-xs hover:shadow-md
+                hover:border-[#2563EB]/40
                 transition-all
-                duration-500
+                duration-300
               "
             >
               {/* Image */}
@@ -116,8 +117,8 @@ export default function GalleryGrid({
                   absolute
                   inset-0
                   bg-gradient-to-t
-                  from-black/80
-                  via-black/30
+                  from-[#102A56]/95
+                  via-[#102A56]/40
                   to-transparent
                 "
               />
@@ -131,30 +132,31 @@ export default function GalleryGrid({
                   flex
                   flex-col
                   justify-end
-                  p-8
+                  p-6
+                  sm:p-7
                 "
               >
                 <div>
                   {/* Date */}
-                  <div className="mb-4 flex items-center">
+                  <div className="mb-3 flex items-center">
                     <span
                       className="
                         inline-flex
                         items-center
                         gap-2
-                        rounded-full
+                        rounded-lg
                         border
-                        border-white/10
-                        bg-white/10
-                        px-4
-                        py-2
-                        text-xs
-                        font-semibold
-                        text-white
+                        border-white/20
+                        bg-[#102A56]/75
+                        px-3
+                        py-1.5
+                        text-[12px]
+                        font-medium
+                        text-[#F1F5F9]
                         backdrop-blur-md
                       "
                     >
-                      <Calendar className="h-3.5 w-3.5"  aria-hidden="true" focusable="false" />
+                      <Calendar className="h-3.5 w-3.5 text-[#F97316]" aria-hidden="true" focusable="false" />
                       {event.date}
                     </span>
                   </div>
@@ -163,10 +165,8 @@ export default function GalleryGrid({
                   <h3
                     className="
                       heading-card
-                      mb-3
-                      text-2xl
-                      sm:text-3xl
-                      text-white
+                      mb-1.5
+                      text-[#FFFFFF]
                     "
                   >
                     {event.title}
@@ -175,10 +175,10 @@ export default function GalleryGrid({
                   {/* Category */}
                   <p
                     className="
-                      mb-4
-                      text-sm
-                      font-medium
-                      text-white/80
+                      mb-3.5
+                      text-[13px]
+                      font-normal
+                      text-[#F1F5F9]/80
                     "
                   >
                     {event.category}
@@ -190,23 +190,24 @@ export default function GalleryGrid({
                       flex
                       items-center
                       gap-2
-                      opacity-0
+                      opacity-100
+                      lg:opacity-0
                       transition-opacity
-                      duration-500
-                      group-hover:opacity-100
+                      duration-300
+                      lg:group-hover:opacity-100
                     "
                   >
                     <span
                       className="
-                        text-sm
-                        font-bold
-                        text-white
+                        text-[13px]
+                        font-medium
+                        text-[#FFFFFF]
                       "
                     >
                       View Gallery
                     </span>
 
-                    <Maximize2 className="h-4 w-4 text-white" />
+                    <Maximize2 className="h-4 w-4 text-[#F97316]" aria-hidden="true" />
                   </div>
                 </div>
               </div>

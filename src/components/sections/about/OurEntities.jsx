@@ -6,29 +6,26 @@ export default function OurEntities() {
   return (
     <section
       id="sub-brands"
-      className="relative overflow-hidden border-y border-slate-200 py-10 sm:py-14 lg:py-16 bg-white"
+      className="relative overflow-hidden border-y border-[#0F172A]/10 py-14 sm:py-16 lg:py-20 bg-[#FFFFFF]"
     >
-      {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 h-[500px] w-full max-w-3xl -translate-x-1/2 rounded-full bg-slate-50/40 blur-[120px] pointer-events-none" />
-
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mx-auto mb-10 max-w-4xl text-center sm:mb-12 lg:mb-14 flex flex-col items-center">
+        <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12 lg:mb-14 flex flex-col items-center">
           <div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-5 shadow-sm select-none"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#F1F5F9] text-[#102A56] text-[12px] sm:text-[13px] font-medium mb-4 shadow-xs select-none"
           >
-            <Building2 className="w-4 h-4 text-orange-500" />
+            <Building2 className="w-4 h-4 text-[#F97316]" aria-hidden="true" />
             <span>Our Sub Brands</span>
           </div>
 
           <h2
-            className="heading-section text-center heading-primary tracking-tight mb-4 whitespace-normal lg:whitespace-nowrap"
+            className="heading-section text-center text-[#0F172A] mb-4"
           >
-            Our <span className="heading-highlight">Sub Brands</span>
+            Our Sub Brands
           </h2>
 
           <p
-            className="body-large text-slate-600 max-w-4xl mx-auto font-normal tracking-tight whitespace-normal lg:whitespace-nowrap"
+            className="body-large text-[#0F172A]/80 max-w-2xl mx-auto"
           >
             Specialized divisions delivering focused excellence across retail commerce, creative media, and advanced technology.
           </p>
@@ -41,7 +38,7 @@ export default function OurEntities() {
             return (
               <div
                 key={brand.name}
-                className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50/50 hover:bg-white transition-all duration-300 hover:border-orange-500/40"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#0F172A]/10 bg-[#F1F5F9]/60 hover:bg-[#FFFFFF] transition-all duration-300 hover:border-[#2563EB]/40 shadow-xs hover:shadow-md"
               >
                 {/* Brand Visual Cover */}
                 <div className="relative h-56 sm:h-60 overflow-hidden">
@@ -50,33 +47,33 @@ export default function OurEntities() {
                     alt={brand.name}
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#102A56]/95 via-[#102A56]/40 to-transparent" />
 
                   {/* Icon Badge */}
-                  <div className="absolute top-4 left-4 w-12 h-12 rounded-2xl bg-white/90 backdrop-blur-md flex items-center justify-center text-slate-900 border border-white/40 shadow-md">
-                    <Icon className="w-6 h-6 text-orange-500" />
+                  <div className="absolute top-4 left-4 w-11 h-11 rounded-xl bg-[#FFFFFF] flex items-center justify-center text-[#2563EB] border border-[#0F172A]/10 shadow-sm">
+                    <Icon className="w-5 h-5" aria-hidden="true" />
                   </div>
 
                   {/* Tagline on image */}
                   <div className="absolute bottom-4 left-4 right-4">
-                    <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-orange-400">
+                    <span className="text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.04em] text-[#F97316]">
                       {brand.tagline}
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-semibold text-white mt-0.5">
+                    <h3 className="text-[19px] sm:text-[21px] font-semibold text-[#FFFFFF] leading-[1.25] mt-0.5">
                       {brand.name}
                     </h3>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 sm:p-7 flex flex-col flex-grow justify-between">
-                  <p className="body-normal text-slate-600 text-sm leading-relaxed mb-6 font-normal">
+                <div className="p-6 flex flex-col flex-grow justify-between">
+                  <p className="body-normal text-[#0F172A]/80 mb-5">
                     {brand.description}
                   </p>
 
-                  <div className="pt-4 border-t border-slate-200/70 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-700 group-hover:text-orange-500 transition-colors">
+                  <div className="pt-4 border-t border-[#0F172A]/10 flex items-center justify-between text-[13px] font-medium text-[#2563EB] group-hover:text-[#102A56] transition-colors">
                     <span>Explore Initiative</span>
-                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight className="w-4 h-4 text-[#F97316] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                   </div>
                 </div>
               </div>

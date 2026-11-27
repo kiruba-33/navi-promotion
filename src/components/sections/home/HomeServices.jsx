@@ -1,6 +1,9 @@
 import React from 'react';
 import { BriefcaseBusiness, Megaphone, Code2, Palette, Users, PenTool, LineChart, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
 
 const services = [
   {
@@ -49,57 +52,60 @@ const services = [
 
 export default function HomeServices() {
   return (
-    <section id="services" className="py-10 sm:py-14 lg:py-16 relative flex items-center overflow-hidden">
+    <section
+      id="services"
+      className="py-12 sm:py-16 lg:py-20 bg-[#F1F5F9] relative flex items-center overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 w-full">
         
         {/* Header Section */}
-        <div className="max-w-5xl mx-auto text-center flex flex-col items-center mb-10 sm:mb-12 lg:mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-5 shadow-sm select-none">
-            <BriefcaseBusiness className="w-4 h-4 text-orange-500" />
+        <div className="max-w-3xl mx-auto text-center flex flex-col items-center mb-10 sm:mb-12 lg:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#FFFFFF] text-[#102A56] text-[12px] sm:text-[13px] font-medium leading-[1.4] mb-4 shadow-xs select-none">
+            <BriefcaseBusiness className="w-4 h-4 text-[#F97316]" aria-hidden="true" focusable="false" />
             <span>Core Capabilities</span>
           </div>
           
-          <h2 className="heading-section text-center heading-primary mb-4 sm:mb-5">
-            Enterprise<span className="heading-highlight leading-none"> Solutions</span>
+          <h2 className="text-[clamp(1.75rem,2.8vw,2.375rem)] font-semibold leading-[1.16] tracking-[-0.015em] text-center text-[#0F172A] mb-4">
+            Enterprise Solutions
           </h2>
           
-          <p className="body-large text-center text-slate-600 max-w-4xl mx-auto font-normal tracking-tight drop-shadow-sm whitespace-normal lg:whitespace-nowrap">
+          <p className="text-[15px] sm:text-[16px] lg:text-[17px] leading-[1.65] text-center text-[#0F172A]/80 max-w-2xl mx-auto font-normal">
             End-to-end digital services designed to elevate your brand and drive measurable revenue growth.
           </p>
         </div>
 
         {/* Services Responsive Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
           {services.map((service, index) => (
             <React.Fragment key={service.id || index}>
               <div
                 id={service.id}
-                className="glass-card p-8 sm:p-10 group flex flex-col h-full relative overflow-hidden scroll-mt-32 rounded-2xl border border-slate-200 bg-white shadow-sm"
+                className="p-7 sm:p-8 group flex flex-col h-full relative overflow-hidden scroll-mt-32 rounded-2xl border border-[#0F172A]/10 bg-[#FFFFFF] shadow-xs hover:shadow-md hover:border-[#F97316]/40 hover:-translate-y-0.5 transition-all duration-300"
               >
-                {/* Background Accent Shimmer */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500/10 to-transparent rounded-bl-full -z-10" />
+                {/* Top subtle orange accent bar on hover */}
+                <div className="absolute top-0 inset-x-0 h-0.5 bg-[#F97316] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Icon block matching custom shape theme */}
-                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-center mb-6 sm:mb-8 group-hover:border-orange-500/50 transition-colors duration-500">
-                  <service.icon className="w-7 h-7 sm:w-8 sm:h-8 text-slate-600 group-hover:text-orange-500 transition-colors duration-500" />
+                {/* Icon block */}
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#F97316]/10 border border-[#F97316]/20 rounded-xl flex items-center justify-center mb-5 group-hover:bg-[#F97316] group-hover:border-[#F97316] transition-colors duration-300">
+                  <service.icon className="w-6 h-6 text-[#F97316] group-hover:text-[#FFFFFF] transition-colors duration-300" aria-hidden="true" focusable="false" />
                 </div>
                 
                 {/* Card Title */}
-                <h3 className="heading-card text-xl sm:text-2xl heading-primary mb-4">
+                <h3 className="text-[18px] sm:text-[20px] font-semibold leading-[1.3] tracking-[-0.005em] text-[#0F172A] mb-3">
                   {service.title}
                 </h3>
                 
                 {/* Description */}
-                <p className="body-normal text-slate-600 mb-6 sm:mb-8 flex-grow drop-shadow-sm font-normal">
+                <p className="text-[14px] sm:text-[15px] leading-[1.6] text-[#0F172A]/80 mb-6 flex-grow font-normal">
                   {service.description}
                 </p>
                 
                 {/* Action Link */}
                 <Link 
                   to={service.link} 
-                  className="mt-auto inline-flex items-center text-slate-700 font-semibold group-hover:text-orange-500 transition-colors duration-300 cursor-pointer drop-shadow-sm text-sm sm:text-base gap-2">
+                  className="mt-auto inline-flex items-center text-[#2563EB] font-medium group-hover:text-[#F97316] transition-colors duration-200 cursor-pointer text-[14px] sm:text-[15px] leading-[1.4] gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] focus-visible:ring-offset-2">
                   <span>Explore Service</span>
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5"  aria-hidden="true" focusable="false" />
+                  <ArrowRight className="w-4 h-4 text-[#F97316] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" focusable="false" />
                 </Link>
               </div>
             </React.Fragment>

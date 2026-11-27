@@ -10,15 +10,15 @@ function ArrowButton({
 }) {
   const variantStyles = {
     gradient:
-      "bg-slate-900 hover:bg-orange-500 text-white shadow-xl shadow-slate-900/10",
+      "bg-[#2563EB] hover:bg-[#102A56] text-[#FFFFFF] shadow-md shadow-[#2563EB]/20",
     default:
-      "bg-slate-900 hover:bg-orange-500 text-white shadow-xl shadow-slate-900/10",
+      "bg-[#2563EB] hover:bg-[#102A56] text-[#FFFFFF] shadow-md shadow-[#2563EB]/20",
     hero:
-      "border border-white/20 bg-white/5 text-white backdrop-blur-md hover:bg-white/10 hover:border-white/40",
+      "border border-white/30 bg-[#102A56]/65 text-[#FFFFFF] backdrop-blur-md hover:bg-[#FFFFFF] hover:text-[#102A56] hover:border-[#FFFFFF]",
     outline:
-      "border border-white/20 bg-white/5 text-white backdrop-blur-md hover:bg-white/10 hover:border-white/40",
+      "border border-[#102A56]/25 bg-[#FFFFFF] text-[#102A56] hover:border-[#2563EB] hover:text-[#2563EB]",
     orange:
-      "bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-700 text-white shadow-lg shadow-orange-500/20 hover:shadow-orange-600/30",
+      "bg-[#F97316] hover:bg-[#102A56] text-[#FFFFFF] shadow-md shadow-[#F97316]/20",
   };
 
   const selectedVariant = variantStyles[variant] || variantStyles.gradient;
@@ -32,40 +32,41 @@ function ArrowButton({
         inline-flex
         items-center
         justify-between
-        gap-4
+        gap-3.5
         overflow-hidden
-        rounded-full
-        px-7
-        md:px-8
-        py-4
-        text-sm
-        md:text-base
-        font-semibold
+        rounded-[10px]
+        px-6
+        py-3.5
+        text-[14px]
+        sm:text-[15px]
+        font-medium
+        leading-[1.3]
         transition-all
-        duration-300
+        duration-200
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2
         ${selectedVariant}
         ${className}
       `}>
-      {/* SMOOTH HOVER DARKEN OVERLAY FOR ORANGE & GRADIENT VARIANTS */}
+      {/* SMOOTH HOVER OVERLAY */}
       {(variant === "gradient" || variant === "orange") && (
         <span
           className="
             absolute
             inset-0
-            rounded-full
-            bg-black/10
+            rounded-[10px]
+            bg-black/5
             opacity-0
             transition-opacity
-            duration-300
+            duration-200
             group-hover:opacity-100
             pointer-events-none
           "
         />
       )}
 
-      {/* SHINE EFFECT (for gradient/orange variant) */}
+      {/* SHINE EFFECT */}
       {(variant === "gradient" || variant === "orange") && (
-        <span className="absolute inset-0 overflow-hidden rounded-full">
+        <span className="absolute inset-0 overflow-hidden rounded-[10px] pointer-events-none">
           <span
             className="
               absolute
@@ -75,7 +76,7 @@ function ArrowButton({
               w-[120%]
               bg-gradient-to-r
               from-transparent
-              via-white/25
+              via-white/20
               to-transparent
               transition-all
               duration-700
@@ -86,12 +87,12 @@ function ArrowButton({
       )}
 
       {/* TEXT */}
-      <span className="relative z-10 whitespace-nowrap tracking-[-0.01em]">
+      <span className="relative z-10 whitespace-nowrap tracking-[-0.005em]">
         {text}
       </span>
 
       {/* ICON */}
-      <ArrowRight className="relative z-10 w-5 h-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1.5"  aria-hidden="true" focusable="false" />
+      <ArrowRight className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" focusable="false" />
     </Link>
   );
 }

@@ -36,14 +36,14 @@ const DropdownMenu = ({
     >
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`flex items-center gap-1 text-[13px] lg:text-sm font-semibold transition-colors duration-200 whitespace-nowrap cursor-pointer ${
+        className={`flex items-center gap-1 text-[14px] lg:text-[15px] font-medium transition-colors duration-200 whitespace-nowrap cursor-pointer rounded-md px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] ${
           isActive
             ? isScrolled
-              ? "text-blue-600"
-              : "text-blue-400"
+              ? "text-[#F97316] font-semibold"
+              : "text-[#FFFFFF] font-semibold underline decoration-[#F97316] decoration-2 underline-offset-8"
             : isScrolled
-            ? "text-slate-800 hover:text-blue-600"
-            : "text-white hover:text-blue-400"
+            ? "text-[#0F172A] hover:text-[#F97316]"
+            : "text-[#F1F5F9] hover:text-[#FFFFFF]"
         }`}
       >
         <span>{label}</span>
@@ -78,25 +78,26 @@ const DropdownMenu = ({
             transition={{
               duration: 0.25,
             }}
-            className="absolute top-full left-0 mt-2 w-72 bg-white border border-gray-200 p-2 rounded-3xl shadow-2xl z-50"
+            className="absolute top-full left-0 mt-2 w-72 bg-[#FFFFFF] border border-[#0F172A]/10 p-2 rounded-2xl shadow-xl shadow-[#102A56]/10 z-50"
           >
             {items.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
-                className="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-100 transition-all duration-300"
+                onClick={() => setIsOpen(false)}
+                className="group flex items-center gap-3.5 p-3 rounded-xl hover:bg-[#F1F5F9] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]"
                 onFocus={() => prefetchRoute(item.href)}
               >
-                <div className="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-black" />
+                <div className="w-10 h-10 rounded-lg bg-[#F1F5F9] border border-[#102A56]/10 group-hover:bg-[#F97316] group-hover:border-[#F97316] flex items-center justify-center transition-colors duration-200 shrink-0">
+                  <item.icon className="w-4 h-4 text-[#F97316] group-hover:text-[#FFFFFF] transition-colors duration-200" />
                 </div>
 
                 <div>
-                  <span className="block text-sm font-semibold text-black">
+                  <span className="block text-[14px] font-semibold text-[#0F172A] group-hover:text-[#F97316] transition-colors">
                     {item.name}
                   </span>
 
-                  <span className="block text-xs text-gray-500">
+                  <span className="block text-[12px] text-[#0F172A]/70 leading-[1.4]">
                     {item.desc}
                   </span>
                 </div>

@@ -26,25 +26,26 @@ const HeroControls = memo(({
                 <button
                   key={slide.id}
                   onClick={() => setCurrentSlide(index)}
-                  className="group text-left shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm"
+                  style={{ fontFamily: "inherit" }}
+                  className="group text-left shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-4 focus-visible:ring-offset-[#102A56] rounded-sm cursor-pointer"
                   aria-current={active ? "true" : "false"}
                 >
 
                   {/* TOP LINE */}
                   <div
-                    className={`h-[3px] rounded-full mb-4 transition-all duration-500 ${
+                    className={`h-[3px] rounded-sm mb-3 transition-all duration-500 ${
                       active
-                        ? "bg-brand-orange w-24"
-                        : "bg-white/25 w-14 group-hover:w-20"
+                        ? "bg-[#F97316] w-20"
+                        : "bg-[#FFFFFF]/25 w-12 group-hover:w-16 group-hover:bg-[#FFFFFF]/50"
                     }`}
                   />
 
                   {/* TITLE */}
                   <span
-                    className={`text-xs lg:text-sm font-semibold tracking-wide uppercase transition-all duration-300 ${
+                    className={`text-[12px] lg:text-[13px] font-medium tracking-[0.04em] leading-[1.4] uppercase transition-colors duration-300 ${
                       active
-                        ? "text-white"
-                        : "text-white/55 group-hover:text-white/90"
+                        ? "text-[#FFFFFF]"
+                        : "text-[#F1F5F9]/60 group-hover:text-[#F1F5F9]"
                     }`}
                   >
                     {slide.eyebrow}
@@ -65,10 +66,10 @@ const HeroControls = memo(({
                 onClick={() => setCurrentSlide(index)}
                 aria-label={`Go to slide ${index + 1}`}
                 aria-current={currentSlide === index ? "true" : "false"}
-                className={`rounded-full transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange relative after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-[44px] after:h-[44px] after:content-[''] ${
+                className={`rounded-full transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] relative after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:w-[44px] after:h-[44px] after:content-[''] ${
                   currentSlide === index
-                    ? "w-10 h-2 bg-brand-orange"
-                    : "w-2 h-2 bg-white/40"
+                    ? "w-8 h-2 bg-[#F97316]"
+                    : "w-2 h-2 bg-[#FFFFFF]/40"
                 }`}
               />
             ))}
@@ -80,15 +81,13 @@ const HeroControls = memo(({
             onClick={() => setIsPaused(!isPaused)}
             aria-label={isPaused ? "Play hero slider" : "Pause hero slider"}
             aria-pressed={isPaused}
-            className="group relative w-14 h-14 rounded-full border border-white/25 bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-brand-orange transition-all duration-300 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            style={{ fontFamily: "inherit" }}
+            className="group relative w-11 h-11 sm:w-12 sm:h-12 rounded-lg border border-white/25 bg-[#102A56]/75 backdrop-blur-md flex items-center justify-center text-[#FFFFFF] hover:bg-[#F97316] hover:border-[#F97316] transition-all duration-300 shrink-0 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#102A56]"
           >
-
-            <div className="absolute inset-0 rounded-full border border-white/10 group-hover:scale-125 opacity-0 group-hover:opacity-100 transition-all duration-500" />
-
             {isPaused ? (
-              <Play className="w-5 h-5 relative z-10" aria-hidden="true" />
+              <Play className="w-4 h-4 sm:w-5 sm:h-5 relative z-10" aria-hidden="true" />
             ) : (
-              <Pause className="w-5 h-5 relative z-10" aria-hidden="true" />
+              <Pause className="w-4 h-4 sm:w-5 sm:h-5 relative z-10" aria-hidden="true" />
             )}
 
           </button>

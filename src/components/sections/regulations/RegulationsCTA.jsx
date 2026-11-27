@@ -9,20 +9,12 @@ export default function RegulationsCTA({
       className="
         relative
         overflow-hidden
-        bg-slate-900
-        py-24
-        sm:py-28
-        lg:py-32
+        bg-[#102A56]
+        py-16
+        sm:py-20
+        lg:py-24
       "
     >
-      <div
-        className="
-          absolute
-          inset-0
-          bg-[radial-gradient(circle_at_50%_50%,rgba(247,168,0,0.08)_0%,transparent_70%)]
-        "
-      />
-
       <div
         className="
           relative
@@ -37,21 +29,21 @@ export default function RegulationsCTA({
       >
         <div
           className="
-            rounded-[3rem]
+            rounded-2xl
             border
-            border-white/10
+            border-white/15
             bg-white/5
-            p-10
+            p-8
             backdrop-blur-sm
-            md:p-14
-            lg:p-20
+            md:p-12
+            lg:p-14
           "
         >
           <div
             className="
               flex
               flex-col
-              gap-12
+              gap-10
               lg:flex-row
               lg:items-center
               lg:justify-between
@@ -61,11 +53,8 @@ export default function RegulationsCTA({
               <h2
                 className="
                   heading-section
-                  mb-8
-                  text-4xl
-                  sm:text-5xl
-                  md:text-6xl
-                  text-white
+                  mb-5
+                  text-[#FFFFFF]
                 "
               >
                 Can't Find A Specific
@@ -76,8 +65,8 @@ export default function RegulationsCTA({
               <p
                 className="
                   body-large
-                  mb-10
-                  text-slate-400
+                  mb-8
+                  text-[#F1F5F9]/85
                 "
               >
                 Our legal and administrative
@@ -90,18 +79,19 @@ export default function RegulationsCTA({
                 className="
                   inline-flex
                   items-center
-                  gap-3
-                  rounded-2xl
-                  bg-orange-500
-                  px-8
-                  py-5
-                  text-xs
-                  font-semibold
-                  uppercase
-                  tracking-wider
-                  text-slate-900
-                  transition-all
-                  hover:bg-white
+                  gap-2.5
+                  rounded-[10px]
+                  bg-[#F97316]
+                  px-6
+                  py-3.5
+                  text-[14px]
+                  sm:text-[15px]
+                  font-medium
+                  text-[#FFFFFF]
+                  transition-colors
+                  hover:bg-[#2563EB]
+                  cursor-pointer
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFFFF]
                 "
               >
                 Contact Helpdesk
@@ -110,7 +100,7 @@ export default function RegulationsCTA({
                   className="
                     h-4
                     w-4
-                    text-orange-500
+                    text-[#FFFFFF]
                   "
                  aria-hidden="true" focusable="false" />
               </button>
@@ -127,20 +117,23 @@ export default function RegulationsCTA({
                 <div
                   key={stat.label}
                   className="
-                    rounded-[2rem]
+                    rounded-2xl
                     border
-                    border-white/10
+                    border-white/15
                     bg-white/5
-                    p-8
+                    p-6
+                    sm:p-7
                     text-center
                   "
                 >
                   <p
                     className="
-                      mb-2
-                      text-4xl
-                      font-bold
-                      text-white
+                      mb-1.5
+                      text-[28px]
+                      sm:text-[34px]
+                      font-semibold
+                      text-[#FFFFFF]
+                      tabular-nums
                     "
                   >
                     {stat.value}

@@ -25,7 +25,7 @@ export default function GalleryModal({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedEvent(null)}
-              className="absolute inset-0 bg-black/70 backdrop-blur-md"
+              className="absolute inset-0 bg-[#102A56]/70 backdrop-blur-md"
             />
 
             <motion.div
@@ -42,8 +42,9 @@ export default function GalleryModal({
                 w-full
                 max-w-6xl
                 overflow-hidden
-                rounded-[2rem]
-                bg-white
+                rounded-2xl
+                border border-[#0F172A]/10
+                bg-[#FFFFFF]
                 shadow-2xl
                 max-h-[90vh]
                 flex
@@ -60,8 +61,8 @@ export default function GalleryModal({
                   items-center
                   justify-between
                   border-b
-                  border-slate-200
-                  bg-white
+                  border-[#0F172A]/10
+                  bg-[#FFFFFF]
                   px-6
                   py-5
                   md:px-8
@@ -70,10 +71,10 @@ export default function GalleryModal({
                 <div>
                   <h2
                     className="
-                      heading-section
-                      text-2xl
-                      md:text-3xl
-                      text-slate-900
+                      heading-card
+                      text-[20px]
+                      md:text-[24px]
+                      text-[#0F172A]
                     "
                   >
                     {selectedEvent.title}
@@ -81,36 +82,41 @@ export default function GalleryModal({
 
                   <div
                     className="
-                      mt-2
+                      mt-1.5
                       flex
                       items-center
                       gap-2
-                      text-sm
+                      text-[13px]
                       font-medium
-                      text-slate-600
+                      text-[#0F172A]/70
                     "
                   >
-                    <Calendar className="h-4 w-4"  aria-hidden="true" focusable="false" />
+                    <Calendar className="h-4 w-4 text-[#F97316]" aria-hidden="true" focusable="false" />
                     {selectedEvent.date}
                   </div>
                 </div>
 
                 <button
                   onClick={() => setSelectedEvent(null)}
+                  aria-label="Close gallery modal"
                   className="
                     flex
                     h-10
                     w-10
                     items-center
                     justify-center
-                    rounded-full
+                    rounded-lg
                     border
-                    border-slate-200
+                    border-[#0F172A]/15
+                    bg-[#F1F5F9]
+                    text-[#102A56]
                     transition-colors
-                    hover:bg-slate-100
+                    hover:bg-[#102A56]
+                    hover:text-[#FFFFFF]
+                    cursor-pointer
                   "
                 >
-                  <X className="h-5 w-5"  aria-hidden="true" focusable="false" />
+                  <X className="h-5 w-5" aria-hidden="true" focusable="false" />
                 </button>
               </div>
 
@@ -142,7 +148,8 @@ export default function GalleryModal({
                         relative
                         cursor-pointer
                         overflow-hidden
-                        rounded-3xl
+                        rounded-2xl
+                        border border-[#0F172A]/10
                         break-inside-avoid
                       "
                     >
@@ -179,16 +186,17 @@ export default function GalleryModal({
                             <div
                               className="
                                 flex
-                                h-14
-                                w-14
+                                h-12
+                                w-12
                                 items-center
                                 justify-center
-                                rounded-full
-                                bg-white/90
-                                backdrop-blur-md
+                                rounded-lg
+                                bg-[#2563EB]/95
+                                text-[#FFFFFF]
+                                shadow-md
                               "
                             >
-                              <Play className="h-5 w-5 ml-1"  aria-hidden="true" focusable="false" />
+                              <Play className="h-5 w-5 ml-0.5" aria-hidden="true" focusable="false" />
                             </div>
                           </div>
                         </div>
@@ -214,7 +222,7 @@ export default function GalleryModal({
                 fixed
                 inset-0
                 z-[110]
-                bg-black
+                bg-[#0F172A]/95
               "
             >
               <div
@@ -233,23 +241,28 @@ export default function GalleryModal({
                   onClick={() =>
                     setSelectedMediaIndex(null)
                   }
+                  aria-label="Close lightbox"
                   className="
                     absolute
                     top-6
                     right-6
                     z-50
                     flex
-                    h-12
-                    w-12
+                    h-11
+                    w-11
                     items-center
                     justify-center
-                    rounded-full
-                    bg-white/10
+                    rounded-lg
+                    bg-[#102A56]/80
+                    border border-white/20
                     backdrop-blur-md
-                    text-white
+                    text-[#FFFFFF]
+                    hover:bg-[#2563EB]
+                    transition-colors
+                    cursor-pointer
                   "
                 >
-                  <X className="h-6 w-6"  aria-hidden="true" focusable="false" />
+                  <X className="h-5 w-5" aria-hidden="true" focusable="false" />
                 </button>
 
                 {/* Prev */}
@@ -263,25 +276,30 @@ export default function GalleryModal({
                         selectedEvent.media.length
                     )
                   }
+                  aria-label="Previous media"
                   className="
                     absolute
                     left-6
                     top-1/2
                     z-50
                     hidden
-                    h-14
-                    w-14
+                    h-12
+                    w-12
                     -translate-y-1/2
                     items-center
                     justify-center
-                    rounded-full
-                    bg-white/10
-                    text-white
+                    rounded-lg
+                    bg-[#102A56]/80
+                    border border-white/20
+                    text-[#FFFFFF]
+                    hover:bg-[#2563EB]
+                    transition-colors
                     backdrop-blur-md
                     lg:flex
+                    cursor-pointer
                   "
                 >
-                  <ChevronLeft className="h-8 w-8"  aria-hidden="true" focusable="false" />
+                  <ChevronLeft className="h-6 w-6" aria-hidden="true" focusable="false" />
                 </button>
 
                 {/* Next */}
@@ -293,25 +311,30 @@ export default function GalleryModal({
                         selectedEvent.media.length
                     )
                   }
+                  aria-label="Next media"
                   className="
                     absolute
                     right-6
                     top-1/2
                     z-50
                     hidden
-                    h-14
-                    w-14
+                    h-12
+                    w-12
                     -translate-y-1/2
                     items-center
                     justify-center
-                    rounded-full
-                    bg-white/10
-                    text-white
+                    rounded-lg
+                    bg-[#102A56]/80
+                    border border-white/20
+                    text-[#FFFFFF]
+                    hover:bg-[#2563EB]
+                    transition-colors
                     backdrop-blur-md
                     lg:flex
+                    cursor-pointer
                   "
                 >
-                  <ChevronRight className="h-8 w-8"  aria-hidden="true" focusable="false" />
+                  <ChevronRight className="h-6 w-6" aria-hidden="true" focusable="false" />
                 </button>
 
                 <AnimatePresence mode="wait">

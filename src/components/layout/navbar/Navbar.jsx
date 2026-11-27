@@ -93,8 +93,8 @@ const showLightNavbar =
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           showLightNavbar
-            ? "bg-white border-b border-black/10 py-4"
-            : "bg-transparent py-6"
+            ? "bg-[#FFFFFF] border-b border-[#0F172A]/10 py-4 shadow-xs"
+            : "bg-transparent py-5"
         }`}
       >
         <div className="max-w-[1600px] mx-auto px-5 sm:px-6 md:px-10 lg:px-16 xl:px-20">
@@ -142,15 +142,15 @@ const showLightNavbar =
             </div>
 
             {/* RIGHT CTA */}
-            <div className="hidden lg:flex items-center gap-5 shrink-0">
+            <div className="hidden lg:flex items-center gap-3.5 shrink-0">
 
               <button
                 type="button"
                 onClick={handleOpenBecomeClientModal}
-                className={`h-12 px-7 rounded-full text-sm font-semibold inline-flex items-center justify-center transition-all duration-300 cursor-pointer ${
+                className={`h-11 px-5 rounded-[10px] text-[14px] font-medium inline-flex items-center justify-center transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
                   showLightNavbar
-                    ? "border-2 border-black text-black hover:bg-black hover:text-white"
-                    : "border-2 border-white/80 text-white hover:bg-white hover:text-black backdrop-blur-md"
+                    ? "border border-[#102A56]/25 text-[#102A56] bg-[#FFFFFF] hover:border-[#2563EB] hover:text-[#2563EB]"
+                    : "border border-white/30 text-[#FFFFFF] bg-[#102A56]/55 backdrop-blur-md hover:bg-[#FFFFFF] hover:text-[#102A56]"
                 }`}
               >
                 Become a Client
@@ -158,10 +158,10 @@ const showLightNavbar =
 
               <Link
                 to="/contact"
-                className={`h-12 px-8 rounded-full text-sm font-semibold inline-flex items-center justify-center transition-all duration-300 ${
+                className={`h-11 px-6 rounded-[10px] text-[14px] font-medium inline-flex items-center justify-center transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] ${
                   showLightNavbar
-                    ? "bg-black text-white hover:bg-brand-orange hover:text-white"
-                    : "bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white hover:text-black"
+                    ? "bg-[#F97316] text-[#FFFFFF] hover:bg-[#102A56]"
+                    : "bg-[#F97316] text-[#FFFFFF] hover:bg-[#2563EB]"
                 }`}>
                 Let's Talk
               </Link>

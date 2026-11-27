@@ -1,5 +1,8 @@
 import React from 'react';
 import { Handshake } from 'lucide-react';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
 import adobePremierePro from '../../../assets/tools/adobe-premiere-pro.svg';
 import adobePhotoshop from '../../../assets/tools/adobe-photoshop.svg';
 import adobeIllustrator from '../../../assets/tools/adobe-illustrator.svg';
@@ -63,15 +66,15 @@ function MarqueeRow({ items, direction, ariaLabel }) {
               {set.map((item) => (
                 <div
                   key={`${item.name}-${setIndex}`}
-                  className="flex shrink-0 items-center gap-3 sm:gap-4 px-4 sm:px-5 py-2.5 sm:py-3.5 rounded-2xl bg-white border border-slate-200/90 text-slate-800 shadow-xs hover:border-orange-500/40 hover:shadow-sm transition-all duration-300"
+                  className="flex shrink-0 items-center gap-3 sm:gap-4 px-4 sm:px-5 py-2.5 sm:py-3.5 rounded-xl bg-[#F1F5F9]/70 border border-[#0F172A]/10 text-[#0F172A] shadow-xs hover:bg-[#FFFFFF] hover:border-[#2563EB]/40 hover:shadow-sm transition-all duration-300"
                   role="listitem"
                 >
                   <img
                     src={item.icon}
                     alt={`${item.name} icon`}
-                    className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 flex-shrink-0 object-contain transition-transform duration-300"
+                    className="h-9 w-9 sm:h-11 sm:w-11 lg:h-12 lg:w-12 flex-shrink-0 object-contain transition-transform duration-300"
                   />
-                  <span className="whitespace-nowrap text-sm sm:text-base font-semibold leading-none text-slate-800">
+                  <span className="whitespace-nowrap text-[14px] sm:text-[15px] font-medium leading-[1.3] text-[#102A56]">
                     {item.name}
                   </span>
                 </div>
@@ -86,19 +89,21 @@ function MarqueeRow({ items, direction, ariaLabel }) {
 
 export default function ToolsPartners() {
   return (
-    <section className="relative w-full overflow-x-hidden py-10 sm:py-14 lg:py-16">
+    <section
+      className="relative w-full overflow-x-hidden py-12 sm:py-16 lg:py-20 bg-[#FFFFFF]"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-8 max-w-5xl text-center sm:mb-10 lg:mb-12 flex flex-col items-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm select-none">
-            <Handshake className="w-4 h-4 text-orange-500" aria-hidden="true" focusable="false" />
+        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-10 lg:mb-12 flex flex-col items-center">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-lg border border-[#102A56]/10 bg-[#F1F5F9] px-3.5 py-1.5 text-[12px] sm:text-[13px] font-medium leading-[1.4] text-[#102A56] shadow-xs select-none">
+            <Handshake className="w-4 h-4 text-[#F97316]" aria-hidden="true" focusable="false" />
             <span>Our Tech Stack</span>
           </div>
 
-          <h2 className="heading-section mb-4 text-center heading-primary tracking-tight whitespace-normal lg:whitespace-nowrap">
-            Empowering Success with <span className="heading-highlight">Elite Tools</span>
+          <h2 className="text-[clamp(1.75rem,2.8vw,2.375rem)] font-semibold leading-[1.16] tracking-[-0.015em] mb-4 text-center text-[#0F172A]">
+            Empowering Success with Elite Tools
           </h2>
 
-          <p className="body-large mx-auto text-center text-slate-600 max-w-5xl font-normal tracking-tight whitespace-normal lg:whitespace-nowrap">
+          <p className="text-[15px] sm:text-[16px] lg:text-[17px] leading-[1.65] mx-auto text-center text-[#0F172A]/80 max-w-2xl font-normal">
             We blend creative precision with modern engineering to deliver experiences that are polished, reliable, and future-ready.
           </p>
         </div>

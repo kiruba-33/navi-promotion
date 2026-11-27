@@ -95,8 +95,8 @@ export default function RegulationsVault({
   return (
     <section
       className="
-        bg-slate-50
-        py-12
+        bg-[#F1F5F9]
+        py-14
         sm:py-16
         lg:py-20
       "
@@ -111,7 +111,7 @@ export default function RegulationsVault({
           lg:px-8
         "
       >
-        <div className="space-y-24 lg:space-y-32">
+        <div className="space-y-16 lg:space-y-20">
           {categories.map((category) => {
             const Icon = category.icon;
 
@@ -122,11 +122,11 @@ export default function RegulationsVault({
                 {/* Header */}
                 <div
                   className="
-                    mb-12
+                    mb-10
                     flex
                     flex-col
-                    gap-8
-                    md:mb-16
+                    gap-6
+                    md:mb-12
                     md:flex-row
                     md:items-end
                     md:justify-between
@@ -135,7 +135,7 @@ export default function RegulationsVault({
                   <div className="max-w-xl">
                     <div
                       className="
-                        mb-6
+                        mb-5
                         flex
                         items-center
                         gap-4
@@ -144,25 +144,25 @@ export default function RegulationsVault({
                       <div
                         className="
                           flex
-                          h-16
-                          w-16
+                          h-12
+                          w-12
                           items-center
                           justify-center
-                          rounded-3xl
+                          rounded-xl
                           border
-                          border-slate-200
-                          bg-white
-                          shadow-sm
+                          border-[#102A56]/10
+                          bg-[#FFFFFF]
+                          shadow-xs
                         "
                       >
-                        <Icon className="h-6 w-6 text-orange-500" />
+                        <Icon className="h-5 w-5 text-[#2563EB]" aria-hidden="true" />
                       </div>
 
                       <div
                         className="
                           h-px
                           flex-1
-                          bg-slate-200
+                          bg-[#0F172A]/10
                         "
                       />
                     </div>
@@ -170,11 +170,8 @@ export default function RegulationsVault({
                     <h2
                       className="
                         heading-section
-                        mb-4
-                        text-4xl
-                        sm:text-5xl
-                        md:text-6xl
-                        text-slate-900
+                        mb-3
+                        text-[#0F172A]
                       "
                     >
                       {category.title}
@@ -182,10 +179,11 @@ export default function RegulationsVault({
 
                     <p
                       className="
-                        body-normal
+                        text-[13px]
+                        font-medium
                         uppercase
-                        tracking-[0.2em]
-                        text-slate-500
+                        tracking-[0.06em]
+                        text-[#0F172A]/65
                       "
                     >
                       {category.description}
@@ -196,22 +194,22 @@ export default function RegulationsVault({
                     className="
                       flex
                       items-center
-                      gap-3
-                      text-slate-400
+                      gap-2.5
+                      text-[#0F172A]/70
                     "
                   >
                     <span
                       className="
-                        text-xs
-                        font-bold
+                        text-[12px]
+                        font-medium
                         uppercase
-                        tracking-[0.2em]
+                        tracking-[0.04em]
                       "
                     >
                       {category.items.length} Documents
                     </span>
 
-                    <Filter className="h-4 w-4 text-orange-500" />
+                    <Filter className="h-4 w-4 text-[#F97316]" aria-hidden="true" />
                   </div>
                 </div>
 
@@ -220,7 +218,7 @@ export default function RegulationsVault({
                   className="
                     grid
                     grid-cols-1
-                    gap-8
+                    gap-6
                     md:grid-cols-2
                     xl:grid-cols-3
                   "
@@ -234,22 +232,24 @@ export default function RegulationsVault({
                           relative
                           flex
                           flex-col
-                          rounded-[2rem]
+                          rounded-2xl
                           border
-                          border-slate-200
-                          bg-white
-                          p-8
-                          shadow-sm
+                          border-[#0F172A]/10
+                          bg-[#FFFFFF]
+                          p-6
+                          sm:p-7
+                          shadow-xs
                           transition-all
-                          duration-500
-                          hover:border-orange-500/30
+                          duration-300
+                          hover:border-[#2563EB]/40
+                          hover:shadow-md
                         "
                       >
                         {/* Top */}
-                        <div className="mb-8">
+                        <div className="mb-6">
                           <div
                             className="
-                              mb-8
+                              mb-6
                               flex
                               items-center
                               justify-between
@@ -258,32 +258,33 @@ export default function RegulationsVault({
                             <div
                               className="
                                 flex
-                                h-12
-                                w-12
+                                h-11
+                                w-11
                                 items-center
                                 justify-center
-                                rounded-2xl
-                                bg-slate-100
-                                transition-all
-                                duration-500
-                                group-hover:bg-slate-900
-                                group-hover:text-white
+                                rounded-xl
+                                bg-[#F1F5F9]
+                                border border-[#102A56]/10
+                                transition-colors
+                                duration-200
+                                group-hover:bg-[#2563EB]
+                                group-hover:border-[#2563EB]
                               "
                             >
-                              <Bookmark className="h-5 w-5 text-orange-500" />
+                              <Bookmark className="h-5 w-5 text-[#2563EB] group-hover:text-[#FFFFFF] transition-colors" />
                             </div>
 
                             <span
                               className="
-                                rounded-full
-                                bg-slate-900
-                                px-4
-                                py-2
-                                text-[10px]
-                                font-bold
+                                rounded-lg
+                                bg-[#102A56]
+                                px-3
+                                py-1
+                                text-[11px]
+                                font-medium
                                 uppercase
-                                tracking-[0.15em]
-                                text-white
+                                tracking-[0.04em]
+                                text-[#FFFFFF]
                               "
                             >
                               {item.status}
@@ -294,12 +295,11 @@ export default function RegulationsVault({
                             onClick={() => handleOpenPreview(item, category.title)}
                             className="
                               heading-card
-                              mb-4
-                              text-2xl
-                              text-slate-900
+                              mb-3.5
+                              text-[#0F172A]
                               transition-colors
-                              duration-300
-                              group-hover:text-orange-500
+                              duration-200
+                              group-hover:text-[#2563EB]
                               cursor-pointer
                             "
                           >
@@ -308,29 +308,27 @@ export default function RegulationsVault({
 
                           <div
                             className="
-                              mb-6
+                              mb-5
                               flex
                               flex-wrap
                               items-center
-                              gap-4
-                              text-slate-500
+                              gap-3
+                              text-[#0F172A]/65
                             "
                           >
                             <div
                               className="
                                 flex
                                 items-center
-                                gap-2
+                                gap-1.5
                               "
                             >
-                              <Calendar className="h-4 w-4 text-orange-500" aria-hidden="true" focusable="false" />
+                              <Calendar className="h-4 w-4 text-[#F97316]" aria-hidden="true" focusable="false" />
 
                               <span
                                 className="
-                                  text-[11px]
-                                  font-bold
-                                  uppercase
-                                  tracking-[0.15em]
+                                  text-[12px]
+                                  font-medium
                                 "
                               >
                                 {item.date}
@@ -342,7 +340,7 @@ export default function RegulationsVault({
                                 h-1
                                 w-1
                                 rounded-full
-                                bg-slate-300
+                                bg-[#0F172A]/25
                               "
                             />
 
@@ -350,17 +348,15 @@ export default function RegulationsVault({
                               className="
                                 flex
                                 items-center
-                                gap-2
+                                gap-1.5
                               "
                             >
-                              <FileText className="h-4 w-4 text-orange-500" aria-hidden="true" focusable="false" />
+                              <FileText className="h-4 w-4 text-[#2563EB]" aria-hidden="true" focusable="false" />
 
                               <span
                                 className="
-                                  text-[11px]
-                                  font-bold
-                                  uppercase
-                                  tracking-[0.15em]
+                                  text-[12px]
+                                  font-medium
                                 "
                               >
                                 {item.size}
@@ -382,15 +378,13 @@ export default function RegulationsVault({
                                 className="
                                   rounded-lg
                                   border
-                                  border-slate-200
-                                  bg-slate-50
-                                  px-3
-                                  py-1.5
-                                  text-[10px]
-                                  font-bold
-                                  uppercase
-                                  tracking-[0.15em]
-                                  text-slate-500
+                                  border-[#0F172A]/10
+                                  bg-[#F1F5F9]
+                                  px-2.5
+                                  py-1
+                                  text-[11px]
+                                  font-medium
+                                  text-[#0F172A]/75
                                 "
                               >
                                 #{tag}
@@ -407,8 +401,8 @@ export default function RegulationsVault({
                             items-center
                             justify-between
                             border-t
-                            border-slate-200
-                            pt-6
+                            border-[#0F172A]/10
+                            pt-5
                           "
                         >
                           <button
@@ -416,22 +410,20 @@ export default function RegulationsVault({
                             className="
                               flex
                               items-center
-                              gap-2
-                              text-xs
-                              font-bold
-                              uppercase
-                              tracking-[0.15em]
-                              text-slate-900
+                              gap-1.5
+                              text-[13px]
+                              font-medium
+                              text-[#2563EB]
                               transition-colors
-                              hover:text-orange-500
-                              focus:outline-none
-                              focus:text-orange-500
+                              hover:text-[#102A56]
+                              cursor-pointer
+                              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] rounded-md
                             "
                             aria-label={`Preview ${item.title}`}
                           >
                             Preview Document
 
-                            <ChevronRight className="h-4 w-4 text-orange-500" aria-hidden="true" focusable="false" />
+                            <ChevronRight className="h-4 w-4 text-[#F97316]" aria-hidden="true" focusable="false" />
                           </button>
 
                           <button
@@ -441,27 +433,28 @@ export default function RegulationsVault({
                             className="
                               group/dl
                               flex
-                              h-11
-                              w-11
+                              h-9
+                              w-9
                               items-center
                               justify-center
-                              rounded-xl
-                              bg-slate-100
+                              rounded-lg
+                              bg-[#F1F5F9]
+                              border border-[#0F172A]/10
                               opacity-100
                               lg:opacity-0
                               transition-all
-                              duration-300
-                              ease-in-out
+                              duration-200
                               lg:group-hover:opacity-100
-                              hover:bg-orange-500
-                              active:scale-95
+                              hover:bg-[#2563EB]
+                              hover:border-[#2563EB]
                               focus:opacity-100
-                              focus:outline-none
-                              focus:ring-2
-                              focus:ring-orange-500
+                              focus-visible:outline-none
+                              focus-visible:ring-2
+                              focus-visible:ring-[#2563EB]
+                              cursor-pointer
                             "
                           >
-                            <Download className="h-4 w-4 text-orange-500 transition-colors duration-300 ease-in-out group-hover/dl:text-white" />
+                            <Download className="h-4 w-4 text-[#102A56] transition-colors duration-200 group-hover/dl:text-[#FFFFFF]" />
                           </button>
                         </div>
                       </div>

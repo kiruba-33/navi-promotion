@@ -35,11 +35,10 @@ export default function BlogCard({
           className={`
             relative
             overflow-hidden
-            rounded-[2rem]
-            lg:rounded-[3rem]
-            bg-slate-200
-            mb-8
-            shadow-xl
+            rounded-2xl
+            bg-[#F1F5F9]
+            mb-6
+            shadow-lg
 
             ${
               isHero
@@ -55,6 +54,9 @@ export default function BlogCard({
               w-full
               h-full
               object-cover
+              transition-transform
+              duration-500
+              group-hover:scale-[1.03]
             "
           />
 
@@ -62,29 +64,29 @@ export default function BlogCard({
             className="
               absolute
               inset-0
-              bg-slate-900/20
-              group-hover:bg-slate-900/10
+              bg-[#102A56]/20
+              group-hover:bg-[#102A56]/10
               transition-colors
               duration-500
             "
           />
 
           {/* CATEGORY */}
-          <div className="absolute top-6 left-6">
+          <div className="absolute top-5 left-5">
 
             <span
               className="
-                px-4
-                py-2
-                bg-white/90
+                px-3.5
+                py-1.5
+                bg-white/95
                 backdrop-blur-md
-                rounded-full
-                text-[9px]
-                font-semibold
+                rounded-lg
+                text-[11px]
+                font-medium
                 uppercase
                 tracking-wider
-                text-slate-900
-                shadow-xl
+                text-[#102A56]
+                shadow-md
               "
             >
               {post.category}
@@ -92,7 +94,7 @@ export default function BlogCard({
 
           </div>
 
-          {/* READ CIRCLE */}
+          {/* READ BADGE */}
           <div
             className="
               absolute
@@ -109,19 +111,17 @@ export default function BlogCard({
 
             <div
               className="
-                w-24
-                h-24
-                rounded-full
-                bg-orange-500
+                px-5
+                py-3
+                rounded-[10px]
+                bg-[#2563EB]
                 text-white
                 flex
                 items-center
                 justify-center
-                font-semibold
-                uppercase
-                tracking-wider
-                text-[11px]
-                shadow-2xl
+                font-medium
+                text-[13px]
+                shadow-xl
               "
             >
               Read Story
@@ -132,26 +132,24 @@ export default function BlogCard({
         </div>
 
         {/* CONTENT */}
-        <div className="px-2 sm:px-4">
+        <div className="px-2 sm:px-3">
 
           {/* META */}
           <div
             className="
               flex
               items-center
-              gap-4
-              text-slate-400
-              mb-4
-              text-[10px]
+              gap-3.5
+              text-[#0F172A]/55
+              mb-3
+              text-[12px]
               font-medium
-              uppercase
-              tracking-wider
             "
           >
 
             <div className="flex items-center gap-1.5">
 
-              <Calendar className="w-3.5 h-3.5 text-orange-500"  aria-hidden="true" focusable="false" />
+              <Calendar className="w-3.5 h-3.5 text-[#F97316]" aria-hidden="true" focusable="false" />
 
               <span>{post.date}</span>
 
@@ -167,16 +165,18 @@ export default function BlogCard({
           <h2
             className={`
               heading-card
-              text-slate-900
-              tracking-tight
+              text-[#0F172A]
+              font-semibold
+              leading-[1.2]
+              tracking-[-0.02em]
               transition-colors
               duration-300
-              group-hover:text-orange-500
+              group-hover:text-[#2563EB]
 
               ${
                 isHero
-                  ? "text-3xl md:text-5xl mb-6"
-                  : "text-2xl mb-4"
+                  ? "text-[clamp(1.625rem,2.5vw,2.25rem)] mb-4"
+                  : "text-[20px] mb-3"
               }
             `}
           >
@@ -186,14 +186,14 @@ export default function BlogCard({
           {/* EXCERPT */}
           <p
             className={`
-              text-slate-500
+              text-[#0F172A]/75
               font-normal
-              leading-relaxed
+              leading-[1.6]
 
               ${
                 isHero
-                  ? "text-lg sm:text-xl mb-10 max-w-2xl"
-                  : "text-sm mb-8"
+                  ? "text-[16px] sm:text-[17px] mb-7 max-w-2xl"
+                  : "text-[14px] sm:text-[15px] mb-6"
               }
             `}
           >
@@ -206,9 +206,9 @@ export default function BlogCard({
               flex
               items-center
               justify-between
-              pt-6
+              pt-5
               border-t
-              border-slate-900/5
+              border-slate-200/80
             "
           >
 
@@ -218,8 +218,8 @@ export default function BlogCard({
                 className="
                   w-8
                   h-8
-                  rounded-full
-                  bg-slate-100
+                  rounded-lg
+                  bg-[#F1F5F9]
                   border
                   border-slate-200
                   flex
@@ -228,17 +228,15 @@ export default function BlogCard({
                 "
               >
 
-                <User className="w-4 h-4 text-orange-500" />
+                <User className="w-4 h-4 text-[#2563EB]" />
 
               </div>
 
               <span
                 className="
-                  text-[10px]
-                  font-semibold
-                  uppercase
-                  tracking-wider
-                  text-slate-800
+                  text-[12px]
+                  font-medium
+                  text-[#102A56]
                 "
               >
                 {post.author}
@@ -246,13 +244,13 @@ export default function BlogCard({
 
             </div>
 
-            <div className="flex items-center gap-4 text-slate-300">
+            <div className="flex items-center gap-3.5 text-slate-400">
 
               <Share2
                 className="
                   w-4
                   h-4
-                  hover:text-orange-500
+                  hover:text-[#2563EB]
                   transition-colors
                 "
               />
@@ -261,7 +259,7 @@ export default function BlogCard({
                 className="
                   w-4
                   h-4
-                  hover:text-orange-500
+                  hover:text-[#F97316]
                   transition-colors
                 "
               />

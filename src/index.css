@@ -5,9 +5,26 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --navi-navy: #102A56;
+  --navi-blue: #2563EB;
+  --navi-white: #FFFFFF;
+  --navi-surface: #F1F5F9;
+  --navi-orange: #F97316;
+  --navi-charcoal: #0F172A;
+
+  --navi-radius-btn: 10px;
+  --navi-radius-input: 10px;
+  --navi-radius-icon: 8px;
+  --navi-radius-thumb: 10px;
+  --navi-radius-card: 16px;
+  --navi-radius-media: 18px;
+}
+
 body {
-  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-  background-color: #FAF7F2;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #FFFFFF;
+  color: #0F172A;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -50,17 +50,14 @@ const HeroSlider = memo(({ slides, currentSlide }) => {
         );
       })}
 
-      {/* MAIN OVERLAY */}
-      <div className="absolute inset-0 bg-slate-950/35 z-10 pointer-events-none" />
+      {/* SUBTLE NEUTRAL BASE SCRIM FOR PHOTO CLARITY */}
+      <div className="absolute inset-0 bg-black/15 z-10 pointer-events-none" />
 
-      {/* LEFT SOFT GRADIENT */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/70 via-[#020617]/20 to-transparent z-10 pointer-events-none" />
+      {/* LEFT READABILITY GRADIENT (FADES CLEARLY ACROSS RIGHT IMAGE AREA) */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent z-10 pointer-events-none" />
 
-      {/* BOTTOM DEPTH */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10 pointer-events-none" />
-
-      {/* LIGHT CINEMATIC FADE */}
-      <div className="absolute inset-0 bg-black/10 z-10 pointer-events-none" />
+      {/* SUBTLE BOTTOM CONTROLS VIGNETTE */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent z-10 pointer-events-none" />
     </>
   );
 });

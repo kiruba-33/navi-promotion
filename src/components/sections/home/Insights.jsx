@@ -1,6 +1,9 @@
 import React from "react";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
 
 import ArrowButton from "../../ui/ArrowButton";
 import { blogs } from "../../../data/blogs";
@@ -10,9 +13,10 @@ export default function Insights() {
     <section
       id="insights"
       className="
-        py-20
-        sm:py-24
-        lg:py-32
+        py-16
+        sm:py-20
+        lg:py-24
+        bg-[#F1F5F9]
         relative
         overflow-hidden
       "
@@ -20,16 +24,16 @@ export default function Insights() {
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
         {/* HEADER */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-16 sm:mb-20 lg:mb-24">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12 sm:mb-14 lg:mb-16">
 
           <div
-            className="max-w-3xl"
+            className="max-w-2xl"
           >
 
             <React.Fragment>
 
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-6 shadow-sm select-none">
-                <BookOpen className="w-4 h-4 text-orange-500" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#FFFFFF] text-[#102A56] text-[12px] sm:text-[13px] font-medium leading-[1.4] mb-4 shadow-xs select-none">
+                <BookOpen className="w-4 h-4 text-[#F97316]" aria-hidden="true" focusable="false" />
                 <span>Company Intel</span>
               </div>
 
@@ -37,31 +41,28 @@ export default function Insights() {
 
             <h2
               className="
-                heading-display
-                text-4xl
-                sm:text-5xl
-                md:text-6xl
-                lg:text-7xl
-                heading-primary
-                tracking-tighter
-                sm:leading-[1.1]
-                md:leading-[1.15]
-                lg:leading-[1.15]
+                text-[clamp(1.75rem,2.8vw,2.375rem)]
+                font-semibold
+                text-[#0F172A]
+                tracking-[-0.015em]
+                leading-[1.16]
               "
             >
               Strategic
               <br />
-              <span className="heading-highlight">
-                Insights
-              </span>
+              Insights
             </h2>
 
           </div>
 
           <p
             className="
-              body-large
-              text-slate-600
+              text-[15px]
+              sm:text-[16px]
+              lg:text-[17px]
+              leading-[1.65]
+              font-normal
+              text-[#0F172A]/80
               max-w-md
               lg:text-right
             "
@@ -103,11 +104,15 @@ export default function Insights() {
                     h-full
                     min-h-[320px]
                     sm:min-h-[420px]
-                    rounded-[2rem]
-                    lg:rounded-[3rem]
+                    rounded-2xl
+                    lg:rounded-[20px]
                     overflow-hidden
                     border
-                    border-slate-900/5
+                    border-[#0F172A]/10
+                    shadow-sm
+                    hover:shadow-lg
+                    transition-shadow duration-300
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2
                   ">
 
                   <img
@@ -122,19 +127,19 @@ export default function Insights() {
                     "
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#102A56] via-[#102A56]/55 to-transparent" />
 
                   <div className="absolute inset-0 p-6 sm:p-8 lg:p-10 flex flex-col justify-end">
 
-                    <div className="flex items-center gap-4 mb-5 flex-wrap">
+                    <div className="flex items-center gap-3 mb-4 flex-wrap">
 
-                      <span className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-semibold text-white uppercase tracking-wider">
+                      <span className="px-3 py-1 bg-[#2563EB] border border-white/20 rounded-lg text-[12px] font-medium leading-[1.3] text-[#FFFFFF] uppercase tracking-[0.04em]">
 
                         {post.category}
 
                       </span>
 
-                      <span className="text-[10px] font-medium text-white/70 uppercase tracking-wider">
+                      <span className="text-[12px] font-normal leading-[1.4] text-[#F1F5F9]/85 uppercase tracking-[0.03em]">
 
                         {post.readTime}
 
@@ -146,45 +151,44 @@ export default function Insights() {
                       className={`
                         ${
                           isMain
-                            ? "text-3xl md:text-5xl"
-                            : "text-2xl md:text-3xl"
+                            ? "text-[22px] sm:text-[26px] md:text-[30px] leading-[1.22]"
+                            : "text-[18px] sm:text-[20px] md:text-[22px] leading-[1.28]"
                         }
                         font-semibold
-                        text-white
-                        leading-tight
-                        mb-6
+                        tracking-[-0.01em]
+                        text-[#FFFFFF]
+                        mb-5
                         transition-colors
                         duration-300
-                        group-hover:text-orange-400
+                        group-hover:text-[#F97316]
                       `}
                     >
                       {post.title}
                     </h3>
 
-                    <div className="flex items-center gap-4 text-white font-semibold text-sm">
+                    <div className="flex items-center gap-3.5 text-[#FFFFFF] font-medium text-[14px] sm:text-[15px] leading-[1.4]">
 
                       Read Insights
 
                       <div
                         className="
-                          w-10
-                          h-10
-                          rounded-full
-                          bg-white/10
-                          backdrop-blur-md
+                          w-9
+                          h-9
+                          rounded-lg
+                          bg-[#2563EB]
                           flex
                           items-center
                           justify-center
                           transition-all
                           duration-300
-                          group-hover:bg-orange-500
+                          group-hover:bg-[#F97316]
                         "
                       >
 
                         <ArrowRight
                           className="
-                            w-5
-                            h-5
+                            w-4
+                            h-4
                             transition-transform
                             duration-300
                             group-hover:translate-x-1
@@ -209,11 +213,12 @@ export default function Insights() {
 
         {/* CTA BUTTON */}
 
-        <div className="mt-16 sm:mt-20 flex justify-center">
+        <div className="mt-12 sm:mt-14 flex justify-center">
 
           <ArrowButton
             text="Explore All Insights"
             to="/blog"
+            className="!text-[14px] sm:!text-[15px] !font-medium !py-3.5 !px-6 !rounded-[10px] !bg-[#2563EB] hover:!bg-[#102A56] !shadow-md !shadow-[#2563EB]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] focus-visible:ring-offset-2"
           />
 
         </div>

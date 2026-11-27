@@ -6,29 +6,26 @@ import { teamData } from "../../../data/about";
 
 export default function OurTeam() {
   return (
-    <section className="py-10 sm:py-14 lg:py-16 border-y border-slate-200">
+    <section className="py-14 sm:py-16 lg:py-20 bg-[#FFFFFF] border-y border-[#0F172A]/10">
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-12 lg:mb-14">
           <div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-5 shadow-sm select-none"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#F1F5F9] text-[#102A56] text-[12px] sm:text-[13px] font-medium mb-4 shadow-xs select-none"
           >
-            <Users className="w-4 h-4 text-orange-500" />
+            <Users className="w-4 h-4 text-[#F97316]" aria-hidden="true" />
             <span>Our Team</span>
           </div>
 
           <h2
-            className="heading-section text-3xl sm:text-4xl lg:text-5xl heading-primary mb-4"
+            className="heading-section text-[#0F172A] mb-4"
           >
-            The Minds Behind{" "}
-            <span className="heading-highlight">
-              the Magic
-            </span>
+            The Minds Behind the Magic
           </h2>
 
           <p
-            className="body-large text-slate-600 max-w-2xl mx-auto"
+            className="body-large text-[#0F172A]/80 max-w-2xl mx-auto"
           >
             A collective of passionate experts dedicated to pushing the boundaries of what's possible in the digital world.
           </p>
@@ -42,7 +39,7 @@ export default function OurTeam() {
             sm:grid-cols-2
             lg:grid-cols-4
             gap-6
-            lg:gap-8
+            lg:gap-7
           "
         >
           {teamData.map((member) => {
@@ -73,16 +70,17 @@ export default function OurTeam() {
                     w-full
                     text-left
                     overflow-hidden
-                    rounded-[2rem]
+                    rounded-2xl
                     border
-                    border-slate-200
-                    bg-white
+                    border-[#0F172A]/10
+                    bg-[#FFFFFF]
                     aspect-[3/4]
-                    min-h-[410px]
+                    min-h-[400px]
                     transition-all
-                    duration-350
+                    duration-300
                     ease-out
-                    ${isFounder ? "cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-orange" : ""}
+                    shadow-xs hover:shadow-md
+                    ${isFounder ? "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]" : ""}
                   `}
                 >
                   {/* Image with optimized portrait framing for CEO */}
@@ -99,7 +97,7 @@ export default function OurTeam() {
                     `}
                   />
 
-                  {/* Overlay — tailored bottom-weighted gradient for CEO to keep face 100% visible */}
+                  {/* Deep Navy Overlay */}
                   <div
                     className={`
                       absolute
@@ -107,13 +105,13 @@ export default function OurTeam() {
                       pointer-events-none
                       ${
                         isFounder
-                          ? "bg-gradient-to-t from-black/95 via-black/40 via-35% to-transparent to-70%"
-                          : "bg-gradient-to-t from-black/90 via-black/55 to-transparent"
+                          ? "bg-gradient-to-t from-[#102A56]/95 via-[#102A56]/45 via-35% to-transparent to-70%"
+                          : "bg-gradient-to-t from-[#102A56]/95 via-[#102A56]/55 to-transparent"
                       }
                     `}
                   />
 
-                  {/* Premium Navi Promotions brand gradient overlay on hover */}
+                  {/* Hover Accent Gradient */}
                   <div
                     className="
                       absolute
@@ -121,13 +119,13 @@ export default function OurTeam() {
                       opacity-0
                       group-hover:opacity-100
                       transition-opacity
-                      duration-350
+                      duration-300
                       ease-out
                       pointer-events-none
                     "
                     style={{
                       background:
-                        "linear-gradient(135deg, rgba(11, 61, 145, 0.88), rgba(245, 124, 0, 0.82))",
+                        "linear-gradient(135deg, rgba(16, 42, 86, 0.85), rgba(37, 99, 235, 0.75))",
                     }}
                   />
 
@@ -149,9 +147,7 @@ export default function OurTeam() {
                       <h3
                         className="
                           heading-card
-                          text-xl
-                          sm:text-2xl
-                          text-white
+                          text-[#FFFFFF]
                           mb-1
                         "
                       >
@@ -160,11 +156,11 @@ export default function OurTeam() {
 
                       <p
                         className="
-                          text-brand-orange
+                          text-[#F97316]
                           font-medium
-                          text-xs
-                          sm:text-sm
-                          mb-2.5
+                          text-[12px]
+                          sm:text-[13px]
+                          mb-2
                         "
                       >
                         {member.role}
@@ -172,26 +168,24 @@ export default function OurTeam() {
 
                       <p
                         className="
-                          body-small
-                          text-white/85
-                          text-xs
-                          sm:text-sm
-                          leading-relaxed
+                          text-[#F1F5F9]/85
+                          text-[13px]
+                          leading-[1.5]
                         "
                       >
                         {member.bio}
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-3 mt-4 pt-0.5">
+                    <div className="flex items-center gap-2.5 mt-4 pt-0.5">
                       {isFounder ? (
                         <span
                           className="
-                            text-xs
-                            font-bold
+                            text-[12px]
+                            font-medium
                             uppercase
-                            tracking-[0.15em]
-                            text-brand-orange
+                            tracking-[0.04em]
+                            text-[#F97316]
                           "
                         >
                           Read Full Bio →
@@ -209,25 +203,20 @@ export default function OurTeam() {
                               }
                               className="
                                 flex
-                                h-10
-                                w-10
+                                h-9
+                                w-9
                                 items-center
                                 justify-center
-                                rounded-full
+                                rounded-lg
                                 bg-white/15
                                 border
                                 border-white/25
                                 backdrop-blur-md
-                                text-white
-                                shadow-sm
-                                hover:bg-white
-                                hover:text-[#0b3d91]
-                                hover:border-white
-                                hover:shadow-md
-                                hover:scale-105
-                                active:scale-95
-                                transition-all
-                                duration-300
+                                text-[#FFFFFF]
+                                hover:bg-[#2563EB]
+                                hover:border-[#2563EB]
+                                transition-colors
+                                duration-200
                               "
                             >
                               {/* Direct LinkedIn SVG Icon */}
@@ -263,25 +252,20 @@ export default function OurTeam() {
                               }
                               className="
                                 flex
-                                h-10
-                                w-10
+                                h-9
+                                w-9
                                 items-center
                                 justify-center
-                                rounded-full
+                                rounded-lg
                                 bg-white/15
                                 border
                                 border-white/25
                                 backdrop-blur-md
-                                text-white
-                                shadow-sm
-                                hover:bg-white
-                                hover:text-[#0b3d91]
-                                hover:border-white
-                                hover:shadow-md
-                                hover:scale-105
-                                active:scale-95
-                                transition-all
-                                duration-300
+                                text-[#FFFFFF]
+                                hover:bg-[#2563EB]
+                                hover:border-[#2563EB]
+                                transition-colors
+                                duration-200
                               "
                             >
                               {/* Direct GitHub SVG Icon */}

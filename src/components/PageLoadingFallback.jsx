@@ -18,7 +18,7 @@ export default function PageLoadingFallback() {
       aria-label="Page loading"
       style={{
         minHeight: "100vh",
-        background: "#f5f5f4",
+        background: "#FFFFFF",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -26,7 +26,7 @@ export default function PageLoadingFallback() {
         gap: "24px",
       }}
     >
-      {/* Top progress bar — brand orange, smooth CSS animation */}
+      {/* Top progress bar — approved brand blue & orange accent */}
       <div
         aria-hidden="true"
         style={{
@@ -35,7 +35,7 @@ export default function PageLoadingFallback() {
           left: 0,
           right: 0,
           height: "3px",
-          background: "linear-gradient(90deg, #f97316 0%, #fb923c 60%, #fbbf24 100%)",
+          background: "linear-gradient(90deg, #102A56 0%, #2563EB 65%, #F97316 100%)",
           transformOrigin: "left center",
           animation: "navi-progress 1.4s ease-in-out infinite",
           zIndex: 9999,
@@ -48,7 +48,7 @@ export default function PageLoadingFallback() {
         style={{
           width: "120px",
           height: "32px",
-          background: "linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%)",
+          background: "linear-gradient(90deg, #F1F5F9 25%, #FFFFFF 50%, #F1F5F9 75%)",
           backgroundSize: "200% 100%",
           animation: "navi-shimmer 1.6s ease-in-out infinite",
           borderRadius: "8px",

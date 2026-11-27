@@ -18,7 +18,7 @@ import {
 import { budgetOptions, serviceOptions, timelineOptions } from "../../data/letsTalk";
 
 const inputBase =
-  "w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs sm:text-sm font-medium text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-brand-orange focus:bg-white focus:ring-2 focus:ring-brand-orange/15";
+  "w-full rounded-[10px] border border-[#0F172A]/15 bg-[#F1F5F9] px-3.5 py-2.5 text-[14px] font-normal text-[#0F172A] outline-none transition-all placeholder:text-[#0F172A]/40 focus:border-[#2563EB] focus:bg-[#FFFFFF] focus:ring-2 focus:ring-[#2563EB]/15";
 
 const inputError =
   "border-red-400 bg-red-50 focus:border-red-400 focus:ring-red-400/10";
@@ -28,9 +28,9 @@ function Field({ label, htmlFor, required, error, children }) {
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={htmlFor} className="text-[11px] font-bold uppercase tracking-[0.1em] text-slate-700">
+      <label htmlFor={htmlFor} className="text-[12px] font-medium uppercase tracking-[0.04em] text-[#102A56]">
         {label}
-        {required && <span className="ml-1 text-brand-orange" aria-hidden="true">*</span>}
+        {required && <span className="ml-1 text-[#F97316]" aria-hidden="true">*</span>}
       </label>
       {children}
       {error && (
@@ -147,7 +147,7 @@ export default function BecomeClientModal({ isOpen, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleResetAndClose}
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-[#102A56]/60 backdrop-blur-sm"
           />
 
           {/* Modal Panel */}
@@ -165,25 +165,25 @@ export default function BecomeClientModal({ isOpen, onClose }) {
               flex-col
               overflow-hidden
               rounded-2xl
-              sm:rounded-3xl
-              bg-white
+              bg-[#FFFFFF]
+              border border-[#0F172A]/10
               shadow-2xl
               max-h-[92vh]
             "
           >
             {/* Header */}
-            <div className="flex shrink-0 items-start justify-between border-b border-slate-100 bg-white px-5 sm:px-7 py-4 z-20">
-              <div className="flex-1 min-w-0 pr-3 space-y-0.5">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-orange/30 bg-brand-orange/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand-orange">
-                  <Handshake className="w-3 h-3" />
+            <div className="flex shrink-0 items-start justify-between border-b border-[#0F172A]/10 bg-[#FFFFFF] px-5 sm:px-7 py-4 z-20">
+              <div className="flex-1 min-w-0 pr-3 space-y-1">
+                <span className="inline-flex items-center gap-1.5 rounded-lg border border-[#102A56]/10 bg-[#F1F5F9] px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-[0.04em] text-[#102A56]">
+                  <Handshake className="w-3 h-3 text-[#F97316]" />
                   Partnership Inquiry
                 </span>
 
-                <h2 id="become-client-title" className="heading-card text-xl sm:text-2xl font-bold heading-primary">
-                  Become a <span className="heading-highlight">Client</span>
+                <h2 id="become-client-title" className="heading-card text-xl sm:text-2xl text-[#0F172A]">
+                  Become a Client
                 </h2>
 
-                <p className="text-xs text-slate-500">
+                <p className="text-[13px] text-[#0F172A]/75">
                   Tell us about your project objectives and growth targets.
                 </p>
               </div>
@@ -192,7 +192,7 @@ export default function BecomeClientModal({ isOpen, onClose }) {
               <button
                 type="button"
                 onClick={handleResetAndClose}
-                className="h-8 w-8 flex items-center justify-center rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition-colors shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 cursor-pointer"
+                className="h-9 w-9 flex items-center justify-center rounded-lg bg-[#F1F5F9] hover:bg-[#102A56] text-[#102A56] hover:text-[#FFFFFF] transition-colors shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] cursor-pointer"
                 aria-label="Close modal"
               >
                 <X size={16} strokeWidth={2.2} aria-hidden="true" />
@@ -207,19 +207,19 @@ export default function BecomeClientModal({ isOpen, onClose }) {
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center py-10 text-center"
                 >
-                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-500">
-                    <CheckCircle2 size={36} aria-hidden="true" />
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#F1F5F9] text-[#2563EB] border border-[#2563EB]/20">
+                    <CheckCircle2 size={28} aria-hidden="true" />
                   </div>
-                  <h3 className="heading-card mb-2 text-xl font-bold heading-primary">
+                  <h3 className="heading-card mb-2 text-xl text-[#0F172A]">
                     Thank You, {formData.fullName}!
                   </h3>
-                  <p className="text-sm text-slate-600 max-w-sm">
+                  <p className="text-[14px] text-[#0F172A]/80 max-w-sm leading-[1.6]">
                     Your client inquiry has been submitted successfully. Our business development team will review your requirements and reach out within 24 hours.
                   </p>
                   <button
                     type="button"
                     onClick={handleResetAndClose}
-                    className="mt-6 inline-flex items-center justify-center rounded-xl bg-slate-900 hover:bg-brand-orange text-white px-6 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                    className="mt-6 inline-flex items-center justify-center rounded-[10px] bg-[#2563EB] hover:bg-[#102A56] text-[#FFFFFF] px-6 py-2.5 text-[14px] font-medium transition-colors cursor-pointer"
                   >
                     Close Window
                   </button>
@@ -388,18 +388,16 @@ export default function BecomeClientModal({ isOpen, onClose }) {
                       items-center
                       justify-center
                       gap-2
-                      rounded-xl
-                      bg-slate-900
-                      hover:bg-brand-orange
-                      px-4
-                      py-3
-                      text-xs
-                      sm:text-sm
-                      font-bold
-                      uppercase
-                      tracking-[0.15em]
-                      text-white
-                      transition-all
+                      rounded-[10px]
+                      bg-[#F97316]
+                      hover:bg-[#102A56]
+                      px-5
+                      py-3.5
+                      text-[14px]
+                      sm:text-[15px]
+                      font-medium
+                      text-[#FFFFFF]
+                      transition-colors
                       disabled:cursor-not-allowed
                       disabled:opacity-60
                       cursor-pointer

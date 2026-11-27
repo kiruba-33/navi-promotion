@@ -64,14 +64,15 @@ const PortfolioCard = memo(function PortfolioCard({
         h-[420px]
         sm:h-[450px]
         overflow-hidden
-        rounded-[2rem]
+        rounded-2xl
         border
-        border-slate-200
-        bg-white
+        border-[#0F172A]/10
+        bg-[#FFFFFF]
         cursor-pointer
         transition-all
         duration-300
-        hover:border-orange-500/40
+        hover:border-[#2563EB]/50
+        shadow-xs hover:shadow-md
       "
     >
       <div className="relative h-full w-full overflow-hidden">
@@ -92,43 +93,43 @@ const PortfolioCard = memo(function PortfolioCard({
             "
           />
         ) : (
-          <div className="absolute inset-0 z-0 flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 text-center select-none">
-            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-3 backdrop-blur-sm">
-              <Globe className="w-8 h-8 text-brand-orange/80" />
+          <div className="absolute inset-0 z-0 flex flex-col items-center justify-center bg-[#102A56] p-6 text-center select-none">
+            <div className="w-14 h-14 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center mb-3 backdrop-blur-sm">
+              <Globe className="w-7 h-7 text-[#F97316]" />
             </div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <span className="text-[12px] font-medium uppercase tracking-[0.04em] text-[#F1F5F9]/75">
               Official Web Platform
             </span>
           </div>
         )}
 
-        {/* Custom Premium Dark Overlay Fade (z-10: Behind the text) */}
+        {/* Deep Navy Overlay */}
         <div
           className="
             absolute
             inset-0
             bg-gradient-to-r
-            from-black/75
-            via-black/50
-            to-black/25
+            from-[#102A56]/85
+            via-[#102A56]/55
+            to-[#102A56]/25
             z-10
           "
         />
 
-        {/* Extra Depth Fade Layer (z-10: Behind the text) */}
+        {/* Extra Depth Fade Layer */}
         <div
           className="
             absolute
             inset-0
             bg-gradient-to-t
-            from-black/50
+            from-[#102A56]/85
             via-transparent
-            to-black/20
+            to-[#102A56]/20
             z-10
           "
         />
 
-        {/* Content Panel (z-20: Forcefully on top of overlay layers) */}
+        {/* Content Panel */}
         <div
           className="
             absolute
@@ -138,7 +139,7 @@ const PortfolioCard = memo(function PortfolioCard({
             flex-col
             justify-between
             p-6
-            sm:p-8
+            sm:p-7
           "
         >
           {/* Top Row: Service Tag & Action Arrow / Preview */}
@@ -146,15 +147,16 @@ const PortfolioCard = memo(function PortfolioCard({
             <span
               className="
                 inline-block
-                rounded-full
-                bg-white/20
-                px-3.5
-                py-1.5
-                text-[10px]
-                font-semibold
+                rounded-lg
+                bg-[#102A56]/75
+                border border-white/20
+                px-3
+                py-1
+                text-[11px]
+                font-medium
                 uppercase
-                tracking-wider
-                text-white
+                tracking-[0.04em]
+                text-[#F1F5F9]
                 backdrop-blur-md
               "
             >
@@ -170,18 +172,17 @@ const PortfolioCard = memo(function PortfolioCard({
                     inline-flex
                     items-center
                     gap-1.5
-                    rounded-full
-                    bg-white/90
-                    hover:bg-brand-orange
-                    text-slate-900
-                    hover:text-white
-                    px-3.5
+                    rounded-lg
+                    bg-[#FFFFFF]
+                    hover:bg-[#F97316]
+                    text-[#102A56]
+                    hover:text-[#FFFFFF]
+                    px-3
                     py-1.5
-                    text-[11px]
-                    font-bold
-                    shadow-md
-                    backdrop-blur-md
-                    transition-all
+                    text-[12px]
+                    font-medium
+                    shadow-sm
+                    transition-colors
                     cursor-pointer
                   "
                   title="Open live preview in new tab"
@@ -191,28 +192,27 @@ const PortfolioCard = memo(function PortfolioCard({
                 </button>
               )}
 
-              {/* Action Circle Container */}
+              {/* Action Icon Container */}
               <div
                 className="
                   flex
                   h-10
                   w-10
-                  sm:h-11
-                  sm:w-11
                   shrink-0
                   items-center
                   justify-center
-                  rounded-full
-                  bg-brand-orange
-                  text-white
+                  rounded-lg
+                  bg-[#2563EB]
+                  group-hover:bg-[#F97316]
+                  text-[#FFFFFF]
                   opacity-100
                   lg:opacity-0
                   transition-all
-                  duration-500
+                  duration-300
                   lg:group-hover:opacity-100
                 "
               >
-                <ArrowUpRight size={20} />
+                <ArrowUpRight size={18} />
               </div>
             </div>
           </div>
@@ -222,14 +222,13 @@ const PortfolioCard = memo(function PortfolioCard({
             {/* Title Section */}
             <h3
               className="
-                heading-card
                 mb-3
-                text-2xl
-                sm:text-3xl
-                font-bold
-                text-white
-                drop-shadow-sm
-                leading-tight
+                text-[20px]
+                sm:text-[22px]
+                font-semibold
+                text-[#FFFFFF]
+                leading-[1.25]
+                tracking-[-0.005em]
                 break-words
                 line-clamp-2
               "
@@ -257,22 +256,23 @@ const PortfolioCard = memo(function PortfolioCard({
                   onClick={prevSlide}
                   className="
                     flex
-                    h-9
-                    w-9
+                    h-8
+                    w-8
                     items-center
                     justify-center
-                    rounded-full
-                    bg-white/20
+                    rounded-lg
+                    bg-[#102A56]/70
+                    border border-white/20
                     backdrop-blur-md
-                    text-white
-                    hover:bg-white/40
-                    hover:scale-105
-                    transition-all
-                    duration-300
+                    text-[#FFFFFF]
+                    hover:bg-[#2563EB]
+                    transition-colors
+                    duration-200
+                    cursor-pointer
                   "
                   aria-label="Previous image"
                 >
-                  <ChevronLeft size={18} aria-hidden="true" focusable="false" />
+                  <ChevronLeft size={16} aria-hidden="true" focusable="false" />
                 </button>
 
                 <button
@@ -280,22 +280,23 @@ const PortfolioCard = memo(function PortfolioCard({
                   onClick={nextSlide}
                   className="
                     flex
-                    h-9
-                    w-9
+                    h-8
+                    w-8
                     items-center
                     justify-center
-                    rounded-full
-                    bg-white/20
+                    rounded-lg
+                    bg-[#102A56]/70
+                    border border-white/20
                     backdrop-blur-md
-                    text-white
-                    hover:bg-white/40
-                    hover:scale-105
-                    transition-all
-                    duration-300
+                    text-[#FFFFFF]
+                    hover:bg-[#2563EB]
+                    transition-colors
+                    duration-200
+                    cursor-pointer
                   "
                   aria-label="Next image"
                 >
-                  <ChevronRight size={18} aria-hidden="true" focusable="false" />
+                  <ChevronRight size={16} aria-hidden="true" focusable="false" />
                 </button>
               </div>
             ) : null}
@@ -312,12 +313,11 @@ const PortfolioCard = memo(function PortfolioCard({
             >
               <p
                 className="
-                  text-xs
+                  text-[12px]
                   uppercase
-                  tracking-wider
-                  text-white/90
-                  font-semibold
-                  drop-shadow-sm
+                  tracking-[0.04em]
+                  text-[#F1F5F9]/85
+                  font-medium
                 "
               >
                 {item.category}
@@ -325,11 +325,10 @@ const PortfolioCard = memo(function PortfolioCard({
 
               <span
                 className="
-                  text-sm
-                  sm:text-base
-                  font-bold
-                  text-white
-                  drop-shadow-sm
+                  text-[13px]
+                  sm:text-[14px]
+                  font-semibold
+                  text-[#F97316]
                   whitespace-nowrap
                 "
               >

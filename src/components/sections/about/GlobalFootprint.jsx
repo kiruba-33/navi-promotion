@@ -9,74 +9,74 @@ export default function GlobalFootprint() {
   return (
     <section
       id="global-footprint"
-      className="relative overflow-hidden border-y border-slate-200 py-10 sm:py-14 lg:py-16 bg-slate-50/60"
+      className="relative overflow-hidden border-y border-[#0F172A]/10 py-14 sm:py-16 lg:py-20 bg-[#F1F5F9]"
     >
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
           
           {/* Left Column (5 cols) */}
           <div className="lg:col-span-5">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-800 text-sm font-semibold mb-5 shadow-sm select-none">
-              <Globe className="w-4 h-4 text-orange-500" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-[#102A56]/10 bg-[#FFFFFF] text-[#102A56] text-[12px] sm:text-[13px] font-medium mb-4 shadow-xs select-none">
+              <Globe className="w-4 h-4 text-[#F97316]" aria-hidden="true" />
               <span>Global Presence</span>
             </div>
 
-            <h2 className="heading-section text-3xl sm:text-4xl lg:text-5xl heading-primary mb-5">
-              Bridging <span className="heading-highlight">Market Borders</span>
+            <h2 className="heading-section text-[#0F172A] mb-4">
+              Bridging Market Borders
             </h2>
 
-            <p className="body-large text-slate-600 mb-8 max-w-lg leading-relaxed">
+            <p className="body-large text-[#0F172A]/80 mb-8 max-w-lg">
               From our founding roots in Theni, Tamil Nadu to our international operations center in Singapore, we deliver digital excellence across borders.
             </p>
 
             {/* Location Selector Cards */}
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               {locationsData.map((loc) => {
                 const isSelected = selectedLoc?.id === loc.id;
                 return (
                   <button
                     key={loc.id}
                     onClick={() => setSelectedLoc(loc)}
-                    className={`w-full rounded-2xl border p-5 text-left transition-all duration-300 cursor-pointer shadow-xs ${
+                    className={`w-full rounded-2xl border p-5 text-left transition-all duration-200 cursor-pointer shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB] ${
                       isSelected
-                        ? "bg-slate-900 border-slate-900 shadow-md text-white"
-                        : "bg-white border-slate-200 hover:border-orange-500/40 text-slate-900"
+                        ? "bg-[#102A56] border-[#102A56] shadow-md text-[#FFFFFF]"
+                        : "bg-[#FFFFFF] border-[#0F172A]/10 hover:border-[#2563EB]/40 text-[#102A56]"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3.5">
                         <div
-                          className={`flex h-11 w-11 items-center justify-center rounded-xl transition-colors ${
+                          className={`flex h-10 w-10 items-center justify-center rounded-xl transition-colors shrink-0 ${
                             isSelected
-                              ? "bg-brand-orange text-white"
-                              : "bg-orange-50 text-orange-600"
+                              ? "bg-[#2563EB] text-[#FFFFFF]"
+                              : "bg-[#F1F5F9] text-[#2563EB]"
                           }`}
                         >
                           <MapPin className="h-5 w-5" aria-hidden="true" focusable="false" />
                         </div>
 
                         <div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <h4
-                              className={`font-semibold text-base sm:text-lg ${
-                                isSelected ? "text-white" : "text-slate-900"
+                              className={`font-semibold text-[16px] sm:text-[17px] leading-[1.3] ${
+                                isSelected ? "text-[#FFFFFF]" : "text-[#0F172A]"
                               }`}
                             >
                               {loc.city}, {loc.country}
                             </h4>
                             <span
-                              className={`text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                              className={`text-[11px] font-medium uppercase tracking-[0.04em] px-2 py-0.5 rounded-md ${
                                 isSelected
-                                  ? "bg-white/10 text-orange-400"
-                                  : "bg-slate-100 text-slate-600"
+                                  ? "bg-white/10 text-[#F97316]"
+                                  : "bg-[#F1F5F9] text-[#0F172A]/75"
                               }`}
                             >
                               {loc.type}
                             </span>
                           </div>
                           <p
-                            className={`text-xs font-normal mt-0.5 ${
-                              isSelected ? "text-slate-300" : "text-slate-500"
+                            className={`text-[12px] font-normal mt-0.5 ${
+                              isSelected ? "text-[#F1F5F9]/80" : "text-[#0F172A]/65"
                             }`}
                           >
                             {loc.region}
@@ -84,15 +84,15 @@ export default function GlobalFootprint() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs font-semibold text-orange-400">
+                      <div className="flex items-center shrink-0">
+                        <span className={`text-[12px] font-medium ${isSelected ? "text-[#F97316]" : "text-[#2563EB]"}`}>
                           {loc.stats.clients} Clients
                         </span>
                       </div>
                     </div>
 
                     {isSelected && (
-                      <p className="mt-3 pt-3 border-t border-white/10 text-xs text-slate-300 leading-relaxed font-normal">
+                      <p className="mt-3 pt-3 border-t border-white/15 text-[13px] text-[#F1F5F9]/85 leading-[1.55] font-normal">
                         {loc.description}
                       </p>
                     )}
@@ -104,22 +104,22 @@ export default function GlobalFootprint() {
 
           {/* Right Column: High-Contrast Clear Visual World Map (7 cols) */}
           <div className="lg:col-span-7">
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white p-6 sm:p-8 shadow-xl">
+            <div className="relative overflow-hidden rounded-2xl border border-[#0F172A]/10 bg-[#FFFFFF] p-5 sm:p-7 shadow-md">
               
               {/* Map Title Bar */}
-              <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-700 tracking-wider uppercase">
-                  <Compass className="w-4 h-4 text-orange-500" />
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#0F172A]/10">
+                <div className="flex items-center gap-2 text-[12px] font-medium text-[#102A56] tracking-[0.04em] uppercase">
+                  <Compass className="w-4 h-4 text-[#F97316]" aria-hidden="true" />
                   <span>Strategic Corridors · India to Singapore</span>
                 </div>
-                <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-500">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <div className="flex items-center gap-2 text-[12px] font-medium text-[#0F172A]/65">
+                  <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
                   <span>Active Hubs</span>
                 </div>
               </div>
 
               {/* Vector Geographic Canvas */}
-              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] bg-gradient-to-br from-slate-50 to-orange-50/20 rounded-2xl overflow-hidden border border-slate-100 p-2 sm:p-4">
+              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] bg-[#F1F5F9]/75 rounded-xl overflow-hidden border border-[#0F172A]/10 p-2 sm:p-4">
                 
                 {/* SVG Clear World Map Silhouettes & Grid */}
                 <svg
@@ -211,30 +211,30 @@ export default function GlobalFootprint() {
                 {/* Overlaid Prominent Badges */}
                 {/* Theni Label */}
                 <div className="absolute top-[62%] left-[53%] -translate-x-1/2 -translate-y-full pointer-events-none">
-                  <div className="px-2.5 py-1 rounded-lg bg-slate-900/90 text-white text-[11px] font-bold shadow-lg border border-orange-500/40 flex items-center gap-1.5 whitespace-nowrap">
-                    <span className="w-2 h-2 rounded-full bg-orange-500" />
+                  <div className="px-2.5 py-1 rounded-lg bg-[#102A56] text-[#FFFFFF] text-[11px] font-medium shadow-md border border-[#F97316]/50 flex items-center gap-1.5 whitespace-nowrap">
+                    <span className="w-2 h-2 rounded-full bg-[#F97316]" />
                     <span>Theni, India (HQ)</span>
                   </div>
                 </div>
 
                 {/* Singapore Label */}
                 <div className="absolute top-[78%] left-[72%] -translate-x-1/2 -translate-y-full pointer-events-none">
-                  <div className="px-2.5 py-1 rounded-lg bg-slate-900/90 text-white text-[11px] font-bold shadow-lg border border-slate-700 flex items-center gap-1.5 whitespace-nowrap">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <div className="px-2.5 py-1 rounded-lg bg-[#102A56] text-[#FFFFFF] text-[11px] font-medium shadow-md border border-[#2563EB]/50 flex items-center gap-1.5 whitespace-nowrap">
+                    <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
                     <span>Singapore (Global Ops)</span>
                   </div>
                 </div>
               </div>
 
               {/* Map Metric Summary Bar */}
-              <div className="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-4 text-center">
-                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Primary Engineering</p>
-                  <p className="text-sm font-bold text-slate-900">Theni, Tamil Nadu · 80+ Clients</p>
+              <div className="mt-4 pt-3 border-t border-[#0F172A]/10 grid grid-cols-2 gap-4 text-center">
+                <div className="p-3 rounded-xl bg-[#F1F5F9] border border-[#0F172A]/10">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.04em] text-[#0F172A]/65">Primary Engineering</p>
+                  <p className="text-[13px] sm:text-[14px] font-semibold text-[#102A56] mt-0.5">Theni, Tamil Nadu · 80+ Clients</p>
                 </div>
-                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">APAC Enterprise</p>
-                  <p className="text-sm font-bold text-slate-900">Singapore Hub · 25+ Clients</p>
+                <div className="p-3 rounded-xl bg-[#F1F5F9] border border-[#0F172A]/10">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.04em] text-[#0F172A]/65">APAC Enterprise</p>
+                  <p className="text-[13px] sm:text-[14px] font-semibold text-[#102A56] mt-0.5">Singapore Hub · 25+ Clients</p>
                 </div>
               </div>
 

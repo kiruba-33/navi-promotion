@@ -25,7 +25,7 @@ export default function AboutPage() {
         />
       </Helmet>
 
-      <main className="bg-slate-50">
+      <main className="bg-white">
         {/* Render clean and isolated code segment here */}
         <AboutHero
           badge={aboutHeroData.badge}

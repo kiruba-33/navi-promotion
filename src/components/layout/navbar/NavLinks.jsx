@@ -48,14 +48,14 @@ const NavLinks = ({ isScrolled }) => {
       {/* HOME — no prefetch needed (eagerly loaded) */}
       <Link
         to="/"
-        className={`text-[13px] lg:text-sm font-semibold transition-colors duration-200 whitespace-nowrap ${
+        className={`text-[14px] lg:text-[15px] font-medium transition-colors duration-200 whitespace-nowrap rounded-md px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] ${
           isRouteActive("/")
             ? isScrolled
-              ? "text-blue-600"
-              : "text-blue-400"
+              ? "text-[#F97316] font-semibold"
+              : "text-[#FFFFFF] font-semibold underline decoration-[#F97316] decoration-2 underline-offset-8"
             : isScrolled
-            ? "text-slate-800 hover:text-blue-600"
-            : "text-white hover:text-blue-400"
+            ? "text-[#0F172A] hover:text-[#F97316]"
+            : "text-[#F1F5F9] hover:text-[#FFFFFF]"
         }`}
       >
         Home
@@ -86,14 +86,14 @@ const NavLinks = ({ isScrolled }) => {
             to={link.href}
             onMouseEnter={() => prefetchRoute(link.href)}
             onFocus={() => prefetchRoute(link.href)}
-            className={`text-[13px] lg:text-sm font-semibold transition-colors duration-200 whitespace-nowrap ${
+            className={`text-[14px] lg:text-[15px] font-medium transition-colors duration-200 whitespace-nowrap rounded-md px-1 py-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] ${
               active
                 ? isScrolled
-                  ? "text-blue-600"
-                  : "text-blue-400"
+                  ? "text-[#F97316] font-semibold"
+                  : "text-[#FFFFFF] font-semibold underline decoration-[#F97316] decoration-2 underline-offset-8"
                 : isScrolled
-                ? "text-slate-800 hover:text-blue-600"
-                : "text-white hover:text-blue-400"
+                ? "text-[#0F172A] hover:text-[#F97316]"
+                : "text-[#F1F5F9] hover:text-[#FFFFFF]"
             }`}
           >
             {link.name}

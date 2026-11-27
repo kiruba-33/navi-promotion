@@ -1,12 +1,19 @@
 import React, { useState, useMemo, Suspense, lazy } from "react";
-import { ArrowRight, MapPin, Briefcase, Clock3, IndianRupee, Filter } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, MapPin, Briefcase, Clock3, IndianRupee } from "lucide-react";
 import { careersJobsData } from "../../../data/careersJobsData";
+import { useHeroScrollAnimation } from "../../../hooks/useHeroScrollAnimation";
 
 const ApplyNowModal = lazy(() => import("./ApplyNowModal"));
 
 export default function OpenPositions() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
+  const { containerRef, yText, opacityHero } = useHeroScrollAnimation({
+    yDesktop: 90,
+    yMobile: 35,
+    fadeEnd: 0.75,
+  });
 
   const filteredJobs = useMemo(() => {
     if (activeFilter === "full-time") {
@@ -29,39 +36,43 @@ export default function OpenPositions() {
       >
         {/* Subtle background glow */}
         <div
-          className="pointer-events-none absolute -top-40 right-1/4 h-96 w-96 rounded-full bg-brand-orange/5 blur-3xl"
+          className="pointer-events-none absolute -top-40 right-1/4 h-96 w-96 rounded-full bg-[#2563EB]/5 blur-3xl"
           aria-hidden="true"
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 sm:mb-14">
+          <div ref={containerRef} className="overflow-hidden mb-10 sm:mb-14">
+            <motion.div
+              style={{ y: yText, opacity: opacityHero }}
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+            >
             <div className="max-w-3xl">
-              <span className="inline-flex items-center gap-2 rounded-full border border-brand-orange/20 bg-brand-orange/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.15em] text-brand-orange">
-                <Briefcase className="w-3.5 h-3.5" aria-hidden="true" />
+              <span className="inline-flex items-center gap-2 rounded-lg border border-[#2563EB]/20 bg-[#F1F5F9] px-3.5 py-1.5 text-[12px] font-medium uppercase tracking-[0.14em] text-[#2563EB]">
+                <Briefcase className="w-3.5 h-3.5 text-[#F97316]" aria-hidden="true" />
                 Careers at Navi
               </span>
 
-              <h1 className="heading-section mt-4 text-3xl sm:text-4xl lg:text-5xl heading-primary font-semibold">
+              <h1 className="heading-section mt-4 text-[clamp(1.875rem,3.4vw,3rem)] leading-[1.12] tracking-[-0.025em] text-[#0F172A] font-semibold">
                 Opening
-                <span className="block heading-highlight">Positions</span>
+                <span className="block">Positions</span>
               </h1>
 
-              <p className="body-large mt-4 text-slate-600 max-w-2xl text-base sm:text-lg leading-relaxed font-normal">
+              <p className="body-large mt-4 text-[#0F172A]/80 max-w-2xl text-[15px] sm:text-[17px] leading-[1.65] font-normal">
                 Explore open opportunities to work with a team focused on creativity, technology,
                 and measurable business growth in Theni, Tamil Nadu.
               </p>
             </div>
 
-            {/* Filter Pills */}
+            {/* Filter Controls */}
             <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
               <button
                 type="button"
                 onClick={() => setActiveFilter("all")}
-                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-[10px] text-[13px] font-medium transition-all cursor-pointer ${
                   activeFilter === "all"
-                    ? "bg-slate-900 text-white shadow-sm"
-                    : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                    ? "bg-[#2563EB] text-white shadow-sm"
+                    : "bg-[#F1F5F9] hover:bg-slate-200/80 text-[#102A56]"
                 }`}
               >
                 All Roles ({careersJobsData.length})
@@ -69,10 +80,10 @@ export default function OpenPositions() {
               <button
                 type="button"
                 onClick={() => setActiveFilter("full-time")}
-                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-[10px] text-[13px] font-medium transition-all cursor-pointer ${
                   activeFilter === "full-time"
-                    ? "bg-slate-900 text-white shadow-sm"
-                    : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                    ? "bg-[#2563EB] text-white shadow-sm"
+                    : "bg-[#F1F5F9] hover:bg-slate-200/80 text-[#102A56]"
                 }`}
               >
                 Full Time ({fullTimeCount})
@@ -80,19 +91,20 @@ export default function OpenPositions() {
               <button
                 type="button"
                 onClick={() => setActiveFilter("internship")}
-                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-[10px] text-[13px] font-medium transition-all cursor-pointer ${
                   activeFilter === "internship"
-                    ? "bg-slate-900 text-white shadow-sm"
-                    : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                    ? "bg-[#2563EB] text-white shadow-sm"
+                    : "bg-[#F1F5F9] hover:bg-slate-200/80 text-[#102A56]"
                 }`}
               >
                 Internships ({internshipCount})
               </button>
             </div>
+            </motion.div>
           </div>
 
           {/* Jobs Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-7">
             {filteredJobs.map((job) => {
               const isInternship = job.type === "Internship";
 
@@ -102,14 +114,15 @@ export default function OpenPositions() {
                   className="
                     group
                     relative
-                    rounded-3xl
+                    rounded-2xl
                     border
                     border-slate-200
                     bg-white
                     p-6
-                    sm:p-8
+                    sm:p-7
                     shadow-xs
-                    hover:border-brand-orange/40
+                    hover:border-[#2563EB]/40
+                    hover:shadow-md
                     transition-all
                     duration-300
                     flex
@@ -122,46 +135,46 @@ export default function OpenPositions() {
                     <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                       <div className="flex flex-wrap items-center gap-2">
                         {isInternship ? (
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-xs font-bold text-amber-800">
-                            <Clock3 className="w-3.5 h-3.5 text-amber-600" />
-                            INTERNSHIP
+                          <span className="inline-flex items-center gap-1.5 rounded-lg border border-[#F97316]/30 bg-[#F97316]/10 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-[#F97316]">
+                            <Clock3 className="w-3.5 h-3.5" />
+                            Internship
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-xs font-bold text-slate-800">
-                            <Clock3 className="w-3.5 h-3.5 text-slate-500" />
-                            FULL TIME
+                          <span className="inline-flex items-center gap-1.5 rounded-lg border border-[#2563EB]/20 bg-[#F1F5F9] px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-[#102A56]">
+                            <Clock3 className="w-3.5 h-3.5 text-[#2563EB]" />
+                            Full Time
                           </span>
                         )}
 
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-                          <Briefcase className="w-3.5 h-3.5 text-slate-500" />
+                        <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#F1F5F9] px-3 py-1 text-xs font-medium text-[#0F172A]/75">
+                          <Briefcase className="w-3.5 h-3.5 text-[#2563EB]" />
                           {job.experience}
                         </span>
                       </div>
 
-                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-                        <MapPin className="w-3.5 h-3.5 text-brand-orange" />
+                      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#0F172A]/65">
+                        <MapPin className="w-3.5 h-3.5 text-[#F97316]" />
                         {job.location}
                       </span>
                     </div>
 
                     {/* Job Title */}
-                    <h2 className="heading-card text-xl sm:text-2xl font-semibold text-slate-900 group-hover:text-brand-orange transition-colors duration-200 mb-3">
+                    <h2 className="heading-card text-[20px] sm:text-[22px] font-semibold leading-[1.25] text-[#0F172A] group-hover:text-[#2563EB] transition-colors duration-200 mb-3">
                       {job.title}
                     </h2>
 
                     {/* Salary & Payment Details Badge */}
                     <div className="mb-4">
                       {isInternship ? (
-                        <div className="inline-flex items-center gap-1.5 rounded-xl bg-amber-50 border border-amber-200 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-amber-900">
-                          <IndianRupee className="w-3.5 h-3.5 text-amber-600" />
+                        <div className="inline-flex items-center gap-1.5 rounded-lg bg-[#F97316]/10 border border-[#F97316]/25 px-3.5 py-1.5 text-xs sm:text-sm font-medium text-[#102A56]">
+                          <IndianRupee className="w-3.5 h-3.5 text-[#F97316]" />
                           <span>
                             {job.internshipPayment}: ₹{job.salary} / month
                           </span>
                         </div>
                       ) : (
-                        <div className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-emerald-900">
-                          <IndianRupee className="w-3.5 h-3.5 text-emerald-600" />
+                        <div className="inline-flex items-center gap-1.5 rounded-lg bg-[#F1F5F9] border border-[#2563EB]/20 px-3.5 py-1.5 text-xs sm:text-sm font-medium text-[#102A56]">
+                          <IndianRupee className="w-3.5 h-3.5 text-[#2563EB]" />
                           <span>
                             Salary: ₹{job.salary} / month
                           </span>
@@ -170,7 +183,7 @@ export default function OpenPositions() {
                     </div>
 
                     {/* Description */}
-                    <p className="text-sm sm:text-base leading-relaxed text-slate-600 mb-5 font-normal">
+                    <p className="text-[14px] sm:text-[15px] leading-[1.6] text-[#0F172A]/75 mb-5 font-normal">
                       {job.description}
                     </p>
 
@@ -180,7 +193,7 @@ export default function OpenPositions() {
                         {job.highlights.map((tag) => (
                           <span
                             key={tag}
-                            className="inline-block text-[11px] font-medium px-2.5 py-1 rounded-md bg-slate-100 text-slate-600"
+                            className="inline-block text-[12px] font-medium px-2.5 py-1 rounded-md bg-[#F1F5F9] text-[#0F172A]/75"
                           >
                             {tag}
                           </span>
@@ -190,7 +203,7 @@ export default function OpenPositions() {
                   </div>
 
                   {/* Apply Action Button */}
-                  <div className="pt-4 border-t border-slate-100">
+                  <div className="pt-4 border-t border-[#F1F5F9]">
                     <button
                       type="button"
                       onClick={() => setSelectedJob(job)}
@@ -198,17 +211,14 @@ export default function OpenPositions() {
                         inline-flex
                         items-center
                         gap-2
-                        rounded-xl
-                        bg-slate-900
-                        hover:bg-brand-orange
+                        rounded-[10px]
+                        bg-[#2563EB]
+                        hover:bg-[#102A56]
                         text-white
                         px-5
                         py-2.5
-                        sm:py-3
-                        text-xs
-                        font-semibold
-                        uppercase
-                        tracking-wider
+                        text-[14px]
+                        font-medium
                         transition-all
                         duration-200
                         cursor-pointer

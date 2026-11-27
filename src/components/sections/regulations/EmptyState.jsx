@@ -24,21 +24,22 @@ export default function EmptyState({
         <div
           className="
             mx-auto
-            mb-8
+            mb-6
             flex
-            h-20
-            w-20
+            h-16
+            w-16
             items-center
             justify-center
-            rounded-full
-            bg-slate-100
+            rounded-2xl
+            bg-[#FFFFFF]
+            border border-[#0F172A]/10
           "
         >
           <Search
             className="
-              h-8
-              w-8
-              text-orange-500
+              h-7
+              w-7
+              text-[#2563EB]
             "
            aria-hidden="true" focusable="false" />
         </div>
@@ -46,10 +47,8 @@ export default function EmptyState({
         <h2
           className="
             heading-section
-            mb-4
-            text-3xl
-            sm:text-4xl
-            text-slate-900
+            mb-3
+            text-[#0F172A]
           "
         >
           No Documents Found
@@ -58,8 +57,8 @@ export default function EmptyState({
         <p
           className="
             body-large
-            mb-10
-            text-slate-500
+            mb-8
+            text-[#0F172A]/75
           "
         >
           Try adjusting your search keywords
@@ -72,18 +71,16 @@ export default function EmptyState({
             setActiveCategory("all");
           }}
           className="
-            rounded-2xl
-            bg-slate-900
-            px-8
-            py-4
-            text-xs
-            font-bold
-            uppercase
-            tracking-[0.2em]
-            text-white
-            transition-all
-            hover:bg-orange-500
-            hover:text-slate-900
+            rounded-[10px]
+            bg-[#2563EB]
+            px-6
+            py-3.5
+            text-[14px]
+            font-medium
+            text-[#FFFFFF]
+            transition-colors
+            hover:bg-[#102A56]
+            cursor-pointer
           "
         >
           Reset Filters

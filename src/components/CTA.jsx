@@ -9,30 +9,18 @@ export default function CTA() {
       className="
         relative
         overflow-hidden
-        py-20
-        sm:py-24
-        lg:py-32
+        bg-[#F1F5F9]
+        border-t border-[#0F172A]/10
+        py-14
+        sm:py-16
+        lg:py-20
       "
     >
-      {/* BACKGROUND */}
-
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage:
-            "radial-gradient(#ffffff15 1px, transparent 1px)",
-          backgroundSize: "30px 30px",
-        }}
-      />
-
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50/80 pointer-events-none" />
-
-
       <div
         className="
           relative
           z-10
-          max-w-5xl
+          max-w-4xl
           mx-auto
           px-5
           sm:px-6
@@ -41,43 +29,26 @@ export default function CTA() {
         "
       >
         {/* HEADING */}
-
         <h2
           className="
-            heading-display
-            text-4xl
-            sm:text-5xl
-            md:text-6xl
-            lg:text-7xl
-            heading-primary
-            mb-8
-
-            sm:leading-[1.1]
-            md:leading-[1.15]
-            lg:leading-[1.15]
+            heading-section
+            text-[#0F172A]
+            mb-5
           "
         >
           Ready to Grow
           <br className="hidden md:block" />
-
-          Your Business With
-
-          <br />
-
-          <span className="heading-highlight">
-            Strategic Marketing?
-          </span>
+          {" "}Your Business With Strategic Marketing?
         </h2>
 
         {/* DESCRIPTION */}
-
         <p
           className="
             body-large
-            text-slate-600
-            max-w-3xl
+            text-[#0F172A]/80
+            max-w-2xl
             mx-auto
-            mb-12
+            mb-9
           "
         >
           Partner with Navi Promotions to build a
@@ -87,7 +58,6 @@ export default function CTA() {
         </p>
 
         {/* BUTTONS */}
-
         <div
           className="
             flex
@@ -95,12 +65,14 @@ export default function CTA() {
             sm:flex-row
             items-center
             justify-center
-            gap-5
+            gap-4
           "
         >
           <ArrowButton
             text="Book Strategy Consultation"
             to="/contact"
+            variant="orange"
+            className="w-full sm:w-auto justify-center"
           />
 
           <a
@@ -112,37 +84,36 @@ export default function CTA() {
               items-center
               justify-center
               gap-3
-
-              min-w-[260px]
-              sm:min-w-[320px]
-
-              px-8
-              py-4
-
-              rounded-[1.75rem]
-
-              bg-white
+              w-full
+              sm:w-auto
+              min-w-[240px]
+              px-6
+              py-3.5
+              rounded-[10px]
+              bg-[#FFFFFF]
               border
-              border-slate-200
-
-              text-slate-900
-              font-bold
-
-              transition-all
-              duration-300
-
-              hover:border-orange-500
-              hover:text-orange-500
+              border-[#102A56]/20
+              text-[14px]
+              sm:text-[15px]
+              text-[#102A56]
+              font-medium
+              leading-[1.3]
+              transition-colors
+              duration-200
+              hover:border-[#F97316]
+              hover:text-[#F97316]
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F97316] focus-visible:ring-offset-2
             "
           >
             <MessageCircle
               className="
                 w-5
                 h-5
-                text-[#25D366]
+                text-[#F97316]
               "
+              aria-hidden="true"
+              focusable="false"
             />
-
             Chat On WhatsApp
           </a>
         </div>

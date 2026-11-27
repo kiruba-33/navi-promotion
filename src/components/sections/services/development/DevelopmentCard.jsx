@@ -17,10 +17,16 @@ export default function DevelopmentCard({
         group
         relative
         block
-        h-[440px]
-        md:h-[480px]
-        rounded-[2rem]
+        h-[420px]
+        md:h-[460px]
+        rounded-2xl
         overflow-hidden
+        border
+        border-slate-200/80
+        shadow-md
+        hover:shadow-xl
+        transition-shadow
+        duration-300
       ">
       {/* Image */}
       <img
@@ -32,6 +38,9 @@ export default function DevelopmentCard({
           w-full
           h-full
           object-cover
+          transition-transform
+          duration-500
+          group-hover:scale-[1.03]
         "
       />
 
@@ -43,9 +52,9 @@ export default function DevelopmentCard({
           absolute
           inset-0
           bg-gradient-to-r
-          from-black/65
-          via-black/40
-          to-black/20
+          from-[#102A56]/90
+          via-[#102A56]/70
+          to-[#102A56]/35
         "
       />
 
@@ -54,9 +63,9 @@ export default function DevelopmentCard({
           absolute
           inset-0
           bg-gradient-to-t
-          from-black/30
+          from-[#102A56]/80
           via-transparent
-          to-black/10
+          to-[#102A56]/20
         "
       />
 
@@ -80,17 +89,19 @@ export default function DevelopmentCard({
 </div>
 
         {/* Fixed Content Area */}
-        <div className="min-h-[170px]">
+        <div className="min-h-[160px]">
           <h3
             className="
               heading-card
 
-              text-2xl
-              md:text-3xl
+              text-[22px]
+              md:text-[26px]
+              font-semibold
+              leading-[1.2]
 
               text-white
 
-              mb-4
+              mb-3
             "
           >
             {service.title}
@@ -101,11 +112,11 @@ export default function DevelopmentCard({
             <p
               className="
                 text-sm
-                md:text-base
+                md:text-[15px]
 
-                text-white/90
+                text-[#F1F5F9]/90
 
-                leading-relaxed
+                leading-[1.6]
 
                 mb-4
               "
@@ -122,12 +133,12 @@ export default function DevelopmentCard({
                     py-1
 
                     text-xs
-                    font-semibold
+                    font-medium
 
-                    rounded-full
+                    rounded-lg
 
-                    bg-white/70
-                    backdrop-blur-md
+                    bg-white/95
+                    text-[#102A56]
                   "
                 >
                   {feature}

@@ -26,10 +26,9 @@ export default function BlogSearch({
           max-w-2xl
           mx-auto
           bg-white
-          p-4
-          rounded-[2rem]
-          lg:rounded-[2.5rem]
-          shadow-xl
+          p-3.5
+          rounded-2xl
+          shadow-lg
           border
           border-slate-200
         "
@@ -39,12 +38,12 @@ export default function BlogSearch({
           <Search
             className="
               absolute
-              left-5
+              left-4
               top-1/2
               -translate-y-1/2
               w-5
               h-5
-              text-slate-400
+              text-[#2563EB]
             "
            aria-hidden="true" focusable="false" />
 
@@ -57,21 +56,20 @@ export default function BlogSearch({
             placeholder="Search articles, trends, insights..."
             className="
               w-full
-              h-14
-              sm:h-16
-              rounded-2xl
-              bg-slate-50
-              border-none
-              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange
-              pl-14
+              h-12
+              sm:h-14
+              rounded-[10px]
+              bg-[#F1F5F9]
+              border
+              border-transparent
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]/25 focus-visible:border-[#2563EB] focus:bg-white
+              pl-12
               pr-5
               text-sm
-              sm:text-base
-              font-semibold
-              text-slate-900
+              sm:text-[15px]
+              font-medium
+              text-[#0F172A]
               placeholder:text-slate-400
-              focus:ring-2
-              focus:ring-orange-500/20
               transition-all
             "
           />

@@ -1,13 +1,18 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Users } from "lucide-react";
+import { useHeroScrollAnimation } from "../../../hooks/useHeroScrollAnimation";
 
 export default function AboutHero({
   badge,
   description,
   image,
 }) {
+  const { containerRef, yText, opacityHero, scaleImage } = useHeroScrollAnimation();
+
   return (
     <section
+      ref={containerRef}
       className="
         relative
         h-[60vh]
@@ -15,14 +20,15 @@ export default function AboutHero({
         w-full
         overflow-hidden
         border-b
-        border-slate-800
+        border-white/10
+        bg-[#0F172A]
         flex
         items-center
         justify-center
       "
     >
       {/* Background Image */}
-      <div className="absolute inset-0 z-0">
+      <motion.div style={{ scale: scaleImage }} className="absolute inset-0 z-0">
         <img
           src={image}
           alt="About Us Hero"
@@ -33,95 +39,84 @@ export default function AboutHero({
           "
         />
 
-        {/* Dark Cinematic Overlay */}
+        {/* Subtle Neutral Overlay */}
         <div
           className="
             absolute
             inset-0
-            bg-gradient-to-r
-            from-black/65
-            via-black/40
-            to-black/20
+            bg-black/20
           "
         />
 
-        {/* Extra Depth */}
+        {/* Balanced Center Readability Vignette */}
         <div
           className="
             absolute
             inset-0
-            bg-gradient-to-t
+            bg-gradient-to-b
             from-black/30
-            via-transparent
-            to-black/10
+            via-black/40
+            to-black/25
           "
         />
-      </div>
+      </motion.div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
-        <div
+        <motion.div
+          style={{ y: yText, opacity: opacityHero }}
           className="
-            max-w-5xl
+            max-w-3xl
             mx-auto
             text-center
           "
         >
          {/* Badge */}
-<div
-  className="
-    mb-6
-    inline-flex
-    items-center
-    gap-3
-    rounded-full
-    border
-    border-white/10
-    bg-white/5
-    backdrop-blur-md
-    px-5
-    py-3
-  "
->
-  <Users
-    className="
-      h-4
-      w-4
-      text-white
-    "
-  />
+          <div
+            className="
+              mb-5
+              inline-flex
+              items-center
+              gap-2
+              rounded-lg
+              border
+              border-white/25
+              bg-black/35
+              backdrop-blur-md
+              px-3.5
+              py-1.5
+            "
+          >
+            <Users
+              className="
+                h-4
+                w-4
+                text-[#F97316]
+              "
+              aria-hidden="true"
+            />
 
-  <span
-    className="
-      text-[10px]
-            sm:text-xs
-
-            font-semibold
-            uppercase
-
-            tracking-wider
-      text-white
-    "
-  >
-    {badge || "ABOUT US"}
-  </span>
-</div>
+            <span
+              className="
+                text-[12px]
+                sm:text-[13px]
+                font-medium
+                uppercase
+                tracking-[0.04em]
+                leading-[1.4]
+                text-[#F1F5F9]
+              "
+            >
+              {badge || "ABOUT US"}
+            </span>
+          </div>
 
           {/* Heading */}
           <h1
             className="
               heading-display
-
-              mb-6
-
-              text-4xl
-              sm:text-5xl
-              md:text-6xl
-              lg:text-7xl
-              xl:text-[80px]
-
+              mb-5
               uppercase
-              text-white
-              drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
+              text-[#FFFFFF]
             "
           >
             WE ARE NAVI
@@ -131,17 +126,14 @@ export default function AboutHero({
           <p
             className="
               body-large
-
-              max-w-3xl
+              max-w-2xl
               mx-auto
-
-              text-white/90
-              drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
+              text-[#F1F5F9]/90
             "
           >
             {description}
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

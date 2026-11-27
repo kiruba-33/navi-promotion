@@ -1,5 +1,7 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
+import { useHeroScrollAnimation } from "../../../hooks/useHeroScrollAnimation";
 
 export default function LetsTalkHero({
   badge,
@@ -7,24 +9,27 @@ export default function LetsTalkHero({
   description,
   image,
 }) {
+  const { containerRef, yText, opacityHero, scaleImage } = useHeroScrollAnimation();
+
   return (
     <section
+      ref={containerRef}
       className="
         relative
         overflow-hidden
-
+        bg-[#0F172A]
         h-[60vh]
         sm:h-[55vh]
         lg:h-[58vh]
         xl:h-[60vh]
-
+        min-h-[460px]
         flex
         items-center
         justify-center
       "
     >
       {/* Background */}
-      <div className="absolute inset-0 z-0">
+      <motion.div style={{ scale: scaleImage }} className="absolute inset-0 z-0">
         <img
           src={image}
           alt={title}
@@ -35,44 +40,40 @@ export default function LetsTalkHero({
           "
         />
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/60" />
+        {/* Subtle Neutral Overlay */}
+        <div className="absolute inset-0 bg-black/20" />
 
-        {/* Cinematic Fade */}
+        {/* Balanced Contrast Gradient */}
         <div
           className="
             absolute
             inset-0
-            bg-gradient-to-t
-            from-black/40
-            via-transparent
-            to-black/20
+            bg-gradient-to-b
+            from-black/25
+            via-black/40
+            to-black/30
           "
         />
-      </div>
+      </motion.div>
 
       {/* Content */}
       <div
         className="
           relative
           z-10
-
           mx-auto
           w-full
-
-          max-w-6xl
-
+          max-w-4xl
           px-5
           sm:px-6
           lg:px-8
-
           text-center
         "
       >
-        <div>
+        <motion.div style={{ y: yText, opacity: opacityHero }}>
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/10 text-white text-sm font-semibold mb-6 shadow-sm select-none backdrop-blur-md">
-            <MessageCircle className="w-4 h-4 text-orange-500" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-white/25 bg-black/35 text-[#F1F5F9] text-[12px] sm:text-[13px] font-medium uppercase tracking-[0.04em] mb-5 shadow-xs select-none backdrop-blur-md">
+            <MessageCircle className="w-4 h-4 text-[#F97316]" aria-hidden="true" />
             <span>{badge}</span>
           </div>
 
@@ -80,26 +81,9 @@ export default function LetsTalkHero({
           <h1
             className="
               heading-display
-
-              mb-6
-
-              text-3xl
-              sm:text-4xl
-              md:text-5xl
-              lg:text-[54px]
-              xl:text-6xl
-              2xl:text-7xl
-
-              font-bold
+              mb-5
               uppercase
-              tracking-tight
-
-              text-white
-              drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
-
-              leading-[1.15]
-              md:leading-[1.15]
-              lg:leading-[1.15]
+              text-[#FFFFFF]
             "
           >
             {title}
@@ -108,22 +92,15 @@ export default function LetsTalkHero({
           {/* Description */}
           <p
             className="
+              body-large
               mx-auto
               max-w-2xl
-
-              text-sm
-              sm:text-base
-              lg:text-lg
-
-              text-white/90
-              drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]
-
-              leading-relaxed
+              text-[#F1F5F9]/90
             "
           >
             {description}
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -203,7 +203,7 @@ export default function PortfolioModal({ project, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/75 backdrop-blur-md"
+            className="absolute inset-0 bg-[#102A56]/75 backdrop-blur-md"
           />
 
           {/* Modal Container */}
@@ -221,13 +221,12 @@ export default function PortfolioModal({ project, onClose }) {
               max-h-[92vh]
               flex-col
               overflow-y-auto
-              rounded-[2rem]
-              sm:rounded-[2.5rem]
-              bg-white
+              rounded-2xl
+              bg-[#FFFFFF]
               shadow-2xl
               border
-              border-slate-100
-              text-slate-900
+              border-[#0F172A]/10
+              text-[#0F172A]
             "
           >
             {/* Top Close Button */}
@@ -243,45 +242,40 @@ export default function PortfolioModal({ project, onClose }) {
                 flex
                 h-10
                 w-10
-                sm:h-11
-                sm:w-11
                 items-center
                 justify-center
-                rounded-full
-                bg-white/90
-                hover:bg-white
-                text-slate-700
-                hover:text-slate-900
-                shadow-lg
+                rounded-lg
+                bg-[#FFFFFF]/90
+                hover:bg-[#102A56]
+                text-[#102A56]
+                hover:text-[#FFFFFF]
+                shadow-md
                 backdrop-blur-md
-                transition-all
-                hover:scale-105
+                transition-colors
                 cursor-pointer
                 border
-                border-slate-200/60
+                border-[#0F172A]/15
               "
               aria-label="Close modal"
             >
-              <X size={20} aria-hidden="true" focusable="false" />
+              <X size={18} aria-hidden="true" focusable="false" />
             </button>
 
-            {/* =========================================================
-                1. HERO SECTION (Aligned with Service Detail Hero)
-               ========================================================= */}
-            <div className="relative w-full overflow-hidden bg-slate-950 text-white shrink-0">
+            {/* 1. HERO SECTION */}
+            <div className="relative w-full overflow-hidden bg-[#102A56] text-[#FFFFFF] shrink-0">
               {/* Background Cover Image with Gradient */}
               <div className="absolute inset-0 z-0">
                 {(displayImages[0] || project.coverImage || project.image) && (
                   <img
                     src={displayImages[0] || project.coverImage || project.image}
                     alt={project.title}
-                    className="h-full w-full object-cover opacity-25 filter blur-[2px] scale-105"
+                    className="h-full w-full object-cover opacity-20"
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#102A56] via-[#102A56]/85 to-[#102A56]/60" />
               </div>
 
-              <div className="relative z-10 px-6 sm:px-10 py-10 sm:py-14 max-w-4xl">
+              <div className="relative z-10 px-6 sm:px-10 py-10 sm:py-12 max-w-4xl">
                 {/* Badges Bar */}
                 <div className="flex flex-wrap items-center gap-2.5 mb-4">
                   <span
@@ -289,20 +283,20 @@ export default function PortfolioModal({ project, onClose }) {
                       inline-flex
                       items-center
                       gap-1.5
-                      rounded-full
-                      bg-brand-orange/20
+                      rounded-lg
+                      bg-[#2563EB]/25
                       border
-                      border-brand-orange/40
-                      px-3.5
+                      border-[#2563EB]/40
+                      px-3
                       py-1
-                      text-xs
-                      font-bold
+                      text-[12px]
+                      font-medium
                       uppercase
-                      tracking-widest
-                      text-brand-orange
+                      tracking-[0.04em]
+                      text-[#F1F5F9]
                     "
                   >
-                    <FolderKanban size={13} />
+                    <FolderKanban size={13} className="text-[#F97316]" />
                     {project.service || project.category}
                   </span>
 
@@ -311,15 +305,15 @@ export default function PortfolioModal({ project, onClose }) {
                       inline-flex
                       items-center
                       gap-1.5
-                      rounded-full
+                      rounded-lg
                       bg-white/10
                       border
-                      border-white/15
-                      px-3.5
+                      border-white/20
+                      px-3
                       py-1
-                      text-xs
-                      font-semibold
-                      text-slate-300
+                      text-[12px]
+                      font-medium
+                      text-[#F1F5F9]
                     "
                   >
                     {project.subCategory}
@@ -331,62 +325,62 @@ export default function PortfolioModal({ project, onClose }) {
                         inline-flex
                         items-center
                         gap-1.5
-                        rounded-full
-                        bg-emerald-500/15
+                        rounded-lg
+                        bg-white/10
                         border
-                        border-emerald-500/30
+                        border-white/20
                         px-3
                         py-1
-                        text-xs
-                        font-semibold
-                        text-emerald-400
+                        text-[12px]
+                        font-medium
+                        text-[#F97316]
                       "
                     >
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="w-2 h-2 rounded-full bg-[#F97316] animate-pulse" />
                       Live Project
                     </span>
                   )}
                 </div>
 
                 {/* Title */}
-                <h2 className="heading-display text-2xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+                <h2 className="heading-section text-[#FFFFFF] mb-4">
                   {project.title}
                 </h2>
 
                 {/* Meta Strip */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 border-t border-white/10">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 border-t border-white/15">
                   <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-0.5">
+                    <span className="text-[11px] font-medium uppercase tracking-[0.04em] text-[#F1F5F9]/65 block mb-0.5">
                       Client
                     </span>
-                    <p className="text-sm sm:text-base font-semibold text-white truncate">
+                    <p className="text-[14px] sm:text-[15px] font-medium text-[#FFFFFF] truncate">
                       {clientName}
                     </p>
                   </div>
 
                   <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-0.5">
+                    <span className="text-[11px] font-medium uppercase tracking-[0.04em] text-[#F1F5F9]/65 block mb-0.5">
                       Industry
                     </span>
-                    <p className="text-sm sm:text-base font-semibold text-white truncate">
+                    <p className="text-[14px] sm:text-[15px] font-medium text-[#FFFFFF] truncate">
                       {industry}
                     </p>
                   </div>
 
                   <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-0.5">
+                    <span className="text-[11px] font-medium uppercase tracking-[0.04em] text-[#F1F5F9]/65 block mb-0.5">
                       Timeline
                     </span>
-                    <p className="text-sm sm:text-base font-semibold text-white">
+                    <p className="text-[14px] sm:text-[15px] font-medium text-[#FFFFFF]">
                       {duration}
                     </p>
                   </div>
 
                   <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-0.5">
+                    <span className="text-[11px] font-medium uppercase tracking-[0.04em] text-[#F1F5F9]/65 block mb-0.5">
                       Key Result
                     </span>
-                    <p className="text-sm sm:text-base font-bold text-brand-orange whitespace-nowrap">
+                    <p className="text-[14px] sm:text-[15px] font-semibold text-[#F97316] whitespace-nowrap">
                       {primaryMetric}
                     </p>
                   </div>
@@ -402,23 +396,21 @@ export default function PortfolioModal({ project, onClose }) {
                         inline-flex
                         items-center
                         gap-2
-                        rounded-xl
-                        bg-brand-orange
-                        hover:bg-orange-600
-                        text-white
+                        rounded-[10px]
+                        bg-[#F97316]
+                        hover:bg-[#2563EB]
+                        text-[#FFFFFF]
                         px-5
                         py-2.5
-                        text-sm
-                        font-bold
-                        shadow-lg
-                        shadow-brand-orange/20
-                        transition-all
-                        hover:scale-[1.02]
+                        text-[14px]
+                        font-medium
+                        shadow-sm
+                        transition-colors
                         cursor-pointer
                       "
                     >
                       <span>Preview Live Website</span>
-                      <ExternalLink size={16} />
+                      <ExternalLink size={15} />
                     </button>
 
                     <button
@@ -428,22 +420,23 @@ export default function PortfolioModal({ project, onClose }) {
                         inline-flex
                         items-center
                         gap-2
-                        rounded-xl
+                        rounded-[10px]
                         bg-white/10
-                        hover:bg-white/20
+                        hover:bg-[#FFFFFF]
+                        hover:text-[#102A56]
                         border
-                        border-white/20
-                        text-white
+                        border-white/25
+                        text-[#FFFFFF]
                         px-5
                         py-2.5
-                        text-sm
-                        font-bold
-                        transition-all
+                        text-[14px]
+                        font-medium
+                        transition-colors
                         cursor-pointer
                       "
                     >
                       <span>Book Strategy Call</span>
-                      <ArrowUpRight size={16} />
+                      <ArrowUpRight size={15} />
                     </button>
                   </div>
                 )}
@@ -487,7 +480,7 @@ export default function PortfolioModal({ project, onClose }) {
                 <section className="space-y-6 pt-6 border-t border-slate-100">
                   <div className="flex items-center gap-2">
                     <Code2 size={18} className="text-brand-orange" />
-                    <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider">
+                    <h3 className="text-[17px] font-semibold text-[#0F172A] tracking-tight">
                       Engineering & Technical Architecture
                     </h3>
                   </div>
@@ -589,7 +582,7 @@ export default function PortfolioModal({ project, onClose }) {
                 <section className="space-y-6 pt-6 border-t border-slate-100">
                   <div className="flex items-center gap-2">
                     <TrendingUp size={18} className="text-brand-orange" />
-                    <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider">
+                    <h3 className="text-[17px] font-semibold text-[#0F172A] tracking-tight">
                       Strategic Marketing Execution
                     </h3>
                   </div>
@@ -677,7 +670,7 @@ export default function PortfolioModal({ project, onClose }) {
                 <section className="space-y-6 pt-6 border-t border-slate-100">
                   <div className="flex items-center gap-2">
                     <Palette size={18} className="text-brand-orange" />
-                    <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider">
+                    <h3 className="text-[17px] font-semibold text-[#0F172A] tracking-tight">
                       Brand System & Identity Design
                     </h3>
                   </div>
@@ -708,7 +701,7 @@ export default function PortfolioModal({ project, onClose }) {
                               className="h-7 w-7 rounded-lg border border-black/10 shadow-inner"
                               style={{ backgroundColor: color }}
                             />
-                            <span className="text-xs font-mono font-bold text-slate-700">
+                            <span className="text-xs font-medium text-[#0F172A]/80">
                               {color}
                             </span>
                           </div>
@@ -744,7 +737,7 @@ export default function PortfolioModal({ project, onClose }) {
                     ) : (
                       <Laptop size={18} className="text-brand-orange" />
                     )}
-                    <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider">
+                    <h3 className="text-[17px] font-semibold text-[#0F172A] tracking-tight">
                       {isVideoOrReel
                         ? "Video & Motion Showcase"
                         : isWebsite
@@ -783,8 +776,8 @@ export default function PortfolioModal({ project, onClose }) {
                         />
                       ) : (
                         <div className="flex h-full flex-col items-center justify-center p-6 text-center text-white space-y-4">
-                          <Play size={32} className="text-brand-orange" />
-                          <p className="text-sm text-slate-300">
+                          <Play size={32} className="text-[#F97316]" />
+                          <p className="text-sm text-[#F1F5F9]/85">
                             Due to platform security restrictions, this reel can be viewed directly on {project.platform || "Instagram"}.
                           </p>
                           <button
@@ -792,7 +785,7 @@ export default function PortfolioModal({ project, onClose }) {
                             onClick={() =>
                               window.open(videoUrl, "_blank", "noopener,noreferrer")
                             }
-                            className="inline-flex items-center gap-2 rounded-xl bg-brand-orange px-4 py-2 text-xs font-bold text-white hover:bg-orange-600 transition-colors cursor-pointer"
+                            className="inline-flex items-center gap-2 rounded-[10px] bg-[#2563EB] px-4 py-2 text-[13px] font-medium text-white hover:bg-[#F97316] transition-colors cursor-pointer"
                           >
                             <span>Open on {project.platform || "Instagram"}</span>
                             <ExternalLink size={14} />
@@ -804,7 +797,7 @@ export default function PortfolioModal({ project, onClose }) {
                     {/* Stills gallery below video */}
                     {displayImages.length > 1 && (
                       <div className="mt-4">
-                        <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
+                        <span className="text-xs font-medium uppercase tracking-wider text-[#0F172A]/55 block mb-2">
                           Production Stills
                         </span>
                         <div className="grid grid-cols-3 gap-2">
@@ -824,20 +817,20 @@ export default function PortfolioModal({ project, onClose }) {
                   /* Case 4B: WEBSITE PROJECTS (Browser Mockup Frame) */
                   <div className="space-y-4">
                     {/* Browser Mockup Window */}
-                    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 shadow-xl">
+                    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-[#102A56] shadow-xl">
                       {/* Browser Header Bar */}
-                      <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950 px-4 py-3">
+                      <div className="flex items-center justify-between border-b border-white/10 bg-[#102A56] px-4 py-3">
                         {/* macOS Window Controls */}
                         <div className="flex items-center gap-1.5">
                           <span className="h-3 w-3 rounded-full bg-rose-500/80" />
-                          <span className="h-3 w-3 rounded-full bg-amber-500/80" />
+                          <span className="h-3 w-3 rounded-full bg-[#F97316]/85" />
                           <span className="h-3 w-3 rounded-full bg-emerald-500/80" />
                         </div>
 
                         {/* Browser Address Pill */}
                         <div className="flex max-w-sm sm:max-w-md flex-1 items-center justify-center mx-4">
-                          <div className="flex w-full items-center gap-2 rounded-lg bg-slate-900 px-3 py-1 text-xs text-slate-300 border border-slate-800">
-                            <Globe size={12} className="text-slate-400 shrink-0" />
+                          <div className="flex w-full items-center gap-2 rounded-lg bg-white/10 px-3 py-1 text-xs text-[#F1F5F9] border border-white/15">
+                            <Globe size={12} className="text-[#F1F5F9]/70 shrink-0" />
                             <span className="truncate">
                               {liveDestination || "https://preview.navipromotions.com"}
                             </span>
@@ -849,7 +842,7 @@ export default function PortfolioModal({ project, onClose }) {
                           <button
                             type="button"
                             onClick={handleLivePreviewClick}
-                            className="flex items-center gap-1 text-xs font-bold text-brand-orange hover:text-orange-400 transition-colors cursor-pointer"
+                            className="flex items-center gap-1 text-xs font-medium text-[#F97316] hover:text-white transition-colors cursor-pointer"
                             title="Open live preview in new tab"
                           >
                             <span className="hidden sm:inline">Preview</span>
@@ -861,7 +854,7 @@ export default function PortfolioModal({ project, onClose }) {
                       </div>
 
                       {/* Browser Screenshot Viewport */}
-                      <div className="relative aspect-video max-h-[460px] w-full overflow-hidden bg-slate-950 flex items-center justify-center">
+                      <div className="relative aspect-video max-h-[460px] w-full overflow-hidden bg-[#102A56] flex items-center justify-center">
                         {(displayImages[currentImageIndex] || project.coverImage) ? (
                           <img
                             src={displayImages[currentImageIndex] || project.coverImage}
@@ -869,21 +862,21 @@ export default function PortfolioModal({ project, onClose }) {
                             className="h-full w-full object-cover transition-all duration-300"
                           />
                         ) : (
-                          <div className="h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-400 p-8 text-center select-none">
-                            <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
-                              <Globe className="w-8 h-8 text-brand-orange" />
+                          <div className="h-full w-full flex flex-col items-center justify-center bg-[#102A56] text-[#F1F5F9]/80 p-8 text-center select-none">
+                            <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center mb-4">
+                              <Globe className="w-8 h-8 text-[#F97316]" />
                             </div>
-                            <span className="text-lg font-bold text-white mb-1">
+                            <span className="text-lg font-semibold text-white mb-1">
                               {project.title}
                             </span>
-                            <span className="text-xs text-slate-400 uppercase tracking-wider mb-4">
+                            <span className="text-xs text-[#F1F5F9]/60 uppercase tracking-wider mb-4">
                               Official Web Project
                             </span>
                             {hasLiveUrl && (
                               <button
                                 type="button"
                                 onClick={handleLivePreviewClick}
-                                className="inline-flex items-center gap-2 rounded-xl bg-brand-orange hover:bg-orange-600 text-white px-4 py-2 text-xs font-bold transition-all shadow-md shadow-brand-orange/20 cursor-pointer"
+                                className="inline-flex items-center gap-2 rounded-[10px] bg-[#2563EB] hover:bg-[#F97316] text-white px-4 py-2 text-[13px] font-medium transition-all shadow-md cursor-pointer"
                               >
                                 <span>Launch Live Website</span>
                                 <ExternalLink size={14} />
@@ -904,22 +897,22 @@ export default function PortfolioModal({ project, onClose }) {
                                 top-1/2
                                 -translate-y-1/2
                                 flex
-                                h-10
-                                w-10
+                                h-9
+                                w-9
                                 items-center
                                 justify-center
-                                rounded-full
-                                bg-black/60
-                                hover:bg-black/80
-                                text-white
+                                rounded-lg
+                                bg-[#102A56]/80
+                                hover:bg-[#2563EB]
+                                border border-white/20
+                                text-[#FFFFFF]
                                 backdrop-blur-md
-                                transition-all
-                                hover:scale-105
+                                transition-colors
                                 cursor-pointer
                               "
                               aria-label="Previous screenshot"
                             >
-                              <ChevronLeft size={20} />
+                              <ChevronLeft size={18} />
                             </button>
 
                             <button
@@ -931,22 +924,22 @@ export default function PortfolioModal({ project, onClose }) {
                                 top-1/2
                                 -translate-y-1/2
                                 flex
-                                h-10
-                                w-10
+                                h-9
+                                w-9
                                 items-center
                                 justify-center
-                                rounded-full
-                                bg-black/60
-                                hover:bg-black/80
-                                text-white
+                                rounded-lg
+                                bg-[#102A56]/80
+                                hover:bg-[#2563EB]
+                                border border-white/20
+                                text-[#FFFFFF]
                                 backdrop-blur-md
-                                transition-all
-                                hover:scale-105
+                                transition-colors
                                 cursor-pointer
                               "
                               aria-label="Next screenshot"
                             >
-                              <ChevronRight size={20} />
+                              <ChevronRight size={18} />
                             </button>
                           </>
                         )}
@@ -982,7 +975,7 @@ export default function PortfolioModal({ project, onClose }) {
                                 cursor-pointer
                                 ${
                                   currentImageIndex === idx
-                                    ? "border-brand-orange scale-105 shadow-md"
+                                    ? "border-[#2563EB] scale-105 shadow-md"
                                     : "border-slate-200 opacity-60 hover:opacity-100"
                                 }
                               `}
@@ -1006,14 +999,14 @@ export default function PortfolioModal({ project, onClose }) {
                             inline-flex
                             items-center
                             gap-2
-                            rounded-xl
-                            bg-slate-900
-                            hover:bg-brand-orange
-                            text-white
+                            rounded-[10px]
+                            bg-[#102A56]
+                            hover:bg-[#2563EB]
+                            text-[#FFFFFF]
                             px-4
                             py-2.5
-                            text-xs
-                            font-bold
+                            text-[13px]
+                            font-medium
                             transition-colors
                             shadow-sm
                             cursor-pointer
@@ -1028,7 +1021,7 @@ export default function PortfolioModal({ project, onClose }) {
                 ) : (
                   /* Case 4C: STANDARD LIGHTBOX GALLERY (Posters, Logos, Ads) */
                   <div className="space-y-4">
-                    <div className="relative aspect-video max-h-[460px] w-full overflow-hidden rounded-2xl bg-slate-100 border border-slate-200">
+                    <div className="relative aspect-video max-h-[460px] w-full overflow-hidden rounded-2xl bg-[#F1F5F9] border border-[#0F172A]/10">
                       <img
                         src={displayImages[currentImageIndex] || project.image}
                         alt={project.title}
@@ -1046,23 +1039,23 @@ export default function PortfolioModal({ project, onClose }) {
                               top-1/2
                               -translate-y-1/2
                               flex
-                              h-10
-                              w-10
+                              h-9
+                              w-9
                               items-center
                               justify-center
-                              rounded-full
-                              bg-white/80
-                              hover:bg-white
-                              text-slate-800
+                              rounded-lg
+                              bg-[#FFFFFF]/90
+                              hover:bg-[#2563EB]
+                              text-[#102A56]
+                              hover:text-[#FFFFFF]
                               backdrop-blur-md
                               shadow-md
-                              transition-all
-                              hover:scale-105
+                              transition-colors
                               cursor-pointer
                             "
                             aria-label="Previous image"
                           >
-                            <ChevronLeft size={20} />
+                            <ChevronLeft size={18} />
                           </button>
 
                           <button
@@ -1074,23 +1067,23 @@ export default function PortfolioModal({ project, onClose }) {
                               top-1/2
                               -translate-y-1/2
                               flex
-                              h-10
-                              w-10
+                              h-9
+                              w-9
                               items-center
                               justify-center
-                              rounded-full
-                              bg-white/80
-                              hover:bg-white
-                              text-slate-800
+                              rounded-lg
+                              bg-[#FFFFFF]/90
+                              hover:bg-[#2563EB]
+                              text-[#102A56]
+                              hover:text-[#FFFFFF]
                               backdrop-blur-md
                               shadow-md
-                              transition-all
-                              hover:scale-105
+                              transition-colors
                               cursor-pointer
                             "
                             aria-label="Next image"
                           >
-                            <ChevronRight size={20} />
+                            <ChevronRight size={18} />
                           </button>
                         </>
                       )}
@@ -1112,8 +1105,8 @@ export default function PortfolioModal({ project, onClose }) {
                               cursor-pointer
                               ${
                                 currentImageIndex === idx
-                                  ? "border-brand-orange scale-105 shadow-md"
-                                  : "border-slate-200 opacity-60 hover:opacity-100"
+                                  ? "border-[#2563EB] shadow-sm"
+                                  : "border-[#0F172A]/15 opacity-60 hover:opacity-100"
                               }
                             `}
                           >
@@ -1130,18 +1123,14 @@ export default function PortfolioModal({ project, onClose }) {
                 )}
               </section>
 
-              {/* =========================================================
-                  5. CTA SECTION (Aligned with Service Detail CTA)
-                 ========================================================= */}
-              <section className="rounded-3xl bg-slate-900 text-white p-6 sm:p-10 relative overflow-hidden">
-                <div className="absolute right-0 top-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-brand-orange/20 blur-3xl" />
-
+              {/* 5. CTA SECTION */}
+              <section className="rounded-2xl bg-[#102A56] text-[#FFFFFF] p-6 sm:p-10 relative overflow-hidden">
                 <div className="relative z-10 max-w-2xl space-y-4">
-                  <span className="inline-block rounded-full bg-white/10 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-brand-orange">
+                  <span className="inline-block rounded-lg bg-white/10 border border-white/15 px-3 py-1 text-[12px] font-medium uppercase tracking-[0.04em] text-[#F97316]">
                     Next Steps
                   </span>
 
-                  <h3 className="heading-section text-2xl sm:text-3xl font-bold text-white leading-tight">
+                  <h3 className="heading-section text-[#FFFFFF]">
                     {isDevelopment
                       ? "Ready to Build Your Next Web Platform?"
                       : isDigitalMarketing
@@ -1149,7 +1138,7 @@ export default function PortfolioModal({ project, onClose }) {
                       : "Ready to Elevate Your Visual Identity?"}
                   </h3>
 
-                  <p className="body-large text-slate-300 text-sm sm:text-base">
+                  <p className="body-large text-[#F1F5F9]/85">
                     Partner with Navi Promotions to turn strategy, creativity, and technology into tangible business results.
                   </p>
 
@@ -1161,18 +1150,17 @@ export default function PortfolioModal({ project, onClose }) {
                         inline-flex
                         items-center
                         gap-2
-                        rounded-xl
-                        bg-brand-orange
-                        hover:bg-orange-600
-                        text-white
+                        rounded-[10px]
+                        bg-[#F97316]
+                        hover:bg-[#2563EB]
+                        text-[#FFFFFF]
                         px-6
-                        py-3.5
-                        text-sm
-                        font-bold
-                        shadow-lg
-                        shadow-brand-orange/25
-                        transition-all
-                        hover:scale-[1.02]
+                        py-3
+                        text-[14px]
+                        sm:text-[15px]
+                        font-medium
+                        shadow-sm
+                        transition-colors
                         cursor-pointer
                       "
                     >
@@ -1188,17 +1176,19 @@ export default function PortfolioModal({ project, onClose }) {
                           inline-flex
                           items-center
                           gap-2
-                          rounded-xl
+                          rounded-[10px]
                           bg-white/10
-                          hover:bg-white/20
+                          hover:bg-[#FFFFFF]
+                          hover:text-[#102A56]
                           border
-                          border-white/20
-                          text-white
+                          border-white/25
+                          text-[#FFFFFF]
                           px-5
-                          py-3.5
-                          text-sm
-                          font-bold
-                          transition-all
+                          py-3
+                          text-[14px]
+                          sm:text-[15px]
+                          font-medium
+                          transition-colors
                           cursor-pointer
                         "
                       >
